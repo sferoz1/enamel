@@ -1,7 +1,7 @@
 package enamel;
 
 public class AudioPlayer extends Player {
-	// seans comment 1
+	// seans comment
 	
 	public AudioPlayer(int cellNum, int buttonNum)
 	{
