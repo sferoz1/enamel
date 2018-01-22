@@ -1,7 +1,7 @@
 package enamel;
 
 public class AudioPlayer extends Player {
-	// seans comment
+	//sarahs new comment BRANCHED COMMENT
 	
 	public AudioPlayer(int cellNum, int buttonNum)
 	{
@@ -10,7 +10,6 @@ public class AudioPlayer extends Player {
 	@Override
 	public void refresh() {
 		// TODO Auto-generated method stub
-		// test comment
 		
 	}
 
