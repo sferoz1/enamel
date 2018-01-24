@@ -1,7 +1,7 @@
 package enamel;
 
 public class AudioPlayer extends Player {
-	//sarahs new comment MERGE
+	//sarahs new comment BRANCHED COMMENT
 	
 	public AudioPlayer(int cellNum, int buttonNum)
 	{
@@ -28,10 +28,6 @@ public class AudioPlayer extends Player {
 	@Override
 	public void addRepeatButtonListener(int index, ScenarioParser sp) {
 		// TODO Auto-generated method stub
-		
-	}
-	public boolean test(int i, int r){
-		return false;
 		
 	}
 
