@@ -47,6 +47,7 @@ public class Launcher {
 		frmMainMenu.setBounds(100, 100, 410, 239);
 		frmMainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMainMenu.getContentPane().setLayout(null);
+		frmMainMenu.setLocation(750, 200);
 		
 		JButton btnAuthorAStory = new JButton("Author a Story");
 		btnAuthorAStory.setBounds(99, 98, 199, 23);
@@ -64,8 +65,8 @@ public class Launcher {
 		JButton btnAboutTheApp = new JButton("About The App");
 		btnAboutTheApp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AboutTheApp.main(null);
-				frmMainMenu.dispose();
+				AboutTheApp.main(null);		// initialize the about screen
+				frmMainMenu.dispose();		// hide the main menu
 				
 			}
 		});
@@ -91,5 +92,12 @@ public class Launcher {
 		lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVersion.setBounds(226, 185, 168, 14);
 		frmMainMenu.getContentPane().add(lblVersion);
+		
+		// Accessibility features
+		frmMainMenu.getAccessibleContext().setAccessibleName("Main Menu");
+		btnPlayAStory.getAccessibleContext().setAccessibleName("Play A Story");
+		btnAuthorAStory.getAccessibleContext().setAccessibleName("Author A Story");
+		btnAboutTheApp.getAccessibleContext().setAccessibleName("About The App");
+		btnExit.getAccessibleContext().setAccessibleName("Exit");
 	}
 }

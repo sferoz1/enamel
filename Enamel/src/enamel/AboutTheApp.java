@@ -35,6 +35,9 @@ public class AboutTheApp {
 	 */
 	public AboutTheApp() {
 		initialize();
+	
+
+		
 	}
 
 	/**
@@ -47,6 +50,7 @@ public class AboutTheApp {
 		frmAboutTheApp.setBounds(100, 100, 450, 300);
 		frmAboutTheApp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAboutTheApp.getContentPane().setLayout(null);
+		frmAboutTheApp.setLocation(750, 200);
 		
 		JLabel lblEecsl = new JLabel("Made for EECS 2311");
 		lblEecsl.setFont(new Font("Microsoft YaHei", Font.ITALIC, 14));
