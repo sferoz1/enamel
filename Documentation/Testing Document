@@ -1,0 +1,17 @@
+Testing Document - Draft
+The document describes the test cases run, the way they were derived, and the way they were implemented. Discussion on why this should be sufficient testing is included. Testing coverage metrics are provided. Professional presentation. 
+
+For the authoring app, the goals are to create flow of the scenario (ask questions and receive answers), record audio, and save the scenario in the appropriate format. 
+
+The checkFlow method checks that the flow of the scenario
+It makes sure that answers to the questions presented are dealt with appropriately. Accepts both speech and typed answers. 
+checkFlow will throw an exception if an answer is not in the correct format 
+
+checkRecordAudio – checks that the audio is recorded into an executable file and saved peoperly. 
+
+checkSavedScenario – checks that the scanrio file is in the appropriate format.  Checks that the first two lines indicating the number of cells and number of buttons 
+
+
+
+
+
