@@ -1,0 +1,6 @@
+Feb 07, 2018 2:03:15 PM enamel.ScenarioParser errorLog
+WARNING: Exception error: java.io.FileNotFoundException: FactoryScenarios\Scenario_1.txt (The system cannot find the path specified)
+Feb 07, 2018 2:03:15 PM enamel.ScenarioParser errorLog
+INFO: Expected the directory path of the scenario file to a file exists in the project folder. 
+ Could not find directory to path: FactoryScenarios/Scenario_1.txt 
+ Perhaps you forgot to add the file to the directory or  you are looking for a different directory?
