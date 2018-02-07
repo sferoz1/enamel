@@ -43,7 +43,7 @@ public class ScenarioLoader extends JDialog {
 			btnNewButton.setBounds(36, 66, 153, 37);
 			panel.add(btnNewButton);
 			
-			JLabel lblWouldYouLike = new JLabel("What would you like to do?");
+			JLabel lblWouldYouLike = new JLabel("What would you like to do");
 			lblWouldYouLike.setHorizontalAlignment(SwingConstants.CENTER);
 			lblWouldYouLike.setVerticalAlignment(SwingConstants.TOP);
 			lblWouldYouLike.setFont(new Font("Tahoma", Font.PLAIN, 18));
