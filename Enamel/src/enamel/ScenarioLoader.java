@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Panel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ScenarioLoader extends JDialog {
 
@@ -39,6 +41,11 @@ public class ScenarioLoader extends JDialog {
 			panel.setLayout(null);
 			
 			JButton btnNewButton = new JButton("New Scenario");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ScenarioEditor.main(null);			// Load Scenario Editor
+				}
+			});
 			btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			btnNewButton.setBounds(36, 66, 153, 37);
 			panel.add(btnNewButton);

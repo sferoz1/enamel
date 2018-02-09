@@ -50,7 +50,11 @@ public class Launcher {
 		frmMainMenu.setLocation(750, 200);
 		
 		JButton btnAuthorAStory = new JButton("Author a Story");
-		btnAuthorAStory.setEnabled(false);
+		btnAuthorAStory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ScenarioLoader.main(null);			// Open Scenario Loader
+			}
+		});
 		btnAuthorAStory.setBounds(99, 98, 199, 23);
 		frmMainMenu.getContentPane().add(btnAuthorAStory);
 		
