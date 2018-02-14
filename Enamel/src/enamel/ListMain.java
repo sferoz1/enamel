@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -53,17 +54,22 @@ public class ListMain extends JFrame {
 		list.setBounds(34, 35, 154, 168);
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		list.setVisibleRowCount(-1);
-		JScrollPane listScroller = new JScrollPane(list);
+		final JTextArea textArea = new JTextArea(10,20);
+		JScrollPane listScroller = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
 		listScroller.setPreferredSize(new Dimension(250, 80));
 		contentPane.add(list);
-		
+		DefaultListModel DLM=new DefaultListModel();
 		
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultListModel DLM=new DefaultListModel();
-				Object element = null;
-				DLM.addElement(e);
+				//DefaultListModel DLM=new DefaultListModel();
+				String nameText = null;
+				String element = nameText ;
+				nameText = textField.getText();
+	
+				DLM.addElement(element);
 				list.setModel(DLM);
 			}
 		});
@@ -71,8 +77,14 @@ public class ListMain extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DLM.clear();
+			}
+		});
 		btnClear.setBounds(291, 139, 97, 25);
 		contentPane.add(btnClear);
+			
 		
 		
 		JLabel lblName = new JLabel("Name");
