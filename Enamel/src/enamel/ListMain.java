@@ -7,7 +7,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -17,12 +16,14 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
 
 public class ListMain extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-
+	private String nameText;
 	/**
 	 * Launch the application.
 	 */
@@ -51,24 +52,16 @@ public class ListMain extends JFrame {
 		contentPane.setLayout(null);
 		
 		JList list = new JList();
-		list.setBounds(34, 35, 154, 168);
-		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		list.setVisibleRowCount(-1);
-		final JTextArea textArea = new JTextArea(10,20);
-		JScrollPane listScroller = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		
-		listScroller.setPreferredSize(new Dimension(250, 80));
+		list.setBounds(19, 36, 152, 202);
 		contentPane.add(list);
 		DefaultListModel DLM=new DefaultListModel();
 		
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//DefaultListModel DLM=new DefaultListModel();
-				String nameText = null;
-				String element = nameText ;
+				
+				String element = nameText;
 				nameText = textField.getText();
-	
 				DLM.addElement(element);
 				list.setModel(DLM);
 			}
@@ -84,7 +77,6 @@ public class ListMain extends JFrame {
 		});
 		btnClear.setBounds(291, 139, 97, 25);
 		contentPane.add(btnClear);
-			
 		
 		
 		JLabel lblName = new JLabel("Name");
@@ -95,6 +87,6 @@ public class ListMain extends JFrame {
 		textField.setBounds(291, 33, 116, 22);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		
 	}
-
 }
