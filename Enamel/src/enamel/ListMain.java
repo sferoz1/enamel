@@ -1,10 +1,12 @@
 package enamel;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -13,6 +15,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 public class ListMain extends JFrame {
 
@@ -48,6 +51,10 @@ public class ListMain extends JFrame {
 		
 		JList list = new JList();
 		list.setBounds(34, 35, 154, 168);
+		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		list.setVisibleRowCount(-1);
+		JScrollPane listScroller = new JScrollPane(list);
+		listScroller.setPreferredSize(new Dimension(250, 80));
 		contentPane.add(list);
 		
 		
@@ -55,7 +62,8 @@ public class ListMain extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DefaultListModel DLM=new DefaultListModel();
-				DLM.addElement(element);
+				Object element = null;
+				DLM.addElement(e);
 				list.setModel(DLM);
 			}
 		});
