@@ -51,8 +51,8 @@ public class Launcher {
 		
 		JButton btnAuthorAStory = new JButton("Author a Scenario");
 		btnAuthorAStory.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ScenarioLoader.main(null);
+			public void actionPerformed(ActionEvent arg0) {
+				ScenarioLoader.main(null);			// Open Scenario Loader
 			}
 		});
 		btnAuthorAStory.setBounds(99, 98, 199, 23);

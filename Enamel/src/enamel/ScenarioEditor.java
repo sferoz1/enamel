@@ -47,14 +47,21 @@ public class ScenarioEditor {
 	public ScenarioEditor() {
 		initialize();
 	}
-
+	
+	public ScenarioEditor(String filename) {
+		initialize();
+		setParameters();
+	}
+	private void setParameters() {
+		
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frmScenarioEditor = new JFrame();
 		frmScenarioEditor.setTitle("Scenario Editor");
-		frmScenarioEditor.setBounds(100, 100, 554, 364);
+		frmScenarioEditor.setBounds(100, 100, 554, 376);
 		frmScenarioEditor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmScenarioEditor.getContentPane().setLayout(null);
 		
@@ -64,6 +71,7 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(lblTitle);
 		
 		titleField = new JTextField();
+		titleField.setToolTipText("Enter a title for this scenario");
 		titleField.setBounds(97, 17, 304, 26);
 		frmScenarioEditor.getContentPane().add(titleField);
 		titleField.setColumns(10);
@@ -78,11 +86,13 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(cellLabel);
 		
 		textField = new JTextField();
+		textField.setToolTipText("Enter the number of cells to display");
 		textField.setBounds(97, 45, 97, 26);
 		frmScenarioEditor.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
+		textField_1.setToolTipText("Enter the number of buttons to display");
 		textField_1.setColumns(10);
 		textField_1.setBounds(304, 45, 97, 26);
 		frmScenarioEditor.getContentPane().add(textField_1);
@@ -96,12 +106,12 @@ public class ScenarioEditor {
 		eventTable.setBounds(3, 112, 542, 184);
 		frmScenarioEditor.getContentPane().add(eventTable);
 		
-		
 		Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
 		rigidArea.setBounds(6, 110, 542, 184);
 		frmScenarioEditor.getContentPane().add(rigidArea);
 		
 		JLabel lblTimeline = new JLabel("Timeline: ");
+		lblTimeline.setToolTipText("The timeline of events in this scenario");
 		lblTimeline.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimeline.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		lblTimeline.setBounds(5, 90, 542, 16);
@@ -129,7 +139,7 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(btnAddEvent);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(-2, 76, 574, 9);
+		separator.setBounds(0, 75, 574, 9);
 		frmScenarioEditor.getContentPane().add(separator);
 		
 		JButton btnExit = new JButton("Exit");

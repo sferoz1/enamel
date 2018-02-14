@@ -43,7 +43,7 @@ public class ScenarioLoader extends JDialog {
 			JButton btnNewButton = new JButton("New Scenario");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScenarioEditor.main(null);
+					ScenarioEditor.main(null);			// Load Scenario Editor
 				}
 			});
 			btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
