@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Jan 28, 2018 8:03:29 PM enamel.ScenarioParser errorLog
 WARNING: Exception error: java.lang.NumberFormatException: For input string: "labK;"
 Jan 28, 2018 8:03:29 PM enamel.ScenarioParser errorLog
@@ -5,3 +6,11 @@ INFO: Expected format: Cell num1
  Button num2 
  as the first two lines of the scenarion file, and where num1 and num2 are positive integers. 
 Did not receive such a format in the scenario file and program had to end due to the incorrectfile format.
+=======
+Feb 07, 2018 2:03:15 PM enamel.ScenarioParser errorLog
+WARNING: Exception error: java.io.FileNotFoundException: FactoryScenarios\Scenario_1.txt (The system cannot find the path specified)
+Feb 07, 2018 2:03:15 PM enamel.ScenarioParser errorLog
+INFO: Expected the directory path of the scenario file to a file exists in the project folder. 
+ Could not find directory to path: FactoryScenarios/Scenario_1.txt 
+ Perhaps you forgot to add the file to the directory or  you are looking for a different directory?
+>>>>>>> refs/heads/sarah_branch
