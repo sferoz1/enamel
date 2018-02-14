@@ -65,7 +65,6 @@ public class ScenarioLoader extends JDialog {
 			//Accessibility features
 			btnNewButton.getAccessibleContext().setAccessibleName("New Scenario");
 			btnEditExistingScenario.getAccessibleContext().setAccessibleName("Edit Existing Scenario");
-			lblWouldYouLike.getAccessibleContext().setAccessibleName("What would you like to do");
 		}
 	}
 }
