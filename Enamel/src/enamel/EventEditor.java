@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EventEditor extends JFrame {
 
@@ -72,6 +74,11 @@ public class EventEditor extends JFrame {
 		contentPane.add(btnSave);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnExit.setBounds(228, 391, 97, 25);
 		contentPane.add(btnExit);
 		
