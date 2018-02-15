@@ -133,6 +133,7 @@ public class ScenarioEditor {
 		JButton btnAddEvent = new JButton("Add Event...");
 		btnAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				EventEditor.main(null); //load event editor to edit event
 			}
 		});
 		btnAddEvent.setBounds(421, 306, 133, 29);

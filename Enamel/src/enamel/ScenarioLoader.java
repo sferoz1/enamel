@@ -58,6 +58,11 @@ public class ScenarioLoader extends JDialog {
 			panel.add(lblWouldYouLike);
 			
 			JButton btnEditExistingScenario = new JButton("Edit Existing Scenario");
+			btnEditExistingScenario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					EventEditor.main(null); //load Event editor
+				}
+			});
 			btnEditExistingScenario.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			btnEditExistingScenario.setBounds(212, 66, 178, 37);
 			panel.add(btnEditExistingScenario);
