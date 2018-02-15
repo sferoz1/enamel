@@ -70,6 +70,12 @@ public class EventEditor extends JFrame {
 		textField_1.setColumns(10);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScenarioEditor.overwrite(textField.getText());
+				
+			}
+		});
 		btnSave.setBounds(12, 391, 97, 25);
 		contentPane.add(btnSave);
 		
