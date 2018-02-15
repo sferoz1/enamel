@@ -61,7 +61,7 @@ public class ScenarioEditor {
 	private void initialize() {
 		frmScenarioEditor = new JFrame();
 		frmScenarioEditor.setTitle("Scenario Editor");
-		frmScenarioEditor.setBounds(100, 100, 554, 376);
+		frmScenarioEditor.setBounds(100, 100, 579, 401);
 		frmScenarioEditor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmScenarioEditor.getContentPane().setLayout(null);
 		
@@ -143,6 +143,11 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(separator);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnExit.setBounds(413, 44, 117, 29);
 		frmScenarioEditor.getContentPane().add(btnExit);
 		
