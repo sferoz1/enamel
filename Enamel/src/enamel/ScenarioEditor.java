@@ -64,6 +64,7 @@ public class ScenarioEditor {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		timeline = new EventList();
 		frmScenarioEditor = new JFrame();
 		frmScenarioEditor.setTitle("Scenario Editor");
 		frmScenarioEditor.setBounds(100, 100, 579, 401);
@@ -133,6 +134,7 @@ public class ScenarioEditor {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
 		btnEditEvent.setBounds(282, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnEditEvent);
 		
@@ -173,16 +175,29 @@ public class ScenarioEditor {
 		btnAddEvent.getAccessibleContext().setAccessibleName("Add Event");
 		btnExit.getAccessibleContext().setAccessibleName("Exit");
 	}
-	
 
 	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, int correctAns){
 		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, correctAns);
+		System.out.println("TITLE: " + addMe.getTitle());
+		System.out.println("QUESTION: " + addMe.getQuestion());
+		System.out.println("RIGHT: " + addMe.getResponseRight());
+		System.out.println("WRONG: " + addMe.getResponseWrong());
+		System.out.println("CORRECT NUM: " + addMe.getCorrectAns());
 		timeline.add(index, addMe);
-		DLM.addElement(addMe);	// TODO: Somehow make the EventList our ListModel ???
+		System.out.println("ADDED TO TIMELINE!");
+		DLM.addElement(addMe);
+		System.out.println("ADDED TO DLM!");
+		//refreshTimeline();
 	}
 	
 	public static void editEvent(ScenarioEvent editMe, String title, String question, String responseRight, String responseWrong, int correctAns) {
 		editMe.overwrite(title, question, responseRight, responseWrong, correctAns);
+	}
+	
+	private static void refreshTimeline(){
+		for(int i = 0; i < timeline.size(); i++){
+			
+		}
 	}
 	
 }
