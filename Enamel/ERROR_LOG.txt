@@ -1,6 +1,6 @@
-Jan 28, 2018 8:03:29 PM enamel.ScenarioParser errorLog
-WARNING: Exception error: java.lang.NumberFormatException: For input string: "labK;"
-Jan 28, 2018 8:03:29 PM enamel.ScenarioParser errorLog
+Feb 16, 2018 11:25:13 AM enamel.ScenarioParser errorLog
+WARNING: Exception error: java.util.NoSuchElementException: No line found
+Feb 16, 2018 11:25:13 AM enamel.ScenarioParser errorLog
 INFO: Expected format: Cell num1 
  Button num2 
  as the first two lines of the scenarion file, and where num1 and num2 are positive integers. 
