@@ -28,6 +28,7 @@ public class ScenarioEditor {
 	private JTextField textField_1;
 	private JList list;
 	private static DefaultListModel DLM;
+	private static EventList timeline;
 
 	/**
 	 * Launch the application.
@@ -167,6 +168,7 @@ public class ScenarioEditor {
 	
 	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, int correctAns){
 		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, correctAns);
+		timeline.add(index, addMe);
 		DLM.addElement(addMe);	// TODO: Somehow make the EventList our ListModel ???
 	}
 	
