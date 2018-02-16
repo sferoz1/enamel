@@ -10,15 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JButton;
+//import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuItem;
+import java.awt.List;
 
 public class EventEditor extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 
@@ -31,6 +34,8 @@ public class EventEditor extends JFrame {
 				try {
 					EventEditor frame = new EventEditor();
 					frame.setVisible(true);
+					JPanel panel = new JPanel();
+					frame.getContentPane().add(panel);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,11 +48,12 @@ public class EventEditor extends JFrame {
 	 */
 	public EventEditor() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 359, 476);
+		setBounds(100, 100, 351, 476);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		JLabel lblTitle = new JLabel("Title");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -90,13 +96,17 @@ public class EventEditor extends JFrame {
 		
 		JLabel lblWhichButtonIs = new JLabel("Which Button is the Correct Answer?");
 		lblWhichButtonIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblWhichButtonIs.setBounds(12, 163, 268, 16);
+		lblWhichButtonIs.setBounds(0, 163, 268, 16);
 		contentPane.add(lblWhichButtonIs);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(279, 161, 46, 22);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		JLabel lblPanel = new JLabel("Select from the following choices");
+		lblPanel.setVisible(true);
+		JPanel panel = new JPanel();
+		panel.add(lblPanel);
+		String[] choices = { "1", "2","3", "4", "5" };
+		//final JComboBox<String> cb = new JComboBox<String>(choices);
+		//cb.setVisible(true);
+		//panel.add(cb);
 		
 		JLabel lblCorrectAnswer = new JLabel("If Answer is Correct");
 		lblCorrectAnswer.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -117,6 +127,14 @@ public class EventEditor extends JFrame {
 		textField_4.setBounds(12, 315, 313, 55);
 		contentPane.add(textField_4);
 		textField_4.setColumns(10);
+		
+		List list = new List();
+		list.setBounds(271, 156, 54, 68);
+		contentPane.add(list);
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
 		
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
