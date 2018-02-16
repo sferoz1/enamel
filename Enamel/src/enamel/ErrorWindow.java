@@ -2,42 +2,56 @@ package enamel;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 public class ErrorWindow extends JFrame {
 	
-	public static String errorMessage;
-	
-	//get the error message from error log
+	public static String ErrorMessage;
 
-	public static void readErrorLog(String fileName){
-	try{
-	File errorLog = new File("ERROR_LOG.txt");
-	Scanner errorLogScanner = new Scanner(errorLog);
-	while (errorLogScanner.hasNext()) {
+	
+
+	//get the error message from error log
+	
+/*public static void readErrorFile(String fileName){
 		
-		errorMessage= errorMessage + errorLogScanner.next();
-		
-	}
-	errorLogScanner.close();
-	}
-	catch (FileNotFoundException e) {
-		e.printStackTrace();
-	}
-	}
+		String fileString = "";
+		try{
+		String filePath = new File(fileName).getAbsolutePath();
+		File textFile = new File(filePath);
+		Scanner fileScanner = new Scanner(textFile);
+		while (fileScanner.hasNext()) {
+			fileString = fileScanner.next();
+			errorMessage= fileString;
+		}
+		System.out.println(errorMessage);
+		fileScanner.close();
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+			ErrorWindow errorWindow = new ErrorWindow("Error: File Not Found");
+			errorWindow.initialize();
+		}
+		}*/
+
+
+	
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		ErrorLogReader.readErrorFile("ERROR_LOG.txt");//read error log
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -48,6 +62,8 @@ public class ErrorWindow extends JFrame {
 				}
 			}
 		});
+		
+	//initialize window
 	}
 
 	/**
@@ -55,14 +71,14 @@ public class ErrorWindow extends JFrame {
 	 */
 	//construct ErrorWindow
 	public ErrorWindow() {
-		initialize();
+		initialize(ErrorLogReader.errorLogString);
 	}
 	
-	public ErrorWindow(String Message){
-	this.errorMessage = Message;
+	public ErrorWindow(String customMessage){
+	initialize(customMessage);
 	}
 	
-	public void initialize() {
+	public void initialize(String message) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 164);
 		contentPane = new JPanel();
@@ -70,9 +86,11 @@ public class ErrorWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblError = new JLabel("Error:"+ this.errorMessage);
-		lblError.setBounds(102, 62, 61, 16);
+		JLabel lblError = new JLabel("Error!" + message);
+		lblError.setBounds(60, 45, 61, 16);
 		contentPane.add(lblError);
+		
+		contentPane.setVisible(true);
 		
 		
 	}

@@ -58,6 +58,11 @@ public class ScenarioLoader extends JDialog {
 			panel.add(lblWouldYouLike);
 			
 			JButton btnEditExistingScenario = new JButton("Edit Existing Scenario");
+			btnEditExistingScenario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					EventEditor.main(null); //load Event editor
+				}
+			});
 			btnEditExistingScenario.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			btnEditExistingScenario.setBounds(212, 66, 178, 37);
 			panel.add(btnEditExistingScenario);
@@ -65,7 +70,6 @@ public class ScenarioLoader extends JDialog {
 			//Accessibility features
 			btnNewButton.getAccessibleContext().setAccessibleName("New Scenario");
 			btnEditExistingScenario.getAccessibleContext().setAccessibleName("Edit Existing Scenario");
-			lblWouldYouLike.getAccessibleContext().setAccessibleName("What would you like to do");
 		}
 	}
 }

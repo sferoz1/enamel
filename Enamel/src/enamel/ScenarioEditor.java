@@ -2,6 +2,7 @@ package enamel;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -16,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
+import javax.swing.JScrollPane;
+import javax.swing.DefaultListModel;
 
 public class ScenarioEditor {
 
@@ -23,7 +26,9 @@ public class ScenarioEditor {
 	private JTextField titleField;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTable eventTable;
+	private JList list;
+	private static DefaultListModel DLM;
+	private static EventList timeline;
 
 	/**
 	 * Launch the application.
@@ -61,10 +66,19 @@ public class ScenarioEditor {
 	private void initialize() {
 		frmScenarioEditor = new JFrame();
 		frmScenarioEditor.setTitle("Scenario Editor");
-		frmScenarioEditor.setBounds(100, 100, 554, 376);
+		frmScenarioEditor.setBounds(100, 100, 579, 401);
 		frmScenarioEditor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmScenarioEditor.getContentPane().setLayout(null);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(15, 118, 542, 179);
+		frmScenarioEditor.getContentPane().add(scrollPane);
+		
+		list = new JList();
+		scrollPane.setViewportView(list);
+		
+		DLM = new DefaultListModel();
+		list.setModel(DLM);
 		JLabel lblTitle = new JLabel("Title:");
 		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		lblTitle.setBounds(38, 20, 61, 16);
@@ -102,14 +116,6 @@ public class ScenarioEditor {
 		lblButtons.setBounds(226, 48, 78, 16);
 		frmScenarioEditor.getContentPane().add(lblButtons);
 		
-		eventTable = new JTable();
-		eventTable.setBounds(3, 112, 542, 184);
-		frmScenarioEditor.getContentPane().add(eventTable);
-		
-		Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
-		rigidArea.setBounds(6, 110, 542, 184);
-		frmScenarioEditor.getContentPane().add(rigidArea);
-		
 		JLabel lblTimeline = new JLabel("Timeline: ");
 		lblTimeline.setToolTipText("The timeline of events in this scenario");
 		lblTimeline.setHorizontalAlignment(SwingConstants.CENTER);
@@ -133,6 +139,7 @@ public class ScenarioEditor {
 		JButton btnAddEvent = new JButton("Add Event...");
 		btnAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				EventEditor.main(null); //load event editor to edit event
 			}
 		});
 		btnAddEvent.setBounds(421, 306, 133, 29);
@@ -143,6 +150,11 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(separator);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnExit.setBounds(413, 44, 117, 29);
 		frmScenarioEditor.getContentPane().add(btnExit);
 		
@@ -150,5 +162,27 @@ public class ScenarioEditor {
 		btnDeleteEvent.setEnabled(false);
 		btnDeleteEvent.setBounds(143, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
+		
+		//Accessibility Features
+		lblTitle.getAccessibleContext().setAccessibleName("Title");
+		btnSave.getAccessibleContext().setAccessibleName("Save");
+		lblButtons.getAccessibleContext().setAccessibleName("Buttons: ");
+		lblTimeline.getAccessibleContext().setAccessibleName("Timeline: ");
+		btnDeleteScenario.getAccessibleContext().setAccessibleName("Delete Scenario");
+		btnEditEvent.getAccessibleContext().setAccessibleName("Edit Event");
+		btnAddEvent.getAccessibleContext().setAccessibleName("Add Event");
+		btnExit.getAccessibleContext().setAccessibleName("Exit");
 	}
+	
+
+	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, int correctAns){
+		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, correctAns);
+		timeline.add(index, addMe);
+		DLM.addElement(addMe);	// TODO: Somehow make the EventList our ListModel ???
+	}
+	
+	public static void editEvent(ScenarioEvent editMe, String title, String question, String responseRight, String responseWrong, int correctAns) {
+		editMe.overwrite(title, question, responseRight, responseWrong, correctAns);
+	}
+	
 }

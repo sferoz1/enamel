@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class ScenarioFileReader {
-	//if choosing a file to edit
+	//if choosing a file to edit or play
 	public static void readScenarioFile(String fileName){
 		String scenarioFileString = null;
 		try{

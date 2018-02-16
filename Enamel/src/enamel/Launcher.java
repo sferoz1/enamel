@@ -49,7 +49,7 @@ public class Launcher {
 		frmMainMenu.getContentPane().setLayout(null);
 		frmMainMenu.setLocation(750, 200);
 		
-		JButton btnAuthorAStory = new JButton("Author a Story");
+		JButton btnAuthorAStory = new JButton("Author a Scenario");
 		btnAuthorAStory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ScenarioLoader.main(null);			// Open Scenario Loader
@@ -58,7 +58,7 @@ public class Launcher {
 		btnAuthorAStory.setBounds(99, 98, 199, 23);
 		frmMainMenu.getContentPane().add(btnAuthorAStory);
 		
-		JButton btnPlayAStory = new JButton("Play a Story");
+		JButton btnPlayAStory = new JButton("Play a Scenario");
 		btnPlayAStory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ToyAuthoring.main(null);			// Load FileChooser
