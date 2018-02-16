@@ -164,11 +164,20 @@ public class ScenarioEditor {
 		btnDeleteEvent.setBounds(143, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
 		
+		//Accessibility Features
+		lblTitle.getAccessibleContext().setAccessibleName("Title");
+		btnSave.getAccessibleContext().setAccessibleName("Save");
+		lblButtons.getAccessibleContext().setAccessibleName("Buttons: ");
+		lblTimeline.getAccessibleContext().setAccessibleName("Timeline: ");
+		btnDeleteScenario.getAccessibleContext().setAccessibleName("Delete Scenario");
+		btnEditEvent.getAccessibleContext().setAccessibleName("Edit Event");
+		btnAddEvent.getAccessibleContext().setAccessibleName("Add Event");
+		btnExit.getAccessibleContext().setAccessibleName("Exit");
 		
 	}
 	
 	public static void overwrite(String title){
 		DLM.addElement(title);
-		
 	}
+	
 }
