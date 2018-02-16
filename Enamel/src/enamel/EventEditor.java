@@ -16,14 +16,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
 import java.awt.List;
+import javax.swing.JTextArea;
 
 public class EventEditor extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_3;
-	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
@@ -60,20 +57,11 @@ public class EventEditor extends JFrame {
 		lblTitle.setBounds(12, 13, 56, 16);
 		contentPane.add(lblTitle);
 		
-		textField = new JTextField();
-		textField.setBounds(57, 10, 268, 22);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
 		JLabel lblQuestion = new JLabel("Question");
 		lblQuestion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblQuestion.setBounds(12, 55, 75, 16);
 		contentPane.add(lblQuestion);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(12, 76, 313, 74);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
@@ -95,8 +83,8 @@ public class EventEditor extends JFrame {
 		contentPane.add(btnExit);
 		
 		JLabel lblWhichButtonIs = new JLabel("Which Button is the Correct Answer?");
-		lblWhichButtonIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblWhichButtonIs.setBounds(0, 163, 268, 16);
+		lblWhichButtonIs.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblWhichButtonIs.setBounds(12, 161, 253, 16);
 		contentPane.add(lblWhichButtonIs);
 		
 		JLabel lblPanel = new JLabel("Select from the following choices");
@@ -110,27 +98,34 @@ public class EventEditor extends JFrame {
 		
 		JLabel lblCorrectAnswer = new JLabel("If Answer is Correct");
 		lblCorrectAnswer.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblCorrectAnswer.setBounds(12, 197, 151, 16);
+		lblCorrectAnswer.setBounds(10, 202, 151, 16);
 		contentPane.add(lblCorrectAnswer);
-		
-		textField_3 = new JTextField();
-		textField_3.setBounds(12, 226, 313, 49);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
 		
 		JLabel lblIfAnswerIs = new JLabel("If Answer is Incorrect");
 		lblIfAnswerIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblIfAnswerIs.setBounds(12, 288, 164, 16);
 		contentPane.add(lblIfAnswerIs);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(12, 315, 313, 55);
-		contentPane.add(textField_4);
-		textField_4.setColumns(10);
-		
 		List list = new List();
 		list.setBounds(271, 156, 54, 68);
 		contentPane.add(list);
+		
+		JTextArea textQuestion = new JTextArea();
+		textQuestion.setBounds(12, 76, 309, 74);
+		contentPane.add(textQuestion);
+		
+		
+		JTextArea textAnswerC = new JTextArea();
+		textAnswerC.setBounds(12, 226, 309, 57);
+		contentPane.add(textAnswerC);
+		
+		JTextArea textAnswerI = new JTextArea();
+		textAnswerI.setBounds(12, 309, 309, 69);
+		contentPane.add(textAnswerI);
+		
+		JTextArea textTitle = new JTextArea();
+		textTitle.setBounds(51, 12, 270, 22);
+		contentPane.add(textTitle);
 		list.add("1");
 		list.add("2");
 		list.add("3");
