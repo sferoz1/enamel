@@ -165,13 +165,13 @@ public class ScenarioEditor {
 
 	}
 	
-	public static void addEvent(int firstSave, String title, String question, String[] answers, int correctAnswer, int index){
-		ScenarioEvent addMe = new ScenarioEvent(title, question, answers, correctAnswer, index);
+	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, int correctAns){
+		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, correctAns);
 		DLM.addElement(addMe);	// TODO: Somehow make the EventList our ListModel ???
 	}
 	
-	public static void editEvent(ScenarioEvent editMe, String title, String question, String[] answers, int correctAnswer) {
-		editMe.overwrite(title, question, answers, correctAnswer);
+	public static void editEvent(ScenarioEvent editMe, String title, String question, String responseRight, String responseWrong, int correctAns) {
+		editMe.overwrite(title, question, responseRight, responseWrong, correctAns);
 		
 	}
 }
