@@ -77,7 +77,6 @@ public class ScenarioEditor {
 		scrollPane.setViewportView(list);
 		
 		DLM = new DefaultListModel();
-		
 		list.setModel(DLM);
 		
 		JLabel lblTitle = new JLabel("Title:");
@@ -163,12 +162,16 @@ public class ScenarioEditor {
 		btnDeleteEvent.setEnabled(false);
 		btnDeleteEvent.setBounds(143, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
-		
-		
+
 	}
 	
-	public static void overwrite(String title){
-		DLM.addElement(title);
+	public static void addEvent(int firstSave, String title, String question, String[] answers, int correctAnswer, int index){
+		ScenarioEvent addMe = new ScenarioEvent(title, question, answers, correctAnswer, index);
+		DLM.addElement(addMe);	// TODO: Somehow make the EventList our ListModel ???
+	}
+	
+	public static void editEvent(ScenarioEvent editMe, String title, String question, String[] answers, int correctAnswer) {
+		editMe.overwrite(title, question, answers, correctAnswer);
 		
 	}
 }
