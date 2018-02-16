@@ -91,6 +91,11 @@ public class EventEditor extends JFrame {
 		List list = new List();
 		list.setBounds(271, 156, 54, 68);
 		contentPane.add(list);
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+				
 		
 		JTextArea textTitle = new JTextArea();
 		textTitle.setBounds(54, 12, 271, 22);
@@ -111,10 +116,6 @@ public class EventEditor extends JFrame {
 		textAnsWrong.setBounds(12, 342, 309, 68);
 		contentPane.add(textAnsWrong);
 		textAnsWrong.setLineWrap(true);
-		list.add("1");
-		list.add("2");
-		list.add("3");
-		list.add("4");
 				
 	
 		//Accessibility Features
