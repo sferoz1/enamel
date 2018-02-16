@@ -117,5 +117,14 @@ public class EventEditor extends JFrame {
 		textField_4.setBounds(12, 315, 313, 55);
 		contentPane.add(textField_4);
 		textField_4.setColumns(10);
+		
+		//Accessibility Features
+		lblTitle.getAccessibleContext().setAccessibleName("Title");
+		lblQuestion.getAccessibleContext().setAccessibleName("Question");
+		btnSave.getAccessibleContext().setAccessibleName("Save");
+		btnExit.getAccessibleContext().setAccessibleName("Exit");
+		lblWhichButtonIs.getAccessibleContext().setAccessibleName("Which Button is the Correct Answer");
+		lblCorrectAnswer.getAccessibleContext().setAccessibleName("If Answer is Correct");
+		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");
 	}
 }
