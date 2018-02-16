@@ -54,6 +54,10 @@ public class ScenarioEvent {
 		
 	}
 	
+	public String toString(){
+		return this.title;
+	}
+	
 	
 	
 	
