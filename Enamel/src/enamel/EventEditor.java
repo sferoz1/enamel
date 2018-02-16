@@ -66,7 +66,7 @@ public class EventEditor extends JFrame {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ScenarioEditor.overwrite(textField.getText());
+			//	ScenarioEditor.overwrite(textField.getText());
 				
 			}
 		});
