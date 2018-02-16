@@ -12,15 +12,19 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class EventEditor extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField titleField;
+	private JTextField questionField;
 	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField ifAnsCorrect;
+	private JTextField ifAnsWrong;
 
 	/**
 	 * Launch the application.
@@ -54,30 +58,20 @@ public class EventEditor extends JFrame {
 		lblTitle.setBounds(12, 13, 56, 16);
 		contentPane.add(lblTitle);
 		
-		textField = new JTextField();
-		textField.setBounds(57, 10, 268, 22);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		titleField = new JTextField();
+		titleField.setBounds(57, 10, 268, 22);
+		contentPane.add(titleField);
+		titleField.setColumns(10);
 		
 		JLabel lblQuestion = new JLabel("Question");
 		lblQuestion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblQuestion.setBounds(12, 55, 75, 16);
 		contentPane.add(lblQuestion);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(12, 76, 313, 74);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-		
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ScenarioEditor.overwrite(textField.getText());
-				
-			}
-		});
-		btnSave.setBounds(12, 391, 97, 25);
-		contentPane.add(btnSave);
+		questionField = new JTextField();
+		questionField.setBounds(12, 76, 313, 74);
+		contentPane.add(questionField);
+		questionField.setColumns(10);
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
@@ -98,24 +92,75 @@ public class EventEditor extends JFrame {
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
+		JPopupMenu popupMenu = new JPopupMenu();
+		addPopup(textField_2, popupMenu);
+		
+		JLabel label_2 = new JLabel("3");
+		popupMenu.add(label_2);
+		
+		JLabel label_1 = new JLabel("2");
+		popupMenu.add(label_1);
+		
+		JLabel label = new JLabel("1");
+		popupMenu.add(label);
+		
 		JLabel lblCorrectAnswer = new JLabel("If Answer is Correct");
 		lblCorrectAnswer.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblCorrectAnswer.setBounds(12, 197, 151, 16);
 		contentPane.add(lblCorrectAnswer);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(12, 226, 313, 49);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		ifAnsCorrect = new JTextField();
+		ifAnsCorrect.setBounds(12, 226, 313, 49);
+		contentPane.add(ifAnsCorrect);
+		ifAnsCorrect.setColumns(10);
 		
 		JLabel lblIfAnswerIs = new JLabel("If Answer is Incorrect");
 		lblIfAnswerIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblIfAnswerIs.setBounds(12, 288, 164, 16);
 		contentPane.add(lblIfAnswerIs);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(12, 315, 313, 55);
-		contentPane.add(textField_4);
-		textField_4.setColumns(10);
+		ifAnsWrong = new JTextField();
+		ifAnsWrong.setBounds(12, 315, 313, 55);
+		contentPane.add(ifAnsWrong);
+		ifAnsWrong.setColumns(10);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = 0; // CHANGE THIS!
+				String title = titleField.getText();
+				String question = questionField.getText();
+				String answer = ifAnsCorrect.getText();
+				String wrong = ifAnsWrong.getText();
+				
+				// TODO: Change ScenarioEvent get rid of answers array and replace with right/wrong responses
+				// TODO: dropdown box for asking which answer is correct
+				String[] answers = new String[2];
+				answers[0] = answer;
+				answers[1] = wrong;
+				int correctAnswer = 0; // CHANGE THIS!
+				//ScenarioEditor.addEvent(title, question, answers, correctAnswer, index);
+				
+			}
+		});
+		btnSave.setBounds(12, 391, 97, 25);
+		contentPane.add(btnSave);
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }

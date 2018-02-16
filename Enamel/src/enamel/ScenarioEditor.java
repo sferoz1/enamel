@@ -28,6 +28,7 @@ public class ScenarioEditor {
 	private JTextField textField_1;
 	private JList list;
 	private static DefaultListModel DLM;
+	private static EventList timeline;
 
 	/**
 	 * Launch the application.
@@ -77,9 +78,7 @@ public class ScenarioEditor {
 		scrollPane.setViewportView(list);
 		
 		DLM = new DefaultListModel();
-		
 		list.setModel(DLM);
-		
 		JLabel lblTitle = new JLabel("Title:");
 		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		lblTitle.setBounds(38, 20, 61, 16);
@@ -163,12 +162,17 @@ public class ScenarioEditor {
 		btnDeleteEvent.setEnabled(false);
 		btnDeleteEvent.setBounds(143, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
-		
-		
+
 	}
 	
-	public static void overwrite(String title){
-		DLM.addElement(title);
+	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, int correctAns){
+		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, correctAns);
+		timeline.add(index, addMe);
+		DLM.addElement(addMe);	// TODO: Somehow make the EventList our ListModel ???
+	}
+	
+	public static void editEvent(ScenarioEvent editMe, String title, String question, String responseRight, String responseWrong, int correctAns) {
+		editMe.overwrite(title, question, responseRight, responseWrong, correctAns);
 		
 	}
 }
