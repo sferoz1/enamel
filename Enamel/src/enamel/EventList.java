@@ -10,14 +10,18 @@ public class EventList {
 	}
 	
 	public void add(int index, ScenarioEvent e){
-		timeline.add(index, e);
+		timeline.add(e);
 		updateIndexes();
 	}
 	
 	public void remove(ScenarioEvent e){
 		timeline.remove(e);
 		updateIndexes();
-		}
+	}
+	
+	public int size(){
+		return timeline.size();
+	}
 	
 	private void updateIndexes(){
 		for(int i = 0; i < timeline.size(); i++){
