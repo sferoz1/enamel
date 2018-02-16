@@ -79,6 +79,12 @@ public class AboutTheApp {
 		});
 		btnMainMenu.setBounds(121, 217, 179, 31);
 		frmAboutTheApp.getContentPane().add(btnMainMenu);
+		
+		//Accessibility Features
+		frmAboutTheApp.getAccessibleContext().setAccessibleName("About The App");
+		lblCreatedBy.getAccessibleContext().setAccessibleName("Created By");
+		lblSaraAttalla.getAccessibleContext().setAccessibleName("Sara Attalla Sarah Feroz Sean Dolye");
+		btnMainMenu.getAccessibleContext().setAccessibleName("Main Menu");
 	}
 
 }

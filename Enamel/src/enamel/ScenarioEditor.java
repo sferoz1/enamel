@@ -162,9 +162,19 @@ public class ScenarioEditor {
 		btnDeleteEvent.setEnabled(false);
 		btnDeleteEvent.setBounds(143, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
-
+		
+		//Accessibility Features
+		lblTitle.getAccessibleContext().setAccessibleName("Title");
+		btnSave.getAccessibleContext().setAccessibleName("Save");
+		lblButtons.getAccessibleContext().setAccessibleName("Buttons: ");
+		lblTimeline.getAccessibleContext().setAccessibleName("Timeline: ");
+		btnDeleteScenario.getAccessibleContext().setAccessibleName("Delete Scenario");
+		btnEditEvent.getAccessibleContext().setAccessibleName("Edit Event");
+		btnAddEvent.getAccessibleContext().setAccessibleName("Add Event");
+		btnExit.getAccessibleContext().setAccessibleName("Exit");
 	}
 	
+
 	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, int correctAns){
 		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, correctAns);
 		timeline.add(index, addMe);
@@ -173,6 +183,6 @@ public class ScenarioEditor {
 	
 	public static void editEvent(ScenarioEvent editMe, String title, String question, String responseRight, String responseWrong, int correctAns) {
 		editMe.overwrite(title, question, responseRight, responseWrong, correctAns);
-		
 	}
+	
 }

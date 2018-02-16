@@ -16,6 +16,8 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JMenuItem;
+import java.awt.List;
 
 public class EventEditor extends JFrame {
 
@@ -47,7 +49,7 @@ public class EventEditor extends JFrame {
 	 */
 	public EventEditor() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 359, 476);
+		setBounds(100, 100, 351, 476);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,7 +74,9 @@ public class EventEditor extends JFrame {
 		questionField.setBounds(12, 76, 313, 74);
 		contentPane.add(questionField);
 		questionField.setColumns(10);
-		
+		JButton btnSave = new JButton("Save");
+		btnSave.setBounds(12, 391, 97, 25);
+		contentPane.add(btnSave);
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -84,7 +88,7 @@ public class EventEditor extends JFrame {
 		
 		JLabel lblWhichButtonIs = new JLabel("Which Button is the Correct Answer?");
 		lblWhichButtonIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblWhichButtonIs.setBounds(12, 163, 268, 16);
+		lblWhichButtonIs.setBounds(0, 163, 268, 16);
 		contentPane.add(lblWhichButtonIs);
 		
 		textField_2 = new JTextField();
@@ -92,17 +96,6 @@ public class EventEditor extends JFrame {
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JPopupMenu popupMenu = new JPopupMenu();
-		addPopup(textField_2, popupMenu);
-		
-		JLabel label_2 = new JLabel("3");
-		popupMenu.add(label_2);
-		
-		JLabel label_1 = new JLabel("2");
-		popupMenu.add(label_1);
-		
-		JLabel label = new JLabel("1");
-		popupMenu.add(label);
 		
 		JLabel lblCorrectAnswer = new JLabel("If Answer is Correct");
 		lblCorrectAnswer.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -124,43 +117,15 @@ public class EventEditor extends JFrame {
 		contentPane.add(ifAnsWrong);
 		ifAnsWrong.setColumns(10);
 		
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int index = 0; // CHANGE THIS!
-				String title = titleField.getText();
-				String question = questionField.getText();
-				String answer = ifAnsCorrect.getText();
-				String wrong = ifAnsWrong.getText();
-				
-				// TODO: Change ScenarioEvent get rid of answers array and replace with right/wrong responses
-				// TODO: dropdown box for asking which answer is correct
-				String[] answers = new String[2];
-				answers[0] = answer;
-				answers[1] = wrong;
-				int correctAnswer = 0; // CHANGE THIS!
-				//ScenarioEditor.addEvent(title, question, answers, correctAnswer, index);
-				
-			}
-		});
-		btnSave.setBounds(12, 391, 97, 25);
-		contentPane.add(btnSave);
-	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
+	
+		//Accessibility Features
+		lblTitle.getAccessibleContext().setAccessibleName("Title");
+		lblQuestion.getAccessibleContext().setAccessibleName("Question");
+		btnSave.getAccessibleContext().setAccessibleName("Save");
+		btnExit.getAccessibleContext().setAccessibleName("Exit");
+		lblWhichButtonIs.getAccessibleContext().setAccessibleName("Which Button is the Correct Answer");
+		lblCorrectAnswer.getAccessibleContext().setAccessibleName("If Answer is Correct");
+		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");
+	
 	}
 }
