@@ -24,7 +24,6 @@ public class EventEditor extends JFrame {
 	private JPanel contentPane;
 	private JTextField titleField;
 	private JTextField questionField;
-	private JTextField textField_2;
 	private JTextField ifAnsCorrect;
 	private JTextField ifAnsWrong;
 
@@ -91,11 +90,6 @@ public class EventEditor extends JFrame {
 		lblWhichButtonIs.setBounds(0, 163, 268, 16);
 		contentPane.add(lblWhichButtonIs);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(279, 161, 46, 22);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
-		
 		
 		JLabel lblCorrectAnswer = new JLabel("If Answer is Correct");
 		lblCorrectAnswer.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -117,6 +111,14 @@ public class EventEditor extends JFrame {
 		contentPane.add(ifAnsWrong);
 		ifAnsWrong.setColumns(10);
 		
+		List list = new List();
+		list.setBounds(271, 156, 54, 68);
+		contentPane.add(list);
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+				
 	
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
