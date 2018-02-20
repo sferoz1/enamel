@@ -143,5 +143,20 @@ public class EventEditor extends JFrame{
 		lblCorrectAnswer.getAccessibleContext().setAccessibleName("If Answer is Correct");
 		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");
 	
+		
+			
+			
+			
+		}
+	
+	public void populate(ScenarioEvent e) {
+		int index = e.getIndex();
+		String title = e.getTitle();
+		String question = e.getQuestion();
+		String responseRight = e.getResponseRight();
+		String responseWrong = e.getResponseWrong();
+		int CorrectAns = e.getIndex();
 	}
+	
 }
+
