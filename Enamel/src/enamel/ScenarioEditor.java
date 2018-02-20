@@ -14,6 +14,8 @@ import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.Comparator;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
@@ -26,7 +28,7 @@ public class ScenarioEditor {
 	private JTextField titleField;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JList list;
+	private static JList list;
 	private static DefaultListModel DLM;
 	private static EventList timeline;
 
@@ -183,11 +185,23 @@ public class ScenarioEditor {
 		System.out.println("RIGHT: " + addMe.getResponseRight());
 		System.out.println("WRONG: " + addMe.getResponseWrong());
 		System.out.println("CORRECT NUM: " + addMe.getCorrectAns());
-		timeline.add(index, addMe);
+		timeline.add(addMe);
 		System.out.println("ADDED TO TIMELINE!");
-		DLM.addElement(addMe);
 		System.out.println("ADDED TO DLM!");
+		Collections.sort(timeline);
+		System.out.println("SORTED");
 		//refreshTimeline();
+		System.out.println("TIMELINE SIZE: " + timeline.getSize());
+		DLM.removeAllElements();
+		for(int i = 0; i < timeline.getSize(); i++) {
+			System.out.println("LOOPING...");
+			ScenarioEvent e = timeline.get(i);
+			System.out.println("mapped...");
+			DLM.addElement(e);
+			e.setIndex(i);
+			System.out.println("ADDED TO DLM!1");
+		}
+		
 	}
 	
 	public static void editEvent(ScenarioEvent editMe, String title, String question, String responseRight, String responseWrong, int correctAns) {
@@ -195,9 +209,10 @@ public class ScenarioEditor {
 	}
 	
 	private static void refreshTimeline(){
-		for(int i = 0; i < timeline.size(); i++){
-			
+		for(int i = 0; i < timeline.size(); i++) {
+			ScenarioEvent e = timeline.get(i);
+			DLM.addElement(e);
+			System.out.println("ADDED TO DLM!1");
 		}
 	}
-	
 }

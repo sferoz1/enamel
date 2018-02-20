@@ -1,6 +1,6 @@
 package enamel;
 
-public class ScenarioEvent {
+public class ScenarioEvent implements Comparable<ScenarioEvent>{
 	private String title;
 	private String question;
 	private String responseRight;
@@ -54,11 +54,25 @@ public class ScenarioEvent {
 		
 	}
 	
-	public String toString(){
-		return this.title;
+	public int getIndex() {
+		int i = this.index;
+		return i;
 	}
 	
+	public String toString(){
+		return this.title;
+	}	
 	
-	
+	public int compareTo(ScenarioEvent e) {
+		int otherIndex = e.getIndex();
+		int thisIndex = this.getIndex();
+		if(thisIndex > otherIndex) {
+			return 1;
+		} else if (thisIndex < otherIndex) {
+			return -1;
+		} else {
+			return -1;
+		}
+	}
 	
 }
