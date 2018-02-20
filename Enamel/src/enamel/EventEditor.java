@@ -25,15 +25,22 @@ public class EventEditor extends JFrame{
 
 	private JPanel contentPane;
 	private static JFrame frmEventEditor;
+	private static JTextArea textTitle, textAnsRight, textAnsWrong, textIndex, textQuestion;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args, ScenarioEvent e) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					if (args[0] == "0"){
 					EventEditor window = new EventEditor();
 					window.frmEventEditor.setVisible(true);
+					populate(e);
+					} else {
+					EventEditor window = new EventEditor();
+					window.frmEventEditor.setVisible(true);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -89,22 +96,22 @@ public class EventEditor extends JFrame{
 		list.add("3");
 		list.add("4");
 		
-		JTextArea textTitle = new JTextArea();
+		textTitle = new JTextArea();
 		textTitle.setBounds(54, 12, 271, 22);
 		contentPane.add(textTitle);
 		textTitle.setLineWrap(true);
 		
-		JTextArea textQuestion = new JTextArea();
+		textQuestion = new JTextArea();
 		textQuestion.setBounds(11, 102, 313, 74);
 		contentPane.add(textQuestion);
 		textQuestion.setLineWrap(true);
 		
-		JTextArea textAnsRight = new JTextArea();
+		textAnsRight = new JTextArea();
 		textAnsRight.setBounds(11, 266, 309, 68);
 		contentPane.add(textAnsRight);
 		textAnsRight.setLineWrap(true);
 		
-		JTextArea textAnsWrong = new JTextArea();
+		textAnsWrong = new JTextArea();
 		textAnsWrong.setBounds(11, 368, 309, 68);
 		contentPane.add(textAnsWrong);
 		textAnsWrong.setLineWrap(true);
@@ -114,7 +121,7 @@ public class EventEditor extends JFrame{
 		lblIndex.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		contentPane.add(lblIndex);
 		
-		JTextArea textIndex = new JTextArea();
+		textIndex = new JTextArea();
 		textIndex.setBounds(80, 47, 241, 22);
 		textIndex.setLineWrap(true);
 		contentPane.add(textIndex);
@@ -141,21 +148,23 @@ public class EventEditor extends JFrame{
 		btnSave.getAccessibleContext().setAccessibleName("Save");
 		lblWhichButtonIs.getAccessibleContext().setAccessibleName("Which Button is the Correct Answer");
 		lblCorrectAnswer.getAccessibleContext().setAccessibleName("If Answer is Correct");
-		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");
-	
-		
-			
-			
+		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");		
 			
 		}
 	
-	public void populate(ScenarioEvent e) {
+	public static void populate(ScenarioEvent e) {
 		int index = e.getIndex();
 		String title = e.getTitle();
 		String question = e.getQuestion();
 		String responseRight = e.getResponseRight();
 		String responseWrong = e.getResponseWrong();
 		int CorrectAns = e.getIndex();
+		textIndex.setText(Integer.toString(index));
+		textTitle.setText(title);
+		textQuestion.setText(question);
+		textAnsRight.setText(responseRight);
+		textAnsWrong.setText(responseWrong);
+		
 	}
 	
 }

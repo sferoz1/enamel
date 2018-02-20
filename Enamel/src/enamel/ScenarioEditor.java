@@ -138,7 +138,8 @@ public class ScenarioEditor {
 		btnEditEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScenarioEvent edit = (ScenarioEvent) list.getSelectedValue();
-				editEvent(edit);
+				String[] args = {"0"};
+				EventEditor.main(args, edit);
 			}
 		});
 		
@@ -157,7 +158,8 @@ public class ScenarioEditor {
 		JButton btnAddEvent = new JButton("Add Event...");
 		btnAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventEditor.main(null); //load event editor to edit event
+				String[] args = {"1"};
+				EventEditor.main(args, null); //load event editor to edit event
 			}
 		});
 		btnAddEvent.setBounds(421, 306, 133, 29);
