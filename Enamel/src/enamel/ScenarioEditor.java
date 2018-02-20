@@ -165,9 +165,11 @@ public class ScenarioEditor {
 		JButton btnDeleteEvent = new JButton("Delete Event");
 		btnDeleteEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//timeline.g
+				//all from lits getselectedobject and call remove
 			}
 		});
-		btnDeleteEvent.setEnabled(false);
+		btnDeleteEvent.setEnabled(true);
 		btnDeleteEvent.setBounds(143, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
 		
