@@ -142,12 +142,24 @@ public class ScenarioEditor {
 				EventEditor.main(args, edit);
 			}
 		});
+		JButton btnDeleteEvent = new JButton("Delete Event");
+		btnDeleteEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScenarioEvent delete = (ScenarioEvent) list.getSelectedValue();
+				deleteEvent(delete);
+				
+			}
+		});
+		btnDeleteEvent.setEnabled(true);
+		btnDeleteEvent.setBounds(143, 306, 133, 29);
+		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
 		
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (list.isSelectionEmpty() == false) {
 					btnEditEvent.setEnabled(true);
+					btnDeleteEvent.setEnabled(true);
 				}
 			}
 		});
@@ -178,16 +190,6 @@ public class ScenarioEditor {
 		btnExit.setBounds(413, 44, 117, 29);
 		frmScenarioEditor.getContentPane().add(btnExit);
 		
-		JButton btnDeleteEvent = new JButton("Delete Event");
-		btnDeleteEvent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//timeline.g
-				//all from lits getselectedobject and call remove
-			}
-		});
-		btnDeleteEvent.setEnabled(true);
-		btnDeleteEvent.setBounds(143, 306, 133, 29);
-		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
 		
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
@@ -226,8 +228,22 @@ public class ScenarioEditor {
 		}
 	}
 	
-	public static void editEvent(ScenarioEvent editMe) {
+	//public static void editEvent(ScenarioEvent editMe) {
 		
+	//}
+	
+	public static void deleteEvent(ScenarioEvent e) {
+		timeline.remove(e);
+		Collections.sort(timeline);
+		DLM.removeAllElements();
+		for(int i = 0; i < timeline.getSize()-1; i++) {
+			System.out.println("LOOPING...");
+			ScenarioEvent d = timeline.get(i);
+			System.out.println("mapped...");
+			DLM.addElement(d);
+			e.setIndex(i);
+			System.out.println("REMOVED TO DLM!1");
+		}
 	}
 	
 	private static void refreshTimeline(){
