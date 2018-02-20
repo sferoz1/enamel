@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ScenarioEditor {
 
@@ -78,6 +80,7 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(scrollPane);
 		
 		list = new JList();
+		
 		scrollPane.setViewportView(list);
 		
 		DLM = new DefaultListModel();
@@ -134,6 +137,18 @@ public class ScenarioEditor {
 		btnEditEvent.setEnabled(false);
 		btnEditEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ScenarioEvent edit = (ScenarioEvent) list.getSelectedValue();
+				String[] args = {"0"};
+				EventEditor.main(args, edit);
+			}
+		});
+		
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (list.isSelectionEmpty() == false) {
+					btnEditEvent.setEnabled(true);
+				}
 			}
 		});
 		
@@ -143,7 +158,8 @@ public class ScenarioEditor {
 		JButton btnAddEvent = new JButton("Add Event...");
 		btnAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventEditor.main(null); //load event editor to edit event
+				String[] args = {"1"};
+				EventEditor.main(args, null); //load event editor to edit event
 			}
 		});
 		btnAddEvent.setBounds(421, 306, 133, 29);
@@ -182,6 +198,7 @@ public class ScenarioEditor {
 		btnEditEvent.getAccessibleContext().setAccessibleName("Edit Event");
 		btnAddEvent.getAccessibleContext().setAccessibleName("Add Event");
 		btnExit.getAccessibleContext().setAccessibleName("Exit");
+		
 	}
 
 	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, int correctAns){
@@ -207,11 +224,10 @@ public class ScenarioEditor {
 			e.setIndex(i);
 			System.out.println("ADDED TO DLM!1");
 		}
-		
 	}
 	
-	public static void editEvent(ScenarioEvent editMe, String title, String question, String responseRight, String responseWrong, int correctAns) {
-		editMe.overwrite(title, question, responseRight, responseWrong, correctAns);
+	public static void editEvent(ScenarioEvent editMe) {
+		
 	}
 	
 	private static void refreshTimeline(){
