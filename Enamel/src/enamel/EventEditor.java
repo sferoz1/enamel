@@ -142,10 +142,6 @@ public class EventEditor extends JFrame{
 		lblWhichButtonIs.getAccessibleContext().setAccessibleName("Which Button is the Correct Answer");
 		lblCorrectAnswer.getAccessibleContext().setAccessibleName("If Answer is Correct");
 		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");
-	
-		
-			
-			
 			
 		}
 	

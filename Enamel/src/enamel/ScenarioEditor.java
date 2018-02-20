@@ -163,6 +163,10 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(btnExit);
 		
 		JButton btnDeleteEvent = new JButton("Delete Event");
+		btnDeleteEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnDeleteEvent.setEnabled(false);
 		btnDeleteEvent.setBounds(143, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
