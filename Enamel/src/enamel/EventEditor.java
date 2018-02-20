@@ -19,11 +19,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import java.awt.List;
 import javax.swing.JTextArea;
+import java.awt.Window.Type;
 
-public class EventEditor extends JFrame {
+public class EventEditor extends JFrame{
 
 	private JPanel contentPane;
-
+	private static JFrame frmEventEditor;
 	/**
 	 * Launch the application.
 	 */
@@ -31,8 +32,8 @@ public class EventEditor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EventEditor frame = new EventEditor();
-					frame.setVisible(true);
+					EventEditor window = new EventEditor();
+					window.frmEventEditor.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,46 +45,40 @@ public class EventEditor extends JFrame {
 	 * Create the frame.
 	 */
 	public EventEditor() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 351, 538);
+		frmEventEditor = new JFrame();
+		frmEventEditor.setResizable(false);
+		frmEventEditor.setAlwaysOnTop(true);
+		frmEventEditor.setTitle("Event Editor");
+		frmEventEditor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmEventEditor.setBounds(100, 100, 351, 538);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		frmEventEditor.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblTitle = new JLabel("Title");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTitle.setBounds(12, 13, 56, 16);
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		contentPane.add(lblTitle);
 		
 		JLabel lblQuestion = new JLabel("Question");
-		lblQuestion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblQuestion.setBounds(11, 81, 75, 16);
+		lblQuestion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		contentPane.add(lblQuestion);
 		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnExit.setBounds(227, 449, 97, 25);
-		contentPane.add(btnExit);
-		
 		JLabel lblWhichButtonIs = new JLabel("Which Button is the Correct Answer?");
-		lblWhichButtonIs.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblWhichButtonIs.setBounds(11, 194, 249, 16);
+		lblWhichButtonIs.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(lblWhichButtonIs);
 		
-		
 		JLabel lblCorrectAnswer = new JLabel("If Answer is Correct");
-		lblCorrectAnswer.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblCorrectAnswer.setBounds(11, 237, 151, 16);
+		lblCorrectAnswer.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPane.add(lblCorrectAnswer);
 		
 		JLabel lblIfAnswerIs = new JLabel("If Answer is Incorrect");
-		lblIfAnswerIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblIfAnswerIs.setBounds(11, 339, 164, 16);
+		lblIfAnswerIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPane.add(lblIfAnswerIs);
 		
 		List list = new List();
@@ -115,40 +110,35 @@ public class EventEditor extends JFrame {
 		textAnsWrong.setLineWrap(true);
 		
 		JLabel lblIndex = new JLabel("Index:");
-		lblIndex.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblIndex.setBounds(12, 53, 56, 16);
+		lblIndex.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		contentPane.add(lblIndex);
 		
 		JTextArea textIndex = new JTextArea();
-		textIndex.setLineWrap(true);
 		textIndex.setBounds(80, 47, 241, 22);
+		textIndex.setLineWrap(true);
 		contentPane.add(textIndex);
 				
-		JButton btnSave = new JButton("Save");
+		JButton btnSave = new JButton("Save & Exit");
+		btnSave.setBounds(71, 463, 189, 25);
 		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int index = Integer.parseInt(textIndex.getText());
-				String title = textTitle.getText();
-				String question = textQuestion.getText();
-				String responseRight = textAnsRight.getText();
-				String responseWrong = textAnsWrong.getText();
-				int correctAns = list.getSelectedIndex();
-				System.out.println("TITLE: " + title);
-				System.out.println("QUESTION: " + question);
-				System.out.println("RIGHT: " + responseRight);
-				System.out.println("WRONG: " + responseWrong);
-				System.out.println("CORRECT NUM: " + correctAns);
-				ScenarioEditor.addEvent(index, title, question, responseRight, responseWrong, correctAns);
+		public void actionPerformed(ActionEvent e) {
+			int index = Integer.parseInt(textIndex.getText());
+			String title = textTitle.getText();
+			String question = textQuestion.getText();
+			String responseRight = textAnsRight.getText();
+			String responseWrong = textAnsWrong.getText();
+			int correctAns = list.getSelectedIndex();
+			ScenarioEditor.addEvent(index, title, question, responseRight, responseWrong, correctAns);
+			frmEventEditor.dispose();
 			}
 		});
-		btnSave.setBounds(11, 449, 97, 25);
 		
 		contentPane.add(btnSave);
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
 		lblQuestion.getAccessibleContext().setAccessibleName("Question");
 		btnSave.getAccessibleContext().setAccessibleName("Save");
-		btnExit.getAccessibleContext().setAccessibleName("Exit");
 		lblWhichButtonIs.getAccessibleContext().setAccessibleName("Which Button is the Correct Answer");
 		lblCorrectAnswer.getAccessibleContext().setAccessibleName("If Answer is Correct");
 		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");
