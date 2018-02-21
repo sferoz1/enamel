@@ -1,9 +1,12 @@
 package enamel;
 
+
 import java.util.LinkedList;
 
 public class EventList {
-	private LinkedList<ScenarioEvent> timeline;
+	
+	protected LinkedList<ScenarioEvent> timeline;
+	
 	
 	public EventList(){
 		this.timeline = new LinkedList<ScenarioEvent>();
