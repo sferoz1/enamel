@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ScenarioEditor {
 
@@ -78,6 +80,7 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(scrollPane);
 		
 		list = new JList();
+		
 		scrollPane.setViewportView(list);
 		
 		DLM = new DefaultListModel();
@@ -134,6 +137,30 @@ public class ScenarioEditor {
 		btnEditEvent.setEnabled(false);
 		btnEditEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ScenarioEvent edit = (ScenarioEvent) list.getSelectedValue();
+				String[] args = {"0"};
+				EventEditor.main(args, edit);
+			}
+		});
+		JButton btnDeleteEvent = new JButton("Delete Event");
+		btnDeleteEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScenarioEvent delete = (ScenarioEvent) list.getSelectedValue();
+				deleteEvent(delete);
+				
+			}
+		});
+		btnDeleteEvent.setEnabled(true);
+		btnDeleteEvent.setBounds(143, 306, 133, 29);
+		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
+		
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (list.isSelectionEmpty() == false) {
+					btnEditEvent.setEnabled(true);
+					btnDeleteEvent.setEnabled(true);
+				}
 			}
 		});
 		
@@ -143,7 +170,8 @@ public class ScenarioEditor {
 		JButton btnAddEvent = new JButton("Add Event...");
 		btnAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventEditor.main(null); //load event editor to edit event
+				String[] args = {"1"};
+				EventEditor.main(args, null); //load event editor to edit event
 			}
 		});
 		btnAddEvent.setBounds(421, 306, 133, 29);
@@ -162,10 +190,6 @@ public class ScenarioEditor {
 		btnExit.setBounds(413, 44, 117, 29);
 		frmScenarioEditor.getContentPane().add(btnExit);
 		
-		JButton btnDeleteEvent = new JButton("Delete Event");
-		btnDeleteEvent.setEnabled(false);
-		btnDeleteEvent.setBounds(143, 306, 133, 29);
-		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
 		
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
@@ -176,6 +200,7 @@ public class ScenarioEditor {
 		btnEditEvent.getAccessibleContext().setAccessibleName("Edit Event");
 		btnAddEvent.getAccessibleContext().setAccessibleName("Add Event");
 		btnExit.getAccessibleContext().setAccessibleName("Exit");
+		
 	}
 
 	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, int correctAns){
@@ -201,11 +226,24 @@ public class ScenarioEditor {
 			e.setIndex(i);
 			System.out.println("ADDED TO DLM!1");
 		}
-		
 	}
 	
-	public static void editEvent(ScenarioEvent editMe, String title, String question, String responseRight, String responseWrong, int correctAns) {
-		editMe.overwrite(title, question, responseRight, responseWrong, correctAns);
+	//public static void editEvent(ScenarioEvent editMe) {
+		
+	//}
+	
+	public static void deleteEvent(ScenarioEvent e) {
+		timeline.remove(e);
+		Collections.sort(timeline);
+		DLM.removeAllElements();
+		for(int i = 0; i < timeline.getSize()-1; i++) {
+			System.out.println("LOOPING...");
+			ScenarioEvent d = timeline.get(i);
+			System.out.println("mapped...");
+			DLM.addElement(d);
+			e.setIndex(i);
+			System.out.println("REMOVED TO DLM!1");
+		}
 	}
 	
 	private static void refreshTimeline(){
