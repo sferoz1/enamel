@@ -8,12 +8,14 @@ import java.util.LinkedList;
 public class ScenarioWriter {
 	private static Scenario scenarioToFile = null;
 	private static String fileContent;
+	protected static String pathName;
 	
-	public ScenarioWriter(Scenario scenario){
+	public ScenarioWriter(Scenario scenario, String pathName){
+		
 		scenarioToFile = scenario;
 
 	//file content INTRO + set up
-  	  fileContent = Integer.toString(scenarioToFile.cellNumber) +  '\n' + Integer.toString(scenarioToFile.buttonNumber) + '\n';
+  	  fileContent = "Cell Number: " + Integer.toString(scenarioToFile.cellNumber) +  '\n' + Integer.toString(scenarioToFile.buttonNumber) + '\n';
   	  fileContent += "/~disp-clearAll";
   	  fileContent += scenarioToFile.Title + '\n';
   	 // fileContent +=   "/~disp-cell-pins:" + "NEED TO SET NUM1 AND PINS" + '\n';
@@ -48,9 +50,10 @@ public class ScenarioWriter {
 	  public static void main(String[] args) {
 	      BufferedWriter bw = null;
 	      try {
+	    
 	         //Specify the file name and path here
-		 File file = new File(scenarioToFile.Title);
-		 String fileAbsolutePath = file.getAbsolutePath();
+		 File file = new File(pathName); //
+		 //String fileAbsolutePath = file.getAbsolutePath();
 		 /* This logic will make sure that the file 
 		  * gets created if it is not present at the
 		  * specified location*/
@@ -61,8 +64,8 @@ public class ScenarioWriter {
 		  FileWriter fw = new FileWriter(file);
 		  bw = new BufferedWriter(fw);
 		  bw.write(fileContent);
-		  SucessfulScenFileCreation successWindow = new SucessfulScenFileCreation(scenarioToFile);
-		  successWindow.main(args);
+		 // SucessfulScenFileCreation successWindow = new SucessfulScenFileCreation(scenarioToFile);
+		  //successWindow.main(args);
 	       System.out.println("File written Successfully");
 
 	      } catch (IOException ioe) {
