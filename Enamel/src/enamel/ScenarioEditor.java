@@ -2,7 +2,8 @@ package enamel;
 
 import java.awt.EventQueue;
 
-
+import java.io.*;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -97,6 +98,12 @@ public class ScenarioEditor {
 		titleField.setColumns(10);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String filePath = saveScenario();
+				// pass filePath back into ScenarioWriter's FileWriter
+			}
+		});
 		btnSave.setBounds(413, 17, 117, 29);
 		frmScenarioEditor.getContentPane().add(btnSave);
 		
@@ -251,6 +258,22 @@ public class ScenarioEditor {
 			ScenarioEvent e = timeline.get(i);
 			DLM.addElement(e);
 			System.out.println("ADDED TO DLM!1");
+		}
+	}
+	
+	public String saveScenario(){
+		JFrame saveWindow = new JFrame();
+		 
+		JFileChooser saveFile = new JFileChooser();
+		saveFile.setDialogTitle("Specify a file to save");   
+		 
+		int userSelection = saveFile.showSaveDialog(saveWindow);
+		 
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+		    File fileToSave = saveFile.getSelectedFile();
+		    return fileToSave.getAbsolutePath();
+		} else {
+			return null;
 		}
 	}
 }
