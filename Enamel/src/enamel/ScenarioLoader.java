@@ -62,6 +62,7 @@ public class ScenarioLoader extends JDialog {
 			btnEditExistingScenario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					EventEditor.main(null, null); //load Event editor
+					ScenarioEditor.main(null); //Load Scenario Editor
 				}
 			});
 			btnEditExistingScenario.setFont(new Font("Tahoma", Font.PLAIN, 15));
