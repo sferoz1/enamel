@@ -39,12 +39,12 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 	}
 	
 	public String getResponseRight(){
-		return this.responseWrong;
+		return this.responseRight;
 		
 	}
 	
 	public String getResponseWrong(){
-		return this.responseRight;
+		return this.responseWrong;
 		
 	}
 	
