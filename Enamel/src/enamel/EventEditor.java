@@ -664,9 +664,74 @@ public class EventEditor extends JFrame{
 			eight = Character.toString(cells[i].charAt(7));
 		}
 		C1P1.setText(Character.toString(cells[0].charAt(0)));
-		C1P2.setText(t);
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		C5P1.setText(Character.toString(cells[4].charAt(0)));
+		C5P2.setText(Character.toString(cells[4].charAt(1)));
+		C5P3.setText(Character.toString(cells[4].charAt(2)));
+		C5P4.setText(Character.toString(cells[4].charAt(3)));
+		C5P5.setText(Character.toString(cells[4].charAt(4)));
+		C5P6.setText(Character.toString(cells[4].charAt(5)));
+		C5P7.setText(Character.toString(cells[4].charAt(6)));
+		C5P8.setText(Character.toString(cells[4].charAt(7)));
+		C6P1.setText(Character.toString(cells[5].charAt(0)));
+		C6P2.setText(Character.toString(cells[5].charAt(1)));
+		C6P3.setText(Character.toString(cells[5].charAt(2)));
+		C6P4.setText(Character.toString(cells[5].charAt(3)));
+		C6P5.setText(Character.toString(cells[5].charAt(4)));
+		C6P6.setText(Character.toString(cells[5].charAt(5)));
+		C6P7.setText(Character.toString(cells[5].charAt(6)));
+		C6P8.setText(Character.toString(cells[5].charAt(7)));
+		C7P1.setText(Character.toString(cells[6].charAt(0)));
+		C7P2.setText(Character.toString(cells[6].charAt(1)));
+		C7P3.setText(Character.toString(cells[6].charAt(2)));
+		C7P4.setText(Character.toString(cells[6].charAt(3)));
+		C7P5.setText(Character.toString(cells[6].charAt(4)));
+		C7P6.setText(Character.toString(cells[6].charAt(5)));
+		C7P7.setText(Character.toString(cells[6].charAt(6)));
+		C7P8.setText(Character.toString(cells[6].charAt(7)));
+		C8P1.setText(Character.toString(cells[7].charAt(0)));
+		C8P2.setText(Character.toString(cells[7].charAt(1)));
+		C8P3.setText(Character.toString(cells[7].charAt(2)));
+		C8P4.setText(Character.toString(cells[7].charAt(3)));
+		C8P5.setText(Character.toString(cells[7].charAt(4)));
+		C8P6.setText(Character.toString(cells[7].charAt(5)));
+		C8P7.setText(Character.toString(cells[7].charAt(6)));
+		C8P8.setText(Character.toString(cells[7].charAt(7)));
 	}
 	
 	public String[] parseCells(){
