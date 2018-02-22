@@ -22,9 +22,9 @@ public class ScenarioWriter {
   	  //this.fileContent += "These are pins" + PIN NUMBERS;
   
   	  // file content events
-  	  for(int i = 0; i < scenarioToFile.scenarioEventList.timeline.size(); i++){
+  	  for(int i = 0; i < scenarioToFile.scenarioEventList.getSize(); i++){
   		  
-  		  ScenarioEvent myEvent = scenarioToFile.scenarioEventList.timeline.get(i);
+  		  ScenarioEvent myEvent = scenarioToFile.scenarioEventList.get(i);
   		
   		 
   		   fileContent += fileContent + myEvent.getQuestion() + '\n' + "/~pause:3" + '\n' + "/~skip-button:"+myEvent.getCorrectAns() + " CORRECT" + '\n';
