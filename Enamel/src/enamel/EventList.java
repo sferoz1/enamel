@@ -8,8 +8,8 @@ import java.util.LinkedList;
 public class EventList extends LinkedList<ScenarioEvent>{
 	private int size;
 	
-	public LinkedList<ScenarioEvent> timeline;
-	
+
+	protected LinkedList<ScenarioEvent> timeline;	
 	
 	public EventList(){
 		this.timeline = new LinkedList<ScenarioEvent>();
