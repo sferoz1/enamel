@@ -40,7 +40,7 @@ public class ScenarioEditor {
 	 */
 	
 	
-	public static void main(String[] args, Scenario scenario) {
+	public static void main(String[] args) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -251,7 +251,7 @@ public class ScenarioEditor {
 		timeline.remove(e);
 		Collections.sort(timeline);
 		DLM.removeAllElements();
-		for(int i = 0; i < timeline.getSize()-1; i++) {
+		for(int i = 0; i < timeline.getSize(); i++) {
 			System.out.println("LOOPING...");
 			ScenarioEvent d = timeline.get(i);
 			System.out.println("mapped...");
