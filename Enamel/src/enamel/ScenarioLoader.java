@@ -1,6 +1,7 @@
 package enamel;
 
-import java.awt.BorderLayout;
+
+ java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
