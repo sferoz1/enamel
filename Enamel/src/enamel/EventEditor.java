@@ -219,321 +219,385 @@ public class EventEditor extends JFrame{
 		contentPane.add(lblCell_1);
 		
 		C1P1 = new JTextField();
+		C1P1.setText("0");
 		C1P1.setBounds(333, 47, 17, 22);
 		contentPane.add(C1P1);
 		C1P1.setColumns(10);
 		
 		C1P2 = new JTextField();
+		C1P2.setText("0");
 		C1P2.setColumns(10);
 		C1P2.setBounds(364, 47, 17, 22);
 		contentPane.add(C1P2);
 		
 		C1P3 = new JTextField();
+		C1P3.setText("0");
 		C1P3.setColumns(10);
 		C1P3.setBounds(333, 80, 17, 22);
 		contentPane.add(C1P3);
 		
 		C1P4 = new JTextField();
+		C1P4.setText("0");
 		C1P4.setColumns(10);
 		C1P4.setBounds(364, 80, 17, 22);
 		contentPane.add(C1P4);
 		
 		C1P5 = new JTextField();
+		C1P5.setText("0");
 		C1P5.setColumns(10);
 		C1P5.setBounds(333, 115, 17, 22);
 		contentPane.add(C1P5);
 		
 		C1P6 = new JTextField();
+		C1P6.setText("0");
 		C1P6.setColumns(10);
 		C1P6.setBounds(364, 115, 17, 22);
 		contentPane.add(C1P6);
 		
 		C1P7 = new JTextField();
+		C1P7.setText("0");
 		C1P7.setColumns(10);
 		C1P7.setBounds(333, 150, 17, 22);
 		contentPane.add(C1P7);
 		
 		C1P8 = new JTextField();
+		C1P8.setText("0");
 		C1P8.setColumns(10);
 		C1P8.setBounds(364, 150, 17, 22);
 		contentPane.add(C1P8);
 		
 		C2P1 = new JTextField();
+		C2P1.setText("0");
 		C2P1.setColumns(10);
 		C2P1.setBounds(412, 47, 17, 22);
 		contentPane.add(C2P1);
 		
 		C2P2 = new JTextField();
+		C2P2.setText("0");
 		C2P2.setColumns(10);
 		C2P2.setBounds(443, 47, 17, 22);
 		contentPane.add(C2P2);
 		
 		C2P3 = new JTextField();
+		C2P3.setText("0");
 		C2P3.setColumns(10);
 		C2P3.setBounds(412, 80, 17, 22);
 		contentPane.add(C2P3);
 		
 		C2P4 = new JTextField();
+		C2P4.setText("0");
 		C2P4.setColumns(10);
 		C2P4.setBounds(443, 80, 17, 22);
 		contentPane.add(C2P4);
 		
 		C2P5 = new JTextField();
+		C2P5.setText("0");
 		C2P5.setColumns(10);
 		C2P5.setBounds(412, 115, 17, 22);
 		contentPane.add(C2P5);
 		
 		C2P6 = new JTextField();
+		C2P6.setText("0");
 		C2P6.setColumns(10);
 		C2P6.setBounds(443, 115, 17, 22);
 		contentPane.add(C2P6);
 		
 		C2P7 = new JTextField();
+		C2P7.setText("0");
 		C2P7.setColumns(10);
 		C2P7.setBounds(412, 150, 17, 22);
 		contentPane.add(C2P7);
 		
 		C2P8 = new JTextField();
+		C2P8.setText("0");
 		C2P8.setColumns(10);
 		C2P8.setBounds(443, 150, 17, 22);
 		contentPane.add(C2P8);
 		
 		C3P1 = new JTextField();
+		C3P1.setText("0");
 		C3P1.setColumns(10);
 		C3P1.setBounds(490, 47, 17, 22);
 		contentPane.add(C3P1);
 		
 		C3P2 = new JTextField();
+		C3P2.setText("0");
 		C3P2.setColumns(10);
 		C3P2.setBounds(521, 47, 17, 22);
 		contentPane.add(C3P2);
 		
 		C3P3 = new JTextField();
+		C3P3.setText("0");
 		C3P3.setColumns(10);
 		C3P3.setBounds(490, 80, 17, 22);
 		contentPane.add(C3P3);
 		
 		C3P4 = new JTextField();
+		C3P4.setText("0");
 		C3P4.setColumns(10);
 		C3P4.setBounds(521, 80, 17, 22);
 		contentPane.add(C3P4);
 		
 		C3P5 = new JTextField();
+		C3P5.setText("0");
 		C3P5.setColumns(10);
 		C3P5.setBounds(490, 115, 17, 22);
 		contentPane.add(C3P5);
 		
 		C3P6 = new JTextField();
+		C3P6.setText("0");
 		C3P6.setColumns(10);
 		C3P6.setBounds(521, 115, 17, 22);
 		contentPane.add(C3P6);
 		
 		C3P7 = new JTextField();
+		C3P7.setText("0");
 		C3P7.setColumns(10);
 		C3P7.setBounds(490, 150, 17, 22);
 		contentPane.add(C3P7);
 		
 		C3P8 = new JTextField();
+		C3P8.setText("0");
 		C3P8.setColumns(10);
 		C3P8.setBounds(521, 150, 17, 22);
 		contentPane.add(C3P8);
 		
 		C4P1 = new JTextField();
+		C4P1.setText("0");
 		C4P1.setColumns(10);
 		C4P1.setBounds(573, 47, 17, 22);
 		contentPane.add(C4P1);
 		
 		C4P2 = new JTextField();
+		C4P2.setText("0");
 		C4P2.setColumns(10);
 		C4P2.setBounds(604, 47, 17, 22);
 		contentPane.add(C4P2);
 		
 		C4P3 = new JTextField();
+		C4P3.setText("0");
 		C4P3.setColumns(10);
 		C4P3.setBounds(573, 80, 17, 22);
 		contentPane.add(C4P3);
 		
 		C4P4 = new JTextField();
+		C4P4.setText("0");
 		C4P4.setColumns(10);
 		C4P4.setBounds(604, 80, 17, 22);
 		contentPane.add(C4P4);
 		
 		C4P5 = new JTextField();
+		C4P5.setText("0");
 		C4P5.setColumns(10);
 		C4P5.setBounds(573, 115, 17, 22);
 		contentPane.add(C4P5);
 		
 		C4P6 = new JTextField();
+		C4P6.setText("0");
 		C4P6.setColumns(10);
 		C4P6.setBounds(604, 115, 17, 22);
 		contentPane.add(C4P6);
 		
 		C4P7 = new JTextField();
+		C4P7.setText("0");
 		C4P7.setColumns(10);
 		C4P7.setBounds(573, 150, 17, 22);
 		contentPane.add(C4P7);
 		
 		C4P8 = new JTextField();
+		C4P8.setText("0");
 		C4P8.setColumns(10);
 		C4P8.setBounds(604, 150, 17, 22);
 		contentPane.add(C4P8);
 		
 		C5P1 = new JTextField();
+		C5P1.setText("0");
 		C5P1.setColumns(10);
 		C5P1.setBounds(333, 230, 17, 22);
 		contentPane.add(C5P1);
 		
 		C5P2 = new JTextField();
+		C5P2.setText("0");
 		C5P2.setColumns(10);
 		C5P2.setBounds(364, 230, 17, 22);
 		contentPane.add(C5P2);
 		
 		C5P3 = new JTextField();
+		C5P3.setText("0");
 		C5P3.setColumns(10);
 		C5P3.setBounds(333, 263, 17, 22);
 		contentPane.add(C5P3);
 		
 		C5P4 = new JTextField();
+		C5P4.setText("0");
 		C5P4.setColumns(10);
 		C5P4.setBounds(364, 263, 17, 22);
 		contentPane.add(C5P4);
 		
 		C5P5 = new JTextField();
+		C5P5.setText("0");
 		C5P5.setColumns(10);
 		C5P5.setBounds(333, 298, 17, 22);
 		contentPane.add(C5P5);
 		
 		C5P6 = new JTextField();
+		C5P6.setText("0");
 		C5P6.setColumns(10);
 		C5P6.setBounds(364, 298, 17, 22);
 		contentPane.add(C5P6);
 		
 		C5P7 = new JTextField();
+		C5P7.setText("0");
 		C5P7.setColumns(10);
 		C5P7.setBounds(333, 333, 17, 22);
 		contentPane.add(C5P7);
 		
 		C5P8 = new JTextField();
+		C5P8.setText("0");
 		C5P8.setColumns(10);
 		C5P8.setBounds(364, 333, 17, 22);
 		contentPane.add(C5P8);
 		
 		C6P1 = new JTextField();
+		C6P1.setText("0");
 		C6P1.setColumns(10);
 		C6P1.setBounds(412, 230, 17, 22);
 		contentPane.add(C6P1);
 		
 		C6P2 = new JTextField();
+		C6P2.setText("0");
 		C6P2.setColumns(10);
 		C6P2.setBounds(443, 230, 17, 22);
 		contentPane.add(C6P2);
 		
 		C6P3 = new JTextField();
+		C6P3.setText("0");
 		C6P3.setColumns(10);
 		C6P3.setBounds(412, 263, 17, 22);
 		contentPane.add(C6P3);
 		
 		C6P4 = new JTextField();
+		C6P4.setText("0");
 		C6P4.setColumns(10);
 		C6P4.setBounds(443, 263, 17, 22);
 		contentPane.add(C6P4);
 		
 		C6P5 = new JTextField();
+		C6P5.setText("0");
 		C6P5.setColumns(10);
 		C6P5.setBounds(412, 298, 17, 22);
 		contentPane.add(C6P5);
 		
 		C6P6 = new JTextField();
+		C6P6.setText("0");
 		C6P6.setColumns(10);
 		C6P6.setBounds(443, 298, 17, 22);
 		contentPane.add(C6P6);
 		
 		C6P7 = new JTextField();
+		C6P7.setText("0");
 		C6P7.setColumns(10);
 		C6P7.setBounds(412, 333, 17, 22);
 		contentPane.add(C6P7);
 		
 		C6P8 = new JTextField();
+		C6P8.setText("0");
 		C6P8.setColumns(10);
 		C6P8.setBounds(443, 333, 17, 22);
 		contentPane.add(C6P8);
 		
 		C7P1 = new JTextField();
+		C7P1.setText("0");
 		C7P1.setColumns(10);
 		C7P1.setBounds(490, 230, 17, 22);
 		contentPane.add(C7P1);
 		
 		C7P2 = new JTextField();
+		C7P2.setText("0");
 		C7P2.setColumns(10);
 		C7P2.setBounds(521, 230, 17, 22);
 		contentPane.add(C7P2);
 		
 		C7P3 = new JTextField();
+		C7P3.setText("0");
 		C7P3.setColumns(10);
 		C7P3.setBounds(490, 263, 17, 22);
 		contentPane.add(C7P3);
 		
 		C7P4 = new JTextField();
+		C7P4.setText("0");
 		C7P4.setColumns(10);
 		C7P4.setBounds(521, 263, 17, 22);
 		contentPane.add(C7P4);
 		
 		C7P5 = new JTextField();
+		C7P5.setText("0");
 		C7P5.setColumns(10);
 		C7P5.setBounds(490, 298, 17, 22);
 		contentPane.add(C7P5);
 		
 		C7P6 = new JTextField();
+		C7P6.setText("0");
 		C7P6.setColumns(10);
 		C7P6.setBounds(521, 298, 17, 22);
 		contentPane.add(C7P6);
 		
 		C7P7 = new JTextField();
+		C7P7.setText("0");
 		C7P7.setColumns(10);
 		C7P7.setBounds(490, 333, 17, 22);
 		contentPane.add(C7P7);
 		
 		C7P8 = new JTextField();
+		C7P8.setText("0");
 		C7P8.setColumns(10);
 		C7P8.setBounds(521, 333, 17, 22);
 		contentPane.add(C7P8);
 		
 		C8P1 = new JTextField();
+		C8P1.setText("0");
 		C8P1.setColumns(10);
 		C8P1.setBounds(573, 230, 17, 22);
 		contentPane.add(C8P1);
 		
 		C8P2 = new JTextField();
+		C8P2.setText("0");
 		C8P2.setColumns(10);
 		C8P2.setBounds(604, 230, 17, 22);
 		contentPane.add(C8P2);
 		
 		C8P3 = new JTextField();
+		C8P3.setText("0");
 		C8P3.setColumns(10);
 		C8P3.setBounds(573, 263, 17, 22);
 		contentPane.add(C8P3);
 		
 		C8P4 = new JTextField();
+		C8P4.setText("0");
 		C8P4.setColumns(10);
 		C8P4.setBounds(604, 263, 17, 22);
 		contentPane.add(C8P4);
 		
 		C8P5 = new JTextField();
+		C8P5.setText("0");
 		C8P5.setColumns(10);
 		C8P5.setBounds(573, 298, 17, 22);
 		contentPane.add(C8P5);
 		
 		C8P6 = new JTextField();
+		C8P6.setText("0");
 		C8P6.setColumns(10);
 		C8P6.setBounds(604, 298, 17, 22);
 		contentPane.add(C8P6);
 		
 		C8P7 = new JTextField();
+		C8P7.setText("0");
 		C8P7.setColumns(10);
 		C8P7.setBounds(573, 333, 17, 22);
 		contentPane.add(C8P7);
 		
 		C8P8 = new JTextField();
+		C8P8.setText("0");
 		C8P8.setColumns(10);
 		C8P8.setBounds(604, 333, 17, 22);
 		contentPane.add(C8P8);
