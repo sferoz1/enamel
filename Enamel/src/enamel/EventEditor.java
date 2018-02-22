@@ -206,8 +206,9 @@ public class EventEditor extends JFrame{
 			String question = textQuestion.getText();
 			String responseRight = textAnsRight.getText();
 			String responseWrong = textAnsWrong.getText();
+			String[] cellArray = parseCells();
 			int correctAns = list.getSelectedIndex();
-			ScenarioEditor.addEvent(index, title, question, responseRight, responseWrong, correctAns);
+			ScenarioEditor.addEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns);
 			frmEventEditor.dispose();
 			}
 		});

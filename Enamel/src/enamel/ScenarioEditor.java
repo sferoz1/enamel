@@ -104,7 +104,7 @@ public class ScenarioEditor {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = saveScenario();
 				Scenario createNewScenario = new Scenario(Integer.parseInt(textField.getText()), Integer.parseInt(textField_1.getText()) ,titleField.getText(), timeline);
-				ScenarioWriter  scenarioToFile = new ScenarioWriter(createNewScenario, filePath);
+				ScenarioWriter scenarioToFile = new ScenarioWriter(createNewScenario, filePath);
 				// initializes a file for a new scenario
 				// pass filePath back into ScenarioWriter's FileWriter
 			}
@@ -220,28 +220,15 @@ public class ScenarioEditor {
 		
 	}
 
-	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, int correctAns){
-		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, correctAns);
-		System.out.println("TITLE: " + addMe.getTitle());
-		System.out.println("QUESTION: " + addMe.getQuestion());
-		System.out.println("RIGHT: " + addMe.getResponseRight());
-		System.out.println("WRONG: " + addMe.getResponseWrong());
-		System.out.println("CORRECT NUM: " + addMe.getCorrectAns());
+	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, String[] cellArray, int correctAns){
+		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns);
 		timeline.add(addMe);
-		System.out.println("ADDED TO TIMELINE!");
-		System.out.println("ADDED TO DLM!");
 		Collections.sort(timeline);
-		System.out.println("SORTED");
-		//refreshTimeline();
-		System.out.println("TIMELINE SIZE: " + timeline.getSize());
 		DLM.removeAllElements();
 		for(int i = 0; i < timeline.getSize(); i++) {
-			System.out.println("LOOPING...");
 			ScenarioEvent e = timeline.get(i);
-			System.out.println("mapped...");
 			DLM.addElement(e);
 			e.setIndex(i);
-			System.out.println("ADDED TO DLM!1");
 		}
 	}
 	
@@ -254,12 +241,9 @@ public class ScenarioEditor {
 		Collections.sort(timeline);
 		DLM.removeAllElements();
 		for(int i = 0; i < timeline.getSize(); i++) {
-			System.out.println("LOOPING...");
 			ScenarioEvent d = timeline.get(i);
-			System.out.println("mapped...");
 			DLM.addElement(d);
 			e.setIndex(i);
-			System.out.println("REMOVED TO DLM!1");
 		}
 	}
 	
@@ -267,7 +251,6 @@ public class ScenarioEditor {
 		for(int i = 0; i < timeline.size(); i++) {
 			ScenarioEvent e = timeline.get(i);
 			DLM.addElement(e);
-			System.out.println("ADDED TO DLM!1");
 		}
 	}
 	

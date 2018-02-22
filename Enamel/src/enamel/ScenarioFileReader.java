@@ -30,7 +30,11 @@ public class ScenarioFileReader {
 				String responseRight = scenarioFileScanner.next();
 				String responseWrong = scenarioFileScanner.next();
 				index +=1;
-				ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong,correctAns);
+				
+				// For Sara: the line below has an error because no cell array is being passed to the constructor
+				// Read in each disp cell string into a String[] array and pass that into the constructor 
+				// For the file writer I made you a getCellArray method in ScenarioEvent
+				ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, correctAns);
 				eventList.add(index, readEvent);
 				}	
 			
