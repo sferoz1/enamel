@@ -38,7 +38,10 @@ public class ScenarioEditor {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	
+	
+	public static void main(String[] args, Scenario scenario) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -101,6 +104,8 @@ public class ScenarioEditor {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = saveScenario();
+				Scenario createNewScenario = new Scenario(0, 0 , "title", timeline);
+				ScenarioWriter  scenarioToFile = new ScenarioWriter(createNewScenario, filePath);
 				// pass filePath back into ScenarioWriter's FileWriter
 			}
 		});
