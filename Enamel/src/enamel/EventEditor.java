@@ -641,29 +641,21 @@ public class EventEditor extends JFrame{
 		}
 	
 	public static void populate(ScenarioEvent e) {
+		
 		int index = e.getIndex();
 		String title = e.getTitle();
 		String question = e.getQuestion();
 		String responseRight = e.getResponseRight();
 		String responseWrong = e.getResponseWrong();
 		int CorrectAns = e.getIndex();
+		
 		textIndex.setText(Integer.toString(index));
 		textTitle.setText(title);
 		textQuestion.setText(question);
 		textAnsRight.setText(responseRight);
 		textAnsWrong.setText(responseWrong);
-		String one, two, three, four, five, six, seven, eight;
+		
 		String[] cells = e.getCellArray();
-		for(int i = 0; i < 8; i++){
-			one = Character.toString(cells[i].charAt(0));
-			two = Character.toString(cells[i].charAt(1));
-			three = Character.toString(cells[i].charAt(2));
-			four = Character.toString(cells[i].charAt(3));
-			five = Character.toString(cells[i].charAt(4));
-			six = Character.toString(cells[i].charAt(5));
-			seven = Character.toString(cells[i].charAt(6));
-			eight = Character.toString(cells[i].charAt(7));
-		}
 		
 		C1P1.setText(Character.toString(cells[0].charAt(0)));
 		C1P2.setText(Character.toString(cells[0].charAt(1)));
