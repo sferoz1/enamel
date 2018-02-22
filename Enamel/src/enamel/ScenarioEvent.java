@@ -5,12 +5,12 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 	private String question;
 	private String responseRight;
 	private String responseWrong;
-	private String[] cellArray;
+	public String[] cellArray;
 	private int correctAns;
 	public int index;
 	
 	public ScenarioEvent(int index, String title, String question, String responseRight, String responseWrong, String[] cellArray, int correctAns) {
-		this.cellArray = new String[7];
+		this.cellArray = cellArray;
 		this.index = index;
 		this.title = title;
 		this.question = question;
@@ -63,8 +63,7 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 	}
 	
 	public String[] getCellArray() {
-		String[] cells = this.cellArray.clone();
-		return cells;
+		return this.cellArray;
 	}
 	
 	public String toString(){

@@ -152,7 +152,9 @@ public class ScenarioEditor {
 		btnEditEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScenarioEvent edit = (ScenarioEvent) list.getSelectedValue();
+				System.out.println("RECIEVED OBJECT");
 				String[] args = {"0"};
+				System.out.println("MADE ARGS");
 				EventEditor.main(args, edit);
 			}
 		});
@@ -182,7 +184,6 @@ public class ScenarioEditor {
 		btnDeleteEvent.setEnabled(false);
 		btnDeleteEvent.setBounds(143, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
-		
 		
 		JButton btnAddEvent = new JButton("Add Event...");
 		btnAddEvent.addActionListener(new ActionListener() {
@@ -222,6 +223,7 @@ public class ScenarioEditor {
 
 	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, String[] cellArray, int correctAns){
 		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns);
+		System.out.println("CELL ARRAY ADDED AS: " + addMe.cellArray[0]);
 		timeline.add(addMe);
 		Collections.sort(timeline);
 		DLM.removeAllElements();
@@ -232,9 +234,21 @@ public class ScenarioEditor {
 		}
 	}
 	
-	//public static void editEvent(ScenarioEvent editMe) {
-		
-	//}
+	public static void editEvent(ScenarioEvent e) {
+		System.out.println("EDITED");
+		timeline.remove(e);
+		System.out.println("REMOVED");
+		timeline.add(e.getIndex(), e);
+		System.out.println("READDED");
+		Collections.sort(timeline);
+		System.out.println("REFRESHING");
+		DLM.removeAllElements();
+		for(int i = 0; i < timeline.getSize(); i++) {
+			ScenarioEvent e = timeline.get(i);
+			DLM.addElement(e);
+			e.setIndex(i);
+		}
+	}
 	
 	public static void deleteEvent(ScenarioEvent e) {
 		timeline.remove(e);

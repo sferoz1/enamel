@@ -97,6 +97,8 @@ public class EventEditor extends JFrame{
 	private JLabel lblCell_6;
 	private JLabel lblCell_7;
 	private JLabel lblCell_8;
+	private static boolean isEdit;
+	public static ScenarioEvent toEdit;
 	/**
 	 * Launch the application.
 	 */
@@ -105,10 +107,18 @@ public class EventEditor extends JFrame{
 			public void run() {
 				try {
 					if (args[0] == "0"){
+						System.out.println("MAIN CALLED WITH ARGS TO EDIT");
+
+					toEdit = e;
 					EventEditor window = new EventEditor();
 					window.frmEventEditor.setVisible(true);
+					isEdit = true;
+					System.out.println("POPULATING...");
+
 					populate(e);
 					} else {
+						System.out.println("MAIN CALLED NO EDIT ARGS");
+					isEdit = false;
 					EventEditor window = new EventEditor();
 					window.frmEventEditor.setVisible(true);
 					}
@@ -206,10 +216,20 @@ public class EventEditor extends JFrame{
 			String question = textQuestion.getText();
 			String responseRight = textAnsRight.getText();
 			String responseWrong = textAnsWrong.getText();
+			System.out.println("PARSING CELLS...");
 			String[] cellArray = parseCells();
+			System.out.println("CELLS PARSED!");
 			int correctAns = list.getSelectedIndex();
+			System.out.println("CELLS PARSED!");
+			if (isEdit) {
+				toEdit.overwrite(title, question, responseRight, responseWrong, cellArray, correctAns);
+				System.out.println("EDITED");
+				ScenarioEditor.editEvent(toEdit);
+				frmEventEditor.dispose();
+			} else {
 			ScenarioEditor.addEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns);
 			frmEventEditor.dispose();
+			}
 			}
 		});
 		
@@ -654,8 +674,12 @@ public class EventEditor extends JFrame{
 		textQuestion.setText(question);
 		textAnsRight.setText(responseRight);
 		textAnsWrong.setText(responseWrong);
-		
-		String[] cells = e.getCellArray();
+		System.out.println("NON CELL FIELDS ALL SET");
+
+		String[] cells = e.cellArray;
+		System.out.println(cells[0]);
+		System.out.println("POPULATING CELLS...");
+		System.out.println(cells[0].charAt(0));
 		
 		C1P1.setText(Character.toString(cells[0].charAt(0)));
 		C1P2.setText(Character.toString(cells[0].charAt(1)));
@@ -665,7 +689,8 @@ public class EventEditor extends JFrame{
 		C1P6.setText(Character.toString(cells[0].charAt(5)));
 		C1P7.setText(Character.toString(cells[0].charAt(6)));
 		C1P8.setText(Character.toString(cells[0].charAt(7)));
-		
+		System.out.println("C1 POPULATED");
+
 		C2P1.setText(Character.toString(cells[1].charAt(0)));
 		C2P2.setText(Character.toString(cells[1].charAt(1)));
 		C2P3.setText(Character.toString(cells[1].charAt(2)));
@@ -683,7 +708,8 @@ public class EventEditor extends JFrame{
 		C3P6.setText(Character.toString(cells[2].charAt(5)));
 		C3P7.setText(Character.toString(cells[2].charAt(6)));
 		C3P8.setText(Character.toString(cells[2].charAt(7)));
-		
+		System.out.println("PARSED TO C3");
+
 		C4P1.setText(Character.toString(cells[3].charAt(0)));
 		C4P2.setText(Character.toString(cells[3].charAt(1)));
 		C4P3.setText(Character.toString(cells[3].charAt(2)));
@@ -724,11 +750,17 @@ public class EventEditor extends JFrame{
 		C8P6.setText(Character.toString(cells[7].charAt(5)));
 		C8P7.setText(Character.toString(cells[7].charAt(6)));
 		C8P8.setText(Character.toString(cells[7].charAt(7)));
+		System.out.println("ALL CELLS POPULATED");
+
 	}
 	
 	public String[] parseCells(){
-		String[] cellArray = new String[7];
+		System.out.println("IN METHOD");
+		String[] cellArray = new String[8];
+		System.out.println("ARRAY MADE");
 		cellArray[0] = C1P1.getText() + C1P2.getText() + C1P3.getText() + C1P4.getText() + C1P5.getText() + C1P6.getText() + C1P7.getText() + C1P8.getText();
+		System.out.println("FIRST ROUND OVER");
+		System.out.println(C1P1.getText() + C1P2.getText());
 		cellArray[1] = C2P1.getText() + C2P2.getText() + C2P3.getText() + C2P4.getText() + C2P5.getText() + C2P6.getText() + C2P7.getText() + C2P8.getText();
 		cellArray[2] = C3P1.getText() + C3P2.getText() + C3P3.getText() + C3P4.getText() + C3P5.getText() + C3P6.getText() + C3P7.getText() + C3P8.getText();
 		cellArray[3] = C4P1.getText() + C4P2.getText() + C4P3.getText() + C4P4.getText() + C4P5.getText() + C4P6.getText() + C4P7.getText() + C4P8.getText();
@@ -736,7 +768,8 @@ public class EventEditor extends JFrame{
 		cellArray[5] = C6P1.getText() + C6P2.getText() + C6P3.getText() + C6P4.getText() + C6P5.getText() + C6P6.getText() + C6P7.getText() + C6P8.getText();
 		cellArray[6] = C7P1.getText() + C7P2.getText() + C7P3.getText() + C7P4.getText() + C7P5.getText() + C7P6.getText() + C7P7.getText() + C7P8.getText();
 		cellArray[7] = C8P1.getText() + C8P2.getText() + C8P3.getText() + C8P4.getText() + C8P5.getText() + C8P6.getText() + C8P7.getText() + C8P8.getText();
-		
+		System.out.println("LAST ROUND OVER");
+		System.out.println(cellArray[0]);
 		return cellArray;
 	}
 }
