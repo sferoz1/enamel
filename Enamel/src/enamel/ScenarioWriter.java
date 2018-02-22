@@ -15,7 +15,7 @@ public class ScenarioWriter {
 		scenarioToFile = scenario;
 
 	//file content INTRO + set up
-  	  fileContent = "Cell Number: " + Integer.toString(scenarioToFile.cellNumber) +  '\n' + Integer.toString(scenarioToFile.buttonNumber) + '\n';
+  	  fileContent = "Cell " + Integer.toString(scenarioToFile.cellNumber) +  '\n' + "Button "+ Integer.toString(scenarioToFile.buttonNumber) + '\n';
   	  fileContent += "/~disp-clearAll";
   	  fileContent += scenarioToFile.Title + '\n';
   	 // fileContent +=   "/~disp-cell-pins:" + "NEED TO SET NUM1 AND PINS" + '\n';

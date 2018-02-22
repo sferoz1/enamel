@@ -13,7 +13,36 @@ public class Scenario {
 		this.scenarioEventList = events;
 		this.Title = Title;
 	}
+	public Scenario() {
+		this.cellNumber = -5;
+		this.buttonNumber = -5;
+		this.scenarioEventList = null;
+		this.Title = null;
+	}
 	
-	
+	public int getCellNumber() {
+		return this.cellNumber;
+	}
+	public void setCellNumber(int cellNumber){
+		this.cellNumber = cellNumber;
+	}
+	public int getButtonNumber() {
+		return this.buttonNumber;
+	}
+	public void setButtonNumber(int buttonNumber) {
+		this.buttonNumber  = buttonNumber;
+	}
+	public EventList getScenarioEventList() {
+		return this.scenarioEventList;
+	}
+	public void setScenarioEventList(EventList eventList) {
+		this.scenarioEventList = eventList;
+	}
+	public void setTitle (String title) {
+		this.Title = title;
+	}
+	public String getTitle () {
+		return this.Title;
+	}
 	
 }
