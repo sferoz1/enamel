@@ -663,8 +663,46 @@ public class EventEditor extends JFrame{
 			seven = Character.toString(cells[i].charAt(6));
 			eight = Character.toString(cells[i].charAt(7));
 		}
+<<<<<<< HEAD
 		C1P1.setText(Character.toString(cells[0].charAt(0)));
+=======
+>>>>>>> branch 'master' of https://github.com/sferoz1/enamel
 		
+		C1P1.setText(Character.toString(cells[0].charAt(0)));
+		C1P2.setText(Character.toString(cells[0].charAt(1)));
+		C1P3.setText(Character.toString(cells[0].charAt(2)));
+		C1P4.setText(Character.toString(cells[0].charAt(3)));
+		C1P5.setText(Character.toString(cells[0].charAt(4)));
+		C1P6.setText(Character.toString(cells[0].charAt(5)));
+		C1P7.setText(Character.toString(cells[0].charAt(6)));
+		C1P8.setText(Character.toString(cells[0].charAt(7)));
+		
+		C2P1.setText(Character.toString(cells[1].charAt(0)));
+		C2P2.setText(Character.toString(cells[1].charAt(1)));
+		C2P3.setText(Character.toString(cells[1].charAt(2)));
+		C2P4.setText(Character.toString(cells[1].charAt(3)));
+		C2P5.setText(Character.toString(cells[1].charAt(4)));
+		C2P6.setText(Character.toString(cells[1].charAt(5)));
+		C2P7.setText(Character.toString(cells[1].charAt(6)));
+		C2P8.setText(Character.toString(cells[1].charAt(7)));
+		
+		C3P1.setText(Character.toString(cells[2].charAt(0)));
+		C3P2.setText(Character.toString(cells[2].charAt(1)));
+		C3P3.setText(Character.toString(cells[2].charAt(2)));
+		C3P4.setText(Character.toString(cells[2].charAt(3)));
+		C3P5.setText(Character.toString(cells[2].charAt(4)));
+		C3P6.setText(Character.toString(cells[2].charAt(5)));
+		C3P7.setText(Character.toString(cells[2].charAt(6)));
+		C3P8.setText(Character.toString(cells[2].charAt(7)));
+		
+		C4P1.setText(Character.toString(cells[3].charAt(0)));
+		C4P2.setText(Character.toString(cells[3].charAt(1)));
+		C4P3.setText(Character.toString(cells[3].charAt(2)));
+		C4P4.setText(Character.toString(cells[3].charAt(3)));
+		C4P5.setText(Character.toString(cells[3].charAt(4)));
+		C4P6.setText(Character.toString(cells[3].charAt(5)));
+		C4P7.setText(Character.toString(cells[3].charAt(6)));
+		C4P8.setText(Character.toString(cells[3].charAt(7)));
 		
 		
 		
