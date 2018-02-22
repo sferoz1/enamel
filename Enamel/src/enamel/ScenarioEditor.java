@@ -149,18 +149,16 @@ public class ScenarioEditor {
 				EventEditor.main(args, edit);
 			}
 		});
-		JButton btnDeleteEvent = new JButton("Delete Event");
+		JButton btnDeleteEvent = new JButton("Delete Event...");
+		btnDeleteEvent.setEnabled(false);
 		btnDeleteEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScenarioEvent delete = (ScenarioEvent) list.getSelectedValue();
+				//String[] args = {"1"};
 				deleteEvent(delete);
 				
 			}
 		});
-		btnDeleteEvent.setEnabled(true);
-		btnDeleteEvent.setBounds(143, 306, 133, 29);
-		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
-		
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -173,6 +171,11 @@ public class ScenarioEditor {
 		
 		btnEditEvent.setBounds(282, 306, 133, 29);
 		frmScenarioEditor.getContentPane().add(btnEditEvent);
+		
+		btnDeleteEvent.setEnabled(false);
+		btnDeleteEvent.setBounds(143, 306, 133, 29);
+		frmScenarioEditor.getContentPane().add(btnDeleteEvent);
+		
 		
 		JButton btnAddEvent = new JButton("Add Event...");
 		btnAddEvent.addActionListener(new ActionListener() {

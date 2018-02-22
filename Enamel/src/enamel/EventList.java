@@ -22,7 +22,7 @@ public class EventList extends LinkedList<ScenarioEvent>{
 		updateIndexes();
 	}
 	
-	public void remove(ScenarioEvent e){
+	public void remove(int index, ScenarioEvent e){
 		timeline.remove(e);
 		size--;
 		updateIndexes();
