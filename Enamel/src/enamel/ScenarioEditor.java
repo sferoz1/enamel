@@ -104,11 +104,14 @@ public class ScenarioEditor {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = saveScenario();
-				Scenario createNewScenario = new Scenario(0, 0 , "title", timeline);
+				Scenario createNewScenario = new Scenario(Integer.parseInt(textField.getText()), Integer.parseInt(textField_1.getText()) ,titleField.getText(), timeline);
 				ScenarioWriter  scenarioToFile = new ScenarioWriter(createNewScenario, filePath);
+				// initializes a file for a new scenario
 				// pass filePath back into ScenarioWriter's FileWriter
 			}
 		});
+	
+	
 		btnSave.setBounds(413, 17, 117, 29);
 		frmScenarioEditor.getContentPane().add(btnSave);
 		
