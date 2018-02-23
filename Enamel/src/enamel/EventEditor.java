@@ -773,7 +773,6 @@ public class EventEditor extends JFrame{
 		cellArray[5] = C6P1.getText() + C6P2.getText() + C6P3.getText() + C6P4.getText() + C6P5.getText() + C6P6.getText() + C6P7.getText() + C6P8.getText();
 		cellArray[6] = C7P1.getText() + C7P2.getText() + C7P3.getText() + C7P4.getText() + C7P5.getText() + C7P6.getText() + C7P7.getText() + C7P8.getText();
 		cellArray[7] = C8P1.getText() + C8P2.getText() + C8P3.getText() + C8P4.getText() + C8P5.getText() + C8P6.getText() + C8P7.getText() + C8P8.getText();
-		System.out.println(cellArray[0]);
 		return cellArray;
 	}
 }
