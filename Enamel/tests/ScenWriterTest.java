@@ -8,6 +8,7 @@ import java.nio.file.Path;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,14 +29,16 @@ public class ScenWriterTest {
 		
 		Scenario scenWrite = new Scenario(3, 4, "My Title", tester);
 		//Paths.get("/Enamel/hi.txt");
-		File file = new  File("hi.txt");
+		File efile = new  File("ScenWriterTestOutput.txt");
+		File afile = new File("ScenarioWriterTestExpected.txt");
 		//file.getAbsolutePath();
-		ScenWriter w = new ScenWriter(scenWrite, file);
-		
+		//ScenWriter we = new ScenWriter(scenWrite, efile);
+		//ScenWriter wa = new ScenWriter(scenWrite, afile);
 		//String s = file.toString();
 		
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		
 		;
 		 
 	}
@@ -56,6 +59,7 @@ public class ScenWriterTest {
 		tester.add(4, event4);
 	
 		
+
 		
 	}
 
@@ -67,10 +71,33 @@ public class ScenWriterTest {
 
 	@Test
 	public void testWrite() {
-		w.write(scenWrite, file);
+		ScenWriter.write(scenWrite, afile);
+		System.out.println(afile.getAbsolutePath());
+		System.out.println(efile.getAbsolutePath());
 		
-		Assert.Equals()
+		try {
+			
+			FileReader e = new FileReader(efile);
+			FileReader a = new FileReader(afile);
+			
+			BufferedReader ereader = new BufferedReader(e);
+			BufferedReader areader = new BufferedReader(a);
+
+			String eline = null;
+			String aline =null;
+			while ((eline=ereader.readLine())!=null && ((aline=areader.readLine())!=null) ) {
+				Assert.assertEquals(eline, aline);
+				
+			}
+			ereader.close();
+			areader.close();
+			
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
 		
 	}
-
+	
 }

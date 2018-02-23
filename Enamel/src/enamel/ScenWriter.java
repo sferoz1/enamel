@@ -6,15 +6,18 @@ public class ScenWriter {
 	public String fileContent = "content";
 	public static File pathName;
 	
-	public ScenWriter(Scenario scenario, File pathName){ 
+	public ScenWriter(Scenario scenario, File p){ 
 		scenarioToFile = scenario;
+		pathName = p;
+		
 		
 	
 	}
 	
-	public void  write(Scenario scenarioToFile, File pathname){
+	public static void  write(Scenario scenarioToFile, File pathName){
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(pathname));
+			pathName.getName();
+			BufferedWriter writer = new BufferedWriter(new FileWriter(pathName));
 
 			//WRITING STUFF;
 			writer.write("Cell " + Integer.toString(scenarioToFile.cellNumber) +  '\n' + "Button "+ Integer.toString(scenarioToFile.buttonNumber) + '\n');
