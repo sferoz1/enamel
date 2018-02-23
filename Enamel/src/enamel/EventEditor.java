@@ -227,9 +227,12 @@ public class EventEditor extends JFrame{
 				ScenarioEditor.editEvent(toEdit);
 				frmEventEditor.dispose();
 			} else {
-			ScenarioEditor.addEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns);
+			ScenarioEditor.addEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns); 
 			frmEventEditor.dispose();
+			
 			}
+			//ScenWriter writer = new ScenWriter(scenarioWithEventsToFile, file);
+			 //writer.write(scenarioWithEventsToFile, file);
 			}
 		});
 		

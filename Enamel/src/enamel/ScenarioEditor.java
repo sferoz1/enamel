@@ -33,7 +33,7 @@ public class ScenarioEditor {
 	private JTextField textField_1;
 	private static JList list;
 	private static DefaultListModel DLM;
-	private static EventList timeline;
+	protected static EventList timeline;
 
 	/**
 	 * Launch the application.
@@ -192,7 +192,6 @@ public class ScenarioEditor {
 			public void actionPerformed(ActionEvent e) {
 				String[] args = {"1"};
 				EventEditor.main(args, null); //load event editor to edit event
-				//timeline.add(new ScenarioEvent(0, null, null, null, null, args, 0)); //NEED TO ADD TO TIMELINE
 			}
 		});
 		btnAddEvent.setBounds(421, 306, 133, 29);
