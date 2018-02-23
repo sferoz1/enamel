@@ -68,7 +68,8 @@ String[] cellarray = new String[2];
 	
 	@Test
 	public void testsetScenarioEventList() {
-		assertEquals(scentest.setScenarioEventList()
+		scentest.setScenarioEventList(tester);
+		assertEquals(scentest.getScenarioEventList(),tester);
 		
 	}
 	

@@ -21,7 +21,7 @@ public class EventListTest {
 	ScenarioEvent event2= new ScenarioEvent(2, "MyTitle2", "MyQuestion", "Right", "Wrong",cellarray, 0);
 	ScenarioEvent event3= new ScenarioEvent(3, "MyTitle3", "MyQuestion", "Right", "Wrong",cellarray, 0);
 	ScenarioEvent event4= new  ScenarioEvent(4, "MyTitle4", "MyQuestion", "Right", "Wrong",cellarray, 0);
-	
+	ScenarioEvent eventToAdd= new  ScenarioEvent(5, "MyTitle6", "MyQuestion", "Right", "Wrong",cellarray, 0);
 	
 
 
@@ -51,10 +51,12 @@ public class EventListTest {
 
 	@Test
 	public void testAdd() {
-		//tester.add(event4);
-		assertEquals(5, tester.getSize());
+		tester.add(0, eventToAdd);
+		assertEquals(6, tester.getSize());
+		assertEquals(eventToAdd, tester.getTimeline().get(0)); // tester.get(0) doesnt compile 
 		
 	}
+	
 	
 	
 	@Test

@@ -24,12 +24,12 @@ public class ScenWriter {
 			writer.write("/~disp-clearAll" + '\n');
 			writer.write(scenarioToFile.Title + '\n');
 			
+			// writing for events
 			
-			
-			// file content for events
-		  	  for(int i = 0; i < scenarioToFile.scenarioEventList.getSize(); i++){
+			//writing for pins
+		  	  for(int i = 0; i < scenarioToFile.scenarioEventList.getSize(); i++){ 
 		  		  
-		  		  ScenarioEvent myEvent = scenarioToFile.scenarioEventList.getTimeline().get(i);
+		  		ScenarioEvent myEvent = scenarioToFile.getScenarioEventList().getTimeline().get(i);
 		  		  
 		  		  //get pins
 		  		  int k = 0;

@@ -94,9 +94,5 @@ public class ScenarioEventTest {
 		assertEquals(0, event.getIndex());
 	}
 	
-	public void testCompareTo() {
-		assertEquals(event.compareTo(event1), 0);
-	}
-	
 	
 }
