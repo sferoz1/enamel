@@ -4,7 +4,7 @@ public class Scenario {
 	protected int cellNumber =0;
 	protected int buttonNumber=0;
 	public String title = "";
-	public EventList scenarioEventList = new EventList();
+	public EventList scenarioEventList;
 	public String Title = "";
 	
 	public Scenario(int cells, int buttons,String Title, EventList events) {
@@ -16,7 +16,7 @@ public class Scenario {
 	public Scenario() {
 		this.cellNumber = -5;
 		this.buttonNumber = -5;
-		this.scenarioEventList = null;
+		this.scenarioEventList = new EventList();
 		this.Title = null;
 	}
 	

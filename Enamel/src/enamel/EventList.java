@@ -7,7 +7,6 @@ import java.util.LinkedList;
 
 public class EventList extends LinkedList<ScenarioEvent>{
 	private int size;
-	
 
 	protected LinkedList<ScenarioEvent> timeline;	
 	
@@ -34,7 +33,6 @@ public class EventList extends LinkedList<ScenarioEvent>{
 	public LinkedList<ScenarioEvent> getTimeline() {
 		return this.timeline;
 	}
-	
 	
 	private void updateIndexes(){
 		for(int i = 0; i < this.size(); i++){

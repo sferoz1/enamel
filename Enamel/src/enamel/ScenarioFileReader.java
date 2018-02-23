@@ -22,7 +22,6 @@ public class ScenarioFileReader {
 		String title = scenarioFileScanner.next();
 		EventList eventList = new EventList();
 		
-		
 		while (scenarioFileScanner.hasNext()) {
 			String dispLine = null;
 			char[] charCellArray = null;
@@ -37,12 +36,8 @@ public class ScenarioFileReader {
 				 for (char c : charCellArray) {
 					 cellArray[i] = String.valueOf(c);
 					 i++;
-					 
-					 
+					 }
 				 }
-				 
-	
-			 }
 				 
 			if (!scenarioFileScanner.next().startsWith("/~") && !scenarioFileScanner.next().equals("CORRECT") && !scenarioFileScanner.next().equals("INCORRECT") ) {
 				String Question = scenarioFileScanner.next();
@@ -50,19 +45,24 @@ public class ScenarioFileReader {
 				String responseRight = scenarioFileScanner.next();
 				String responseWrong = scenarioFileScanner.next();
 				index +=1;
-			
-				
+
 				ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
 				eventList.add(index, readEvent);
 				
 				}	
 			
-				
 			}
 			//scenarioFileString += scenarioFileScanner.next();
-	
+		
 		scenarioFileScanner.close();
+		
+		// Build the Scenario object and pass it into ScenarioEditor as an exisitng scenario
+		Scenario edit = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
+		String[] args = {"0"};
+		ScenarioEditor.main(args, edit);
+		
 		}
+		
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
 			ErrorWindow errorWindow = new ErrorWindow("Error: File Not Found");

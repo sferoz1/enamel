@@ -9,9 +9,7 @@ public class ScenWriter {
 	public ScenWriter(Scenario scenario, File p){ 
 		scenarioToFile = scenario;
 		pathName = p;
-		
-		
-	
+
 	}
 	
 	public static void  write(Scenario scenarioToFile, File pathName){
@@ -20,45 +18,82 @@ public class ScenWriter {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(pathName));
 
 			//WRITING STUFF;
-			writer.write("Cell " + Integer.toString(scenarioToFile.cellNumber) +  '\n' + "Button "+ Integer.toString(scenarioToFile.buttonNumber) + '\n');
-			writer.write("/~disp-clearAll" + '\n');
-			writer.write(scenarioToFile.Title + '\n');
+			writer.write("Cell " + Integer.toString(scenarioToFile.cellNumber));
+			writer.newLine();
+			writer.write("Button "+ Integer.toString(scenarioToFile.buttonNumber));
+			writer.newLine();
+			//writer.write("/~disp-clearAll");
+			//writer.newLine();
+			writer.write(scenarioToFile.Title);
+			writer.newLine();
 			
 			// writing for events
+			//for(ScenarioEvent i : scenarioToFile.scenarioEventList) {
+				
+			//}
 			
 			//writing for pins
-		  	  for(int i = 0; i < scenarioToFile.scenarioEventList.getSize(); i++){ 
+		  	  for(int i = 0; i < scenarioToFile.scenarioEventList.size(); i++){ 
 		  		  
-		  		ScenarioEvent myEvent = scenarioToFile.getScenarioEventList().getTimeline().get(i);
-		  		  
+		  		ScenarioEvent myEvent = scenarioToFile.getScenarioEventList().get(i);
+		  		System.out.println("DEBUG STREAM:");
+		  		System.out.println("EVENT TITLE: " + myEvent.getTitle());
+		  		System.out.println("EVENT QUESTION: " + myEvent.getQuestion());
+		  		System.out.println("EVENT ANS: " + myEvent.getCorrectAns());
+		  		System.out.println("EVENT RIGHT: " + myEvent.getResponseRight());
+		  		System.out.println("EVENT WRONG: " + myEvent.getResponseWrong());
+
 		  		  //get pins
 		  		  int k = 0;
 		  		  for (String pins: myEvent.getCellArray()){
 		  			if (!pins.equals(null)){
-		  			writer.write( "/~disp-cell-pins: " + k + " " + pins + "\n"); 
+		  			writer.write( "/~disp-cell-pins:" + k + " " + pins);
+		  			writer.newLine();
 		  			}
 		  			k++;
 		  			break;
 		  		  }
 		  		
-		  		 
-		  		writer.write( myEvent.getQuestion() + '\n' + "/~pause:3" + '\n' + "/~skip-button:"+myEvent.getCorrectAns() + " CORRECT" + '\n');
-		  				  
-
-		  		
+		  		writer.write(myEvent.getQuestion());
+		  		writer.newLine(); 
+		  		writer.write("/~pause:3");
+		  		writer.newLine();
+		  		writer.write("/~skip-button:" + myEvent.getCorrectAns() + " CORRECT");
+		  		writer.newLine();
+		  				  		
 		  		 for (int j =0; j<= scenarioToFile.buttonNumber; j++){
 			  			  if (j != myEvent.getCorrectAns()){
-			  				writer.write("/~skip-button:"+Integer.toString(j) + " INCORRECT" + '\n');
+			  				writer.write("/~skip-button:"+Integer.toString(j) + " INCORRECT");
+			  				writer.newLine();
 			  			  }
-			  			writer.write("/~user-input"+ '\n');
-			  			  }
-		  		writer.write("/~CORRECT" + '\n' + "/~sound:correct.wav" + '\n' + myEvent.getResponseRight()+ '\n' + "/~skip:NEXTT" + '\n');
-		  		writer.write( "/~INCORRECT" + '\n' + "/~sound:wrong.wav" + '\n' + myEvent.getResponseWrong()+ '\n' + "/~skip:NEXTT" + '\n');
-		  		writer.write( "/~NEXTT" + '\n' +  "/~reset-buttons "+ '\n'+ "/~disp-clearAll" + '\n');
+			  			writer.newLine();
+			  	}
+		  		writer.write("/~user-input");
+		  		writer.newLine();
+		  		writer.write("/~CORRECT"); 
+			  	writer.newLine();
+			  	writer.write("/~sound:correct.wav");
+			  	writer.newLine();
+			  	writer.write(myEvent.getResponseRight()); 
+			  	writer.newLine();
+			  	writer.write("/~skip:NEXTT"); 
+			  	writer.newLine();
+		  		writer.write( "/~INCORRECT");
+		  		writer.newLine(); 
+		  		writer.write("/~sound:wrong.wav");
+		  		writer.newLine(); 
+		  		writer.write(myEvent.getResponseWrong()); 
+		  		writer.newLine();
+		  		writer.write("/~skip:NEXTT"); 
+		  		writer.newLine();
+		  		writer.write( "/~NEXTT");
+		  		writer.newLine();
+		  		writer.write("/~reset-buttons "); 
+		  		writer.newLine();
+		  		writer.write("/~disp-clearAll");
+		  		writer.newLine();
 		  	  }
-				
-			
-						
+
 			writer.close();
 		}
 		catch (IOException ex) {

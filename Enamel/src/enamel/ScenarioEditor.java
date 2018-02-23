@@ -24,28 +24,42 @@ import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.BevelBorder;
+import java.awt.Color;
 
 public class ScenarioEditor {
 
 	private JFrame frmScenarioEditor;
-	private JTextField titleField;
-	private JTextField textField;
-	private JTextField textField_1;
+	private static JTextField titleField;
 	private static JList list;
 	private static DefaultListModel DLM;
+	private static JComboBox cellBox, buttonBox;
 	protected static EventList timeline;
-
+	private static Scenario editing;
+	private static boolean isEdit;
 	/**
 	 * Launch the application.
 	 */
 	
-	public static void main(String[] args) {
+	public static void main(String[] args, Scenario editMe) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ScenarioEditor window = new ScenarioEditor();
-					window.frmScenarioEditor.setVisible(true);
+					if(args[0] == "0") {
+						ScenarioEditor window = new ScenarioEditor();
+						window.frmScenarioEditor.setVisible(true);
+						isEdit = true;
+						editing = editMe;
+						populate();
+					} else {
+						ScenarioEditor window = new ScenarioEditor();
+						window.frmScenarioEditor.setVisible(true);
+						isEdit = false;
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -59,13 +73,16 @@ public class ScenarioEditor {
 	public ScenarioEditor() {
 		initialize();
 	}
-	
-	public ScenarioEditor(String filename) {
-		initialize();
-		setParameters();
-	}
-	private void setParameters() {
-		
+
+	private static void populate() {
+		String title = editing.getTitle();
+		int cells = editing.getCellNumber();
+		int buttons = editing.getButtonNumber();
+		EventList events = editing.getScenarioEventList();
+		titleField.setText(title);
+		cellBox.setSelectedIndex(cells-1);
+		buttonBox.setSelectedIndex(buttons-1);
+		timeline = events;
 	}
 	/**
 	 * Initialize the contents of the frame.
@@ -83,11 +100,14 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(scrollPane);
 		
 		list = new JList();
+		list.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, null, null, null));
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		scrollPane.setViewportView(list);
 		
 		DLM = new DefaultListModel();
 		list.setModel(DLM);
+		
 		JLabel lblTitle = new JLabel("Title:");
 		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		lblTitle.setBounds(38, 20, 61, 16);
@@ -99,11 +119,23 @@ public class ScenarioEditor {
 		frmScenarioEditor.getContentPane().add(titleField);
 		titleField.setColumns(10);
 		
+		cellBox = new JComboBox();
+		cellBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8"}));
+		cellBox.setBounds(97, 47, 97, 26);
+		frmScenarioEditor.getContentPane().add(cellBox);
+		
+		buttonBox = new JComboBox();
+		buttonBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4"}));
+		buttonBox.setBounds(304, 46, 97, 26);
+		frmScenarioEditor.getContentPane().add(buttonBox);
+		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = saveScenarioWindow();
-				Scenario createNewScenario = new Scenario(Integer.parseInt(textField.getText()), Integer.parseInt(textField_1.getText()) ,titleField.getText(), timeline);
+				int cells = Integer.parseInt(cellBox.getSelectedItem().toString());
+				int buttons = Integer.parseInt(buttonBox.getSelectedItem().toString());
+				Scenario createNewScenario = new Scenario(cells, buttons, titleField.getText(), timeline);
 				ScenWriter scenarioToFile = new ScenWriter(createNewScenario, file);
 				scenarioToFile.write(createNewScenario, file);
 				
@@ -120,18 +152,6 @@ public class ScenarioEditor {
 		cellLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		cellLabel.setBounds(38, 48, 61, 16);
 		frmScenarioEditor.getContentPane().add(cellLabel);
-		
-		textField = new JTextField();
-		textField.setToolTipText("Enter the number of cells to display");
-		textField.setBounds(97, 45, 97, 26);
-		frmScenarioEditor.getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setToolTipText("Enter the number of buttons to display");
-		textField_1.setColumns(10);
-		textField_1.setBounds(304, 45, 97, 26);
-		frmScenarioEditor.getContentPane().add(textField_1);
 		
 		JLabel lblButtons = new JLabel("Buttons: ");
 		lblButtons.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
@@ -154,9 +174,7 @@ public class ScenarioEditor {
 		btnEditEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScenarioEvent edit = (ScenarioEvent) list.getSelectedValue();
-				System.out.println("RECIEVED OBJECT");
 				String[] args = {"0"};
-				System.out.println("MADE ARGS");
 				EventEditor.main(args, edit);
 			}
 		});
@@ -165,9 +183,7 @@ public class ScenarioEditor {
 		btnDeleteEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScenarioEvent delete = (ScenarioEvent) list.getSelectedValue();
-				//String[] args = {"1"};
-				deleteEvent(delete);
-				
+				deleteEvent(delete);		
 			}
 		});
 		list.addMouseListener(new MouseAdapter() {
@@ -204,7 +220,8 @@ public class ScenarioEditor {
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				frmScenarioEditor.dispose();
+				Launcher.main(null);
 			}
 		});
 		btnExit.setBounds(413, 44, 117, 29);
@@ -224,11 +241,9 @@ public class ScenarioEditor {
 
 	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, String[] cellArray, int correctAns){
 		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns);
-		System.out.println("CELL ARRAY ADDED AS: " + addMe.cellArray[0]);
 		timeline.add(addMe);
 		Collections.sort(timeline);
 		DLM.removeAllElements();
-		System.out.print("TIMESIZE: " + timeline.size());
 		for(int i = 0; i < timeline.size(); i++) {
 			ScenarioEvent a = timeline.get(i);
 			DLM.addElement(a);
@@ -237,20 +252,13 @@ public class ScenarioEditor {
 	}
 	
 	public static void editEvent(ScenarioEvent e) {
-		System.out.println("EDITED");
 		timeline.remove(e);
-		System.out.println("REMOVED");
 		timeline.add(e);
-		System.out.println("READDED");
 		Collections.sort(timeline);
-		System.out.println("REFRESHING");
 		DLM.removeAllElements();
 		for(int i = 0; i < timeline.size(); i++) {
-			System.out.println("ITERATION: " + i);
 			ScenarioEvent a = timeline.get(i);
-			System.out.println("ADDING TO DLM");
 			DLM.addElement(a);
-			System.out.println("SETTING INDEX");
 			a.setIndex(i);
 		}
 	}

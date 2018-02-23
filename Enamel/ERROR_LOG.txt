@@ -1,7 +1,4 @@
-Feb 22, 2018 8:38:12 PM enamel.ScenarioParser errorLog
-WARNING: Exception error: java.lang.NumberFormatException: For input string: "enamel;"
-Feb 22, 2018 8:38:13 PM enamel.ScenarioParser errorLog
-INFO: Expected format: Cell num1 
- Button num2 
- as the first two lines of the scenarion file, and where num1 and num2 are positive integers. 
-Did not receive such a format in the scenario file and program had to end due to the incorrectfile format.
+Feb 23, 2018 4:12:40 PM enamel.ScenarioParser errorLog
+WARNING: Exception error : java.lang.InterruptedException: sleep interrupted
+Feb 23, 2018 4:12:40 PM enamel.ScenarioParser errorLog
+INFO: Strange error occurred if you are able to read this message. Possibilities could include possible file corruption, or that you have enter characters that could not be read/interpreted.
