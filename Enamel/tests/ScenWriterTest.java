@@ -30,7 +30,7 @@ public class ScenWriterTest {
 		Scenario scenWrite = new Scenario(3, 4, "My Title", tester);
 		//Paths.get("/Enamel/hi.txt");
 		File efile = new  File("ScenWriterTestOutput.txt");
-		File afile = new File("ScenarioWriterTestExpected.txt");
+		File afile = new File("ScenWriterTestExpected.txt");
 		//file.getAbsolutePath();
 		//ScenWriter we = new ScenWriter(scenWrite, efile);
 		//ScenWriter wa = new ScenWriter(scenWrite, afile);

@@ -1,8 +1,8 @@
-Cell 1
+Cell 3
 Button 4
 /~disp-clearAll
 My Title
-/~disp-cell-pins: 0 1
+/~disp-cell-pins: 0 100
 MyQuestion
 /~pause:3
 /~skip-button:0 CORRECT
@@ -26,7 +26,7 @@ Wrong
 /~NEXTT
 /~reset-buttons 
 /~disp-clearAll
-/~disp-cell-pins: 0 1
+/~disp-cell-pins: 0 100
 MyQuestion
 /~pause:3
 /~skip-button:0 CORRECT
@@ -50,7 +50,7 @@ Wrong
 /~NEXTT
 /~reset-buttons 
 /~disp-clearAll
-/~disp-cell-pins: 0 1
+/~disp-cell-pins: 0 100
 MyQuestion
 /~pause:3
 /~skip-button:0 CORRECT
@@ -74,7 +74,7 @@ Wrong
 /~NEXTT
 /~reset-buttons 
 /~disp-clearAll
-/~disp-cell-pins: 0 1
+/~disp-cell-pins: 0 100
 MyQuestion
 /~pause:3
 /~skip-button:0 CORRECT
@@ -98,7 +98,7 @@ Wrong
 /~NEXTT
 /~reset-buttons 
 /~disp-clearAll
-/~disp-cell-pins: 0 1
+/~disp-cell-pins: 0 100
 MyQuestion
 /~pause:3
 /~skip-button:0 CORRECT
