@@ -653,6 +653,11 @@ public class EventEditor extends JFrame{
 		lblCell_8 = new JLabel("Cell 8");
 		lblCell_8.setBounds(565, 195, 56, 16);
 		contentPane.add(lblCell_8);
+		
+		JLabel lblChangesTo = new JLabel("Change 0's to 1's in order to raise the pins");
+		lblChangesTo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblChangesTo.setBounds(343, 370, 289, 16);
+		contentPane.add(lblChangesTo);
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
 		lblQuestion.getAccessibleContext().setAccessibleName("Question");
