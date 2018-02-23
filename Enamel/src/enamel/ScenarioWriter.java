@@ -7,11 +7,12 @@ import java.util.LinkedList;
 
 public class ScenarioWriter {
 	private static Scenario scenarioToFile = null;
-	private static String fileContent;
-	protected static String pathName;
+	public String fileContent = "content";
+	protected static File pathName = null;
 	
-	public ScenarioWriter(Scenario scenario, String pathName){
-		
+	public ScenarioWriter(Scenario scenario, File pathName){
+		this.pathName = pathName;
+		this.fileContent = "";
 		scenarioToFile = scenario;
 
 	//file content INTRO + set up
@@ -24,7 +25,12 @@ public class ScenarioWriter {
   	  // file content events
   	  for(int i = 0; i < scenarioToFile.scenarioEventList.getSize(); i++){
   		  
-  		  ScenarioEvent myEvent = scenarioToFile.scenarioEventList.get(i);
+  		  ScenarioEvent myEvent = scenarioToFile.scenarioEventList.getTimeline().get(i);
+  		  int k = 0;
+  		  for (String pins: myEvent.getCellArray()){
+  			fileContent += "/~disp-cell-pins: " + k + " " + myEvent.getCellArray()[k] + "\n"; 
+  			k++;
+  		  }
   		
   		 
   		   fileContent += fileContent + myEvent.getQuestion() + '\n' + "/~pause:3" + '\n' + "/~skip-button:"+myEvent.getCorrectAns() + " CORRECT" + '\n';
@@ -40,14 +46,15 @@ public class ScenarioWriter {
   			fileContent += fileContent + "/~CORRECT" + '\n' + "/~sound:correct.wav" + '\n' + myEvent.getResponseRight()+ '\n' + "/~skip:NEXTT" + '\n';
   			fileContent += fileContent + "/~INCORRECT" + '\n' + "/~sound:wrong.wav" + '\n' + myEvent.getResponseWrong()+ '\n' + "/~skip:NEXTT" + '\n';
   			fileContent += fileContent + "/~NEXTT" +  "/~reset-buttons "+ '\n'+ "/~disp-clearAll" + '\n';
-  		   
   	  }
-				
+		   System.out.print(fileContent);
+		
 	}
 	
 	
 		
 	  public static void main(String[] args) {
+		  
 	      BufferedWriter bw = null;
 	      try {
 	    
@@ -64,6 +71,8 @@ public class ScenarioWriter {
 		  FileWriter fw = new FileWriter(file);
 		  bw = new BufferedWriter(fw);
 		  bw.write(fileContent);
+		  
+		  
 		 // SucessfulScenFileCreation successWindow = new SucessfulScenFileCreation(scenarioToFile);
 		  //successWindow.main(args);
 	       System.out.println("File written Successfully");

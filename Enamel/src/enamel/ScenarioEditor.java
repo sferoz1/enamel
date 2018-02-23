@@ -102,9 +102,11 @@ public class ScenarioEditor {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filePath = saveScenario();
+				File file = saveScenarioWindow();
 				Scenario createNewScenario = new Scenario(Integer.parseInt(textField.getText()), Integer.parseInt(textField_1.getText()) ,titleField.getText(), timeline);
-				ScenarioWriter scenarioToFile = new ScenarioWriter(createNewScenario, filePath);
+				ScenWriter scenarioToFile = new ScenWriter(createNewScenario, file);
+				scenarioToFile.write(createNewScenario, file);
+				
 				// initializes a file for a new scenario
 				// pass filePath back into ScenarioWriter's FileWriter
 			}
@@ -190,6 +192,7 @@ public class ScenarioEditor {
 			public void actionPerformed(ActionEvent e) {
 				String[] args = {"1"};
 				EventEditor.main(args, null); //load event editor to edit event
+				//timeline.add(new ScenarioEvent(0, null, null, null, null, args, 0)); //NEED TO ADD TO TIMELINE
 			}
 		});
 		btnAddEvent.setBounds(421, 306, 133, 29);
@@ -271,7 +274,7 @@ public class ScenarioEditor {
 		}
 	}
 	
-	public String saveScenario(){
+	public File saveScenarioWindow(){
 		JFrame saveWindow = new JFrame();
 		 
 		JFileChooser saveFile = new JFileChooser();
@@ -281,7 +284,8 @@ public class ScenarioEditor {
 		 
 		if (userSelection == JFileChooser.APPROVE_OPTION) {
 		    File fileToSave = saveFile.getSelectedFile();
-		    return fileToSave.getAbsolutePath();
+		    return fileToSave;
+		    //return fileToSave.getAbsolutePath();
 		} else {
 			return null;
 		}

@@ -24,18 +24,37 @@ public class ScenarioFileReader {
 		
 		
 		while (scenarioFileScanner.hasNext()) {
+			String dispLine = null;
+			char[] charCellArray = null;
+			String [] cellArray = new String [8];
+			
+			 if (scenarioFileScanner.hasNext(" /~disp-cell-pins:")){
+				 
+				 dispLine= scenarioFileScanner.next();
+				 String pinNumber =dispLine.substring(20);
+				 charCellArray = dispLine.toCharArray();
+				 int i =0;
+				 for (char c : charCellArray) {
+					 cellArray[i] = String.valueOf(c);
+					 i++;
+					 
+					 
+				 }
+				 
+	
+			 }
+				 
 			if (!scenarioFileScanner.next().startsWith("/~") && !scenarioFileScanner.next().equals("CORRECT") && !scenarioFileScanner.next().equals("INCORRECT") ) {
 				String Question = scenarioFileScanner.next();
 				int correctAns = Integer.parseInt(scenarioFileScanner.next());
 				String responseRight = scenarioFileScanner.next();
 				String responseWrong = scenarioFileScanner.next();
 				index +=1;
+			
 				
-				// For Sara: the line below has an error because no cell array is being passed to the constructor
-				// Read in each disp cell string into a String[] array and pass that into the constructor 
-				// For the file writer I made you a getCellArray method in ScenarioEvent
-				ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, correctAns);
+				ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
 				eventList.add(index, readEvent);
+				
 				}	
 			
 				

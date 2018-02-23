@@ -12,6 +12,7 @@ public class ScenarioFileReaderTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		
 	}
 
 	@AfterClass

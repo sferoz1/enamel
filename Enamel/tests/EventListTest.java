@@ -15,12 +15,12 @@ import enamel.*;
 
 public class EventListTest {
 	 EventList tester = new EventList();
-
-	ScenarioEvent event= new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong", 0);
-	ScenarioEvent event1= new ScenarioEvent(1, "MyTitle", "MyQuestion", "Right", "Wrong", 0);
-	ScenarioEvent event2= new ScenarioEvent(2, "MyTitle", "MyQuestion", "Right", "Wrong", 0);
-	ScenarioEvent event3= new ScenarioEvent(3, "MyTitle", "MyQuestion", "Right", "Wrong", 0);
-	ScenarioEvent event4= new  ScenarioEvent(4, "MyTitle", "MyQuestion", "Right", "Wrong", 0);
+	 String[] cellarray = new String[2];
+	ScenarioEvent event= new ScenarioEvent(0, "MyTitle0", "MyQuestion", "Right", "Wrong",cellarray, 0);
+	ScenarioEvent event1= new ScenarioEvent(1, "MyTitle1", "MyQuestion", "Right", "Wrong",cellarray, 0);
+	ScenarioEvent event2= new ScenarioEvent(2, "MyTitle2", "MyQuestion", "Right", "Wrong",cellarray, 0);
+	ScenarioEvent event3= new ScenarioEvent(3, "MyTitle3", "MyQuestion", "Right", "Wrong",cellarray, 0);
+	ScenarioEvent event4= new  ScenarioEvent(4, "MyTitle4", "MyQuestion", "Right", "Wrong",cellarray, 0);
 	
 	
 
@@ -39,7 +39,7 @@ public class EventListTest {
 		tester.add(0, event);
 		tester.add(1, event1);
 		tester.add(2, event2);
-		tester.add(2, event3);
+		tester.add(3, event3);
 		tester.add(4, event4);
 		
 		
@@ -71,9 +71,16 @@ public class EventListTest {
 
 	
 	}
+	
+	@Test
+	public void testGetTimeline() {
+		assertEquals(tester.getTimeline().get(0), event);
+	}
+	
 	@Test
 	public void testUpdateIndexes() {
-		assertEquals(tester.getTimeline().get(2), event3);
+		tester.add(2, event3);
+		assertEquals(event3, tester.getTimeline().get(2));
 	
 	
 	}

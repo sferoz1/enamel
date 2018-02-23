@@ -1,6 +1,6 @@
-Feb 22, 2018 1:24:28 PM enamel.ScenarioParser errorLog
-WARNING: Exception error: java.lang.ArrayIndexOutOfBoundsException: 1
-Feb 22, 2018 1:24:28 PM enamel.ScenarioParser errorLog
+Feb 22, 2018 8:38:12 PM enamel.ScenarioParser errorLog
+WARNING: Exception error: java.lang.NumberFormatException: For input string: "enamel;"
+Feb 22, 2018 8:38:13 PM enamel.ScenarioParser errorLog
 INFO: Expected format: Cell num1 
  Button num2 
  as the first two lines of the scenarion file, and where num1 and num2 are positive integers. 

@@ -1,5 +1,5 @@
 
-
+import java.*;
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -12,8 +12,10 @@ import enamel.ScenarioEvent;
 
 public class ScenarioEventTest {
 	
-	ScenarioEvent event= new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong", 0);
-	ScenarioEvent event1 = new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong", 0);
+	String[] cellarray = new String[2];
+	
+	ScenarioEvent event= new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong", cellarray, 0);
+	ScenarioEvent event1 = new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong", cellarray, 0);
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -25,6 +27,8 @@ public class ScenarioEventTest {
 
 	@Before
 	public void setUp() throws Exception {
+		cellarray[0] = "1";
+		cellarray[1] = "2";
 	}
 
 	@After
@@ -75,7 +79,7 @@ public class ScenarioEventTest {
 	
 	@Test
 	public void testOverwrite() {
-		event.overwrite("OverwriteTitle", "ORQuestion", "ORRight", "ORWrong", 2);
+		event.overwrite(0,"OverwriteTitle", "ORQuestion", "ORRight", "ORWrong",cellarray, 2);
 		
 		assertEquals("OverwriteTitle", event.getTitle());
 		
@@ -86,6 +90,8 @@ public class ScenarioEventTest {
 		assertEquals("ORWrong", event.getResponseWrong());
 		
 		assertEquals(2, event.getCorrectAns());
+		
+		assertEquals(0, event.getIndex());
 	}
 	
 	public void testCompareTo() {
