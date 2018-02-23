@@ -690,8 +690,6 @@ public class EventEditor extends JFrame{
 		textAnsWrong.setText(responseWrong);
 
 		String[] cells = e.cellArray;
-		System.out.println(cells[0]);
-		System.out.println(cells[0].charAt(0));
 		
 		C1P1.setText(Character.toString(cells[0].charAt(0)));
 		C1P2.setText(Character.toString(cells[0].charAt(1)));
