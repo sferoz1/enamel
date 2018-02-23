@@ -70,7 +70,7 @@ public class ScenarioLoader extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					JFileChooser jf = new JFileChooser();
 		    	    int returnValue = jf.showOpenDialog(null);
-
+		    	    
 		    		if (returnValue == JFileChooser.APPROVE_OPTION) {
 		    			File selectedFile = jf.getSelectedFile();
 		    			ScenarioFileReader.readScenarioFile(selectedFile.getAbsolutePath());

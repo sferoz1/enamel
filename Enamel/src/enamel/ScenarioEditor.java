@@ -133,7 +133,9 @@ public class ScenarioEditor {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = saveScenarioWindow();
-				Scenario createNewScenario = new Scenario((Integer) cellBox.getSelectedItem(), (Integer) buttonBox.getSelectedItem(), titleField.getText(), timeline);
+				int cells = Integer.parseInt(cellBox.getSelectedItem().toString());
+				int buttons = Integer.parseInt(buttonBox.getSelectedItem().toString());
+				Scenario createNewScenario = new Scenario(cells, buttons, titleField.getText(), timeline);
 				ScenWriter scenarioToFile = new ScenWriter(createNewScenario, file);
 				scenarioToFile.write(createNewScenario, file);
 				
@@ -239,11 +241,9 @@ public class ScenarioEditor {
 
 	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, String[] cellArray, int correctAns){
 		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns);
-		System.out.println("CELL ARRAY ADDED AS: " + addMe.cellArray[0]);
 		timeline.add(addMe);
 		Collections.sort(timeline);
 		DLM.removeAllElements();
-		System.out.print("TIMESIZE: " + timeline.size());
 		for(int i = 0; i < timeline.size(); i++) {
 			ScenarioEvent a = timeline.get(i);
 			DLM.addElement(a);
@@ -252,20 +252,13 @@ public class ScenarioEditor {
 	}
 	
 	public static void editEvent(ScenarioEvent e) {
-		System.out.println("EDITED");
 		timeline.remove(e);
-		System.out.println("REMOVED");
 		timeline.add(e);
-		System.out.println("READDED");
 		Collections.sort(timeline);
-		System.out.println("REFRESHING");
 		DLM.removeAllElements();
 		for(int i = 0; i < timeline.size(); i++) {
-			System.out.println("ITERATION: " + i);
 			ScenarioEvent a = timeline.get(i);
-			System.out.println("ADDING TO DLM");
 			DLM.addElement(a);
-			System.out.println("SETTING INDEX");
 			a.setIndex(i);
 		}
 	}
