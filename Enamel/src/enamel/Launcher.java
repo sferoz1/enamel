@@ -53,6 +53,7 @@ public class Launcher {
 		btnAuthorAStory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ScenarioLoader.main(null);			// Open Scenario Loader
+				frmMainMenu.dispose();
 			}
 		});
 		btnAuthorAStory.setBounds(99, 98, 199, 23);
@@ -62,6 +63,7 @@ public class Launcher {
 		btnPlayAStory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ToyAuthoring.main(null);			// Load FileChooser
+				frmMainMenu.dispose();
 			}
 		});
 		btnPlayAStory.setBounds(99, 64, 199, 23);
@@ -93,7 +95,7 @@ public class Launcher {
 		lblUntitled.setBounds(99, 11, 199, 36);
 		frmMainMenu.getContentPane().add(lblUntitled);
 		
-		JLabel lblVersion = new JLabel("Version 0.1");
+		JLabel lblVersion = new JLabel("Version 1.0");
 		lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVersion.setBounds(226, 185, 168, 14);
 		frmMainMenu.getContentPane().add(lblVersion);

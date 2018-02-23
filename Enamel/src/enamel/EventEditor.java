@@ -20,6 +20,7 @@ import javax.swing.JMenuItem;
 import java.awt.List;
 import javax.swing.JTextArea;
 import java.awt.Window.Type;
+import javax.swing.SwingConstants;
 
 public class EventEditor extends JFrame{
 
@@ -658,6 +659,12 @@ public class EventEditor extends JFrame{
 		lblChangesTo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblChangesTo.setBounds(343, 370, 289, 16);
 		contentPane.add(lblChangesTo);
+		
+		JLabel lblSeeTheUser = new JLabel("See the User Manual for more info.");
+		lblSeeTheUser.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSeeTheUser.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblSeeTheUser.setBounds(337, 397, 289, 16);
+		contentPane.add(lblSeeTheUser);
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
 		lblQuestion.getAccessibleContext().setAccessibleName("Question");
