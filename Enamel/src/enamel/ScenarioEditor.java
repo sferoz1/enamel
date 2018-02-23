@@ -207,8 +207,7 @@ public class ScenarioEditor {
 		});
 		btnExit.setBounds(413, 44, 117, 29);
 		frmScenarioEditor.getContentPane().add(btnExit);
-		
-		
+
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
 		btnSave.getAccessibleContext().setAccessibleName("Save");
@@ -227,10 +226,11 @@ public class ScenarioEditor {
 		timeline.add(addMe);
 		Collections.sort(timeline);
 		DLM.removeAllElements();
-		for(int i = 0; i < timeline.getSize(); i++) {
-			ScenarioEvent e = timeline.get(i);
-			DLM.addElement(e);
-			e.setIndex(i);
+		System.out.print("TIMESIZE: " + timeline.size());
+		for(int i = 0; i < timeline.size(); i++) {
+			ScenarioEvent a = timeline.get(i);
+			DLM.addElement(a);
+			a.setIndex(i);
 		}
 	}
 	
@@ -238,15 +238,18 @@ public class ScenarioEditor {
 		System.out.println("EDITED");
 		timeline.remove(e);
 		System.out.println("REMOVED");
-		timeline.add(e.getIndex(), e);
+		timeline.add(e);
 		System.out.println("READDED");
 		Collections.sort(timeline);
 		System.out.println("REFRESHING");
 		DLM.removeAllElements();
-		for(int i = 0; i < timeline.getSize(); i++) {
-			ScenarioEvent e = timeline.get(i);
-			DLM.addElement(e);
-			e.setIndex(i);
+		for(int i = 0; i < timeline.size(); i++) {
+			System.out.println("ITERATION: " + i);
+			ScenarioEvent a = timeline.get(i);
+			System.out.println("ADDING TO DLM");
+			DLM.addElement(a);
+			System.out.println("SETTING INDEX");
+			a.setIndex(i);
 		}
 	}
 	
@@ -254,10 +257,10 @@ public class ScenarioEditor {
 		timeline.remove(e);
 		Collections.sort(timeline);
 		DLM.removeAllElements();
-		for(int i = 0; i < timeline.getSize(); i++) {
+		for(int i = 0; i < timeline.size(); i++) {
 			ScenarioEvent d = timeline.get(i);
 			DLM.addElement(d);
-			e.setIndex(i);
+			d.setIndex(i);
 		}
 	}
 	

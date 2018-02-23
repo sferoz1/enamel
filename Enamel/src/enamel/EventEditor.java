@@ -222,7 +222,7 @@ public class EventEditor extends JFrame{
 			int correctAns = list.getSelectedIndex();
 			System.out.println("CELLS PARSED!");
 			if (isEdit) {
-				toEdit.overwrite(title, question, responseRight, responseWrong, cellArray, correctAns);
+				toEdit.overwrite(index, title, question, responseRight, responseWrong, cellArray, correctAns);
 				System.out.println("EDITED");
 				ScenarioEditor.editEvent(toEdit);
 				frmEventEditor.dispose();

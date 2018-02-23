@@ -20,7 +20,8 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 		
 	}
 
-	public void overwrite(String title, String question, String responseRight, String responseWrong, String[] cellArray, int correctAns) {
+	public void overwrite(int index, String title, String question, String responseRight, String responseWrong, String[] cellArray, int correctAns) {
+		this.index = index;
 		this.cellArray = cellArray.clone();
 		this.title = title;
 		this.question = question;
