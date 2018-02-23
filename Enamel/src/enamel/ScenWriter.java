@@ -36,12 +36,6 @@ public class ScenWriter {
 		  	  for(int i = 0; i < scenarioToFile.scenarioEventList.size(); i++){ 
 		  		  
 		  		ScenarioEvent myEvent = scenarioToFile.getScenarioEventList().get(i);
-		  		System.out.println("DEBUG STREAM:");
-		  		System.out.println("EVENT TITLE: " + myEvent.getTitle());
-		  		System.out.println("EVENT QUESTION: " + myEvent.getQuestion());
-		  		System.out.println("EVENT ANS: " + myEvent.getCorrectAns());
-		  		System.out.println("EVENT RIGHT: " + myEvent.getResponseRight());
-		  		System.out.println("EVENT WRONG: " + myEvent.getResponseWrong());
 
 		  		  //get pins
 		  		  int k = 0;
@@ -100,8 +94,6 @@ public class ScenWriter {
 			ex.printStackTrace();
 		}
 	
-	
-
 }
 	//public static void main (String[] args) {
 		//write(scenarioToFile, pathName );
