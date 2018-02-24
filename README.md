@@ -25,3 +25,5 @@ Documentation in submission include:
 -Requirements Document
 -User Manual 
 -Testing Document
+
+To run the application, execute the AuthoringApp JAR file.
