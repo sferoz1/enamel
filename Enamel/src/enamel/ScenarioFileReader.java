@@ -16,9 +16,12 @@ public class ScenarioFileReader {
 		try{
 		File scenarioFile = new File(fileName);
 		Scanner scenarioFileScanner = new Scanner(scenarioFile);
-		scenarioFileScanner.useDelimiter("\n");
+		scenarioFileScanner.useDelimiter(" |\\n");
+		scenarioFileScanner.next();
 		String cell = scenarioFileScanner.next();
+		scenarioFileScanner.next();
 		String button = scenarioFileScanner.next();
+		scenarioFileScanner.next();
 		String title = scenarioFileScanner.next();
 		EventList eventList = new EventList();
 		
@@ -56,7 +59,7 @@ public class ScenarioFileReader {
 		
 		scenarioFileScanner.close();
 		
-		// Build the Scenario object and pass it into ScenarioEditor as an exisitng scenario
+		// Build the Scenario object and pass it into ScenarioEditor as an existng scenario
 		Scenario edit = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
 		String[] args = {"0"};
 		ScenarioEditor.main(args, edit);
