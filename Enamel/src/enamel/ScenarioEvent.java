@@ -67,6 +67,7 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 		return this.cellArray;
 	}
 	
+	
 	public String toString(){
 		return this.title;
 	}	

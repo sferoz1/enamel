@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class ScenarioFileReader {
 	
 	public static void readScenarioFile(String fileName){
-		String scenarioFileString = null;
+		//String scenarioFileString = null;
 		
 		int index = 0;
 		//ArrayList<ScenarioEvent> eventList = new ArrayList<ScenarioEvent>();
@@ -21,7 +21,8 @@ public class ScenarioFileReader {
 		String cell = scenarioFileScanner.next();
 		scenarioFileScanner.next();
 		String button = scenarioFileScanner.next();
-		scenarioFileScanner.next();
+		scenarioFileScanner.useDelimiter("\\n");
+		
 		String title = scenarioFileScanner.next();
 		EventList eventList = new EventList();
 		
@@ -30,7 +31,7 @@ public class ScenarioFileReader {
 			char[] charCellArray = null;
 			String [] cellArray = new String [8];
 			
-			scenarioFileScanner.useDelimiter("\\n");
+			//scenarioFileScanner.useDelimiter("\\n");
 			 if (scenarioFileScanner.hasNext("/~disp-cell-pins:*")){ //*num1 has to be a valid braille cell index
 				 
 				 dispLine= scenarioFileScanner.next();
@@ -40,6 +41,7 @@ public class ScenarioFileReader {
 				 int i =0;
 				 for (char c : charCellArray) {
 					 cellArray[i] = String.valueOf(c);
+					 
 					 i++;
 					 }
 				 
@@ -49,7 +51,7 @@ public class ScenarioFileReader {
 				findQuestion = scenarioFileScanner.next();
 			}
 				 Question = findQuestion;
-			
+
 			// find correct answer
 			String findCorrAns = scenarioFileScanner.next();
 			String correctAnswerString;
@@ -70,23 +72,34 @@ public class ScenarioFileReader {
 				findResponseRight = scenarioFileScanner.next();
 			}
 			responseRight=findResponseRight;
-			
 			String findResponseWrong =scenarioFileScanner.next();
 			String responseWrong;
 			while (findResponseWrong.startsWith("/~")) {
 				findResponseWrong = scenarioFileScanner.next();
 			}
 			responseWrong = findResponseWrong;
-			
+
 							
 				index +=1;
-				
+				System.out.println("QUESTION" + Question); //test
+				System.out.println("CORRECT ANS" + correctAnswerString);
+				System.out.println("RESPONSE RIGHT" +responseRight);
+				System.out.println("Response Wrong" + responseWrong);
+				System.out.println("index" + index);
+				System.out.println(pinNumber + cellArray[i]); //test
+
 				 ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
 					eventList.add(index, readEvent);
+					
+					System.out.print(readEvent.getQuestion());
 
 				
 				
 			}		
+			 
+			 	System.out.println("cell: " + cell); //test
+				System.out.println("button: " + button);
+				System.out.println("title: " + title); //test
 				Scenario scenario = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
 			
 			}
