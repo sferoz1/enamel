@@ -104,7 +104,7 @@ public class ScenarioFileReader {
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
 			ErrorWindow errorWindow = new ErrorWindow("Error: File Not Found");
-			errorWindow.initialize("Error");
+			errorWindow.initialize("Error"); 
 		}
 		}
 	
