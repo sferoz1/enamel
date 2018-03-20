@@ -62,6 +62,7 @@ public class Launcher {
 		JButton btnPlayAStory = new JButton("Play a Scenario");
 		btnPlayAStory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				ToyAuthoring.main(null);			// Load FileChooser
 				frmMainMenu.dispose();
 			}
