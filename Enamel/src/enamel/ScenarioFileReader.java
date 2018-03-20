@@ -30,9 +30,11 @@ public class ScenarioFileReader {
 			char[] charCellArray = null;
 			String [] cellArray = new String [8];
 			
-			 if (scenarioFileScanner.hasNext(" /~disp-cell-pins:")){
+			scenarioFileScanner.useDelimiter("\\n");
+			 if (scenarioFileScanner.hasNext("/~disp-cell-pins:*")){ //*num1 has to be a valid braille cell index
 				 
 				 dispLine= scenarioFileScanner.next();
+				 
 				 String pinNumber =dispLine.substring(20);
 				 charCellArray = dispLine.toCharArray();
 				 int i =0;
@@ -40,19 +42,52 @@ public class ScenarioFileReader {
 					 cellArray[i] = String.valueOf(c);
 					 i++;
 					 }
-				 }
 				 
-			if (!scenarioFileScanner.next().startsWith("/~") && !scenarioFileScanner.next().equals("CORRECT") && !scenarioFileScanner.next().equals("INCORRECT") ) {
-				String Question = scenarioFileScanner.next();
-				int correctAns = Integer.parseInt(scenarioFileScanner.next());
-				String responseRight = scenarioFileScanner.next();
-				String responseWrong = scenarioFileScanner.next();
+				String findQuestion = scenarioFileScanner.next();
+				String Question;
+			while (findQuestion.startsWith("/~")) {
+				findQuestion = scenarioFileScanner.next();
+			}
+				 Question = findQuestion;
+			
+			// find correct answer
+			String findCorrAns = scenarioFileScanner.next();
+			String correctAnswerString;
+			Integer correctAnswerInteger;
+			int correctAns;
+			while (!findCorrAns.startsWith("/~skip-button")){
+				findCorrAns = scenarioFileScanner.next();
+			}
+				correctAnswerString = findCorrAns.substring(14,15);
+				correctAnswerInteger = Integer.parseInt(correctAnswerString);
+				correctAns = (int) correctAnswerInteger;
+	
+			
+			//find responseRight and responseWrong
+			String findResponseRight= scenarioFileScanner.next();
+			String responseRight;
+			while (findResponseRight.startsWith("/~")){
+				findResponseRight = scenarioFileScanner.next();
+			}
+			responseRight=findResponseRight;
+			
+			String findResponseWrong =scenarioFileScanner.next();
+			String responseWrong;
+			while (findResponseWrong.startsWith("/~")) {
+				findResponseWrong = scenarioFileScanner.next();
+			}
+			responseWrong = findResponseWrong;
+			
+							
 				index +=1;
-
-				ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
-				eventList.add(index, readEvent);
 				
-				}	
+				 ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
+					eventList.add(index, readEvent);
+
+				
+				
+			}		
+				Scenario scenario = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
 			
 			}
 			//scenarioFileString += scenarioFileScanner.next();
