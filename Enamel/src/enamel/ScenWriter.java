@@ -55,7 +55,7 @@ public class ScenWriter {
 		  		writer.write("/~skip-button:" + myEvent.getCorrectAns() + " CORRECT");
 		  		writer.newLine();
 		  				  		
-		  		 for (int j =0; j<= scenarioToFile.buttonNumber; j++){
+		  		 for (int j =0; j< scenarioToFile.buttonNumber; j++){
 			  			  if (j != myEvent.getCorrectAns()){
 			  				writer.write("/~skip-button:"+Integer.toString(j) + " INCORRECT");
 			  				writer.newLine();
