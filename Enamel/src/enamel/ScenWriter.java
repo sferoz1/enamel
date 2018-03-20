@@ -36,16 +36,22 @@ public class ScenWriter {
 		  	  for(int i = 0; i < scenarioToFile.scenarioEventList.size(); i++){ 
 		  		  
 		  		ScenarioEvent myEvent = scenarioToFile.getScenarioEventList().get(i);
-
+		  		
+		  		writer.write("/~reset-buttons");
+		  		writer.newLine();
+		  		writer.write("/~disp-clearAll");
+		  		writer.newLine();
 		  		  //get pins
-		  		  int k = 0;
+		  		 int k = 0;
 		  		  for (String pins: myEvent.getCellArray()){
-		  			if (!pins.equals(null)){
-		  			writer.write( "/~disp-cell-pins:" + k + " " + pins);
+		  			if (!pins.equals(null) && k< scenarioToFile.cellNumber){
+		  			writer.write( "/~disp-cell-pins:" +k+ " " + pins);
+		  			k++;
 		  			writer.newLine();
 		  			}
-		  			k++;
-		  			break;
+		  			//else if (pins.equals(null)){
+		  			//k++;
+		  			//}
 		  		  }
 		  		
 		  		writer.write(myEvent.getQuestion());
