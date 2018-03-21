@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class ScenarioFileReader {
 	
-	public static Scenario readScenarioFile(String fileName){
+	public static void readScenarioFile(String fileName){
 		//String scenarioFileString = null;
 		
-		int index = 0;
+		int index = -1;
 		//ArrayList<ScenarioEvent> eventList = new ArrayList<ScenarioEvent>();
 		
 		try{
@@ -28,39 +28,51 @@ System.out.println("button: " + button);
 		scenarioFileScanner.useDelimiter("\\n");
 		
 		String title = scenarioFileScanner.next();
+System.out.println("title " + title);
 		EventList eventList = new EventList();
-		
+		scenarioFileScanner.useDelimiter(" |\\n");
 		while (scenarioFileScanner.hasNext()) {
+			
+			
 			String dispLine = null;
-			char[] charCellArray = null;
+			String cellPinString = null;
+			char[] cellsPinCharArray = null;
 			String [] cellArray = new String [8];
 			
-			scenarioFileScanner.useDelimiter("\\n|:");
-			 if (scenarioFileScanner.hasNext("/~disp-cell-pins")){ //*num1 has to be a valid braille cell index
-				 
-				 scenarioFileScanner.useDelimiter("\\n");
-
+			//scenarioFileScanner.useDelimiter("\\n|:");
+			int cellMax = Integer.parseInt(cell);
+			//"/~disp-cell-pins:x where x is 0 to max cell pins ADD MAX HERE
+			 while (scenarioFileScanner.hasNext("/~disp-cell-pins:0") || scenarioFileScanner.hasNext("/~disp-cell-pins:1") || scenarioFileScanner.hasNext("/~disp-cell-pins:2") || scenarioFileScanner.hasNext("/~disp-cell-pins:3") || scenarioFileScanner.hasNext("/~disp-cell-pins:4") || scenarioFileScanner.hasNext("/~disp-cell-pins:5") || scenarioFileScanner.hasNext("/~disp-cell-pins:6") || scenarioFileScanner.hasNext("/~disp-cell-pins:7") || scenarioFileScanner.hasNext("/~disp-cell-pins:8")){
 				 dispLine= scenarioFileScanner.next();
-				 
-				 
-				 String pinNumber =dispLine.substring(20);
-				 charCellArray = dispLine.toCharArray();
-				 int i =0;
-				 for (char c : charCellArray) {
-					 cellArray[i] = String.valueOf(c);
-					 
+				 System.out.println("dispLine: " + dispLine);
+				 String cellNumberString =dispLine.substring(17);
+				 int CellNumber = Integer.parseInt(cellNumberString);
+				 System.out.println("cellNumber: " + cellNumberString);
+				 cellPinString= scenarioFileScanner.next();
+				 //cellPinCharArray = dispLine.toCharArray();
+				 cellArray[CellNumber] = cellPinString;
+				int i =0;
+				System.out.print("cellPinsStringArray: ");
+				/*for (char c : cellPinsCharArray) {
+					 cellPinsStringArray[i] = String.valueOf(c);
+					 System.out.print(c);
 					 i++;
 					 }
+					System.out.println();*/
+			 }
 			
+				
+			 
 				 scenarioFileScanner.useDelimiter("\\n");
 
+		
 				String findQuestion = scenarioFileScanner.next();
 				String Question;
 			while (findQuestion.startsWith("/~")) {
 				findQuestion = scenarioFileScanner.next();
 			}
 				 Question = findQuestion;
-System.out.println("QUESTION" + Question); //test
+System.out.println("QUESTION: " + Question); //test
 
 			// find correct answer
 			String findCorrAns = scenarioFileScanner.next();
@@ -73,29 +85,38 @@ System.out.println("QUESTION" + Question); //test
 				correctAnswerString = findCorrAns.substring(14,15);
 				correctAnswerInteger = Integer.parseInt(correctAnswerString);
 				correctAns = (int) correctAnswerInteger;
-	
+System.out.println("Correct Button: " + correctAnswerString);
+
 			
 			//find responseRight and responseWrong
 			String findResponseRight= scenarioFileScanner.next();
 			String responseRight;
-			while (findResponseRight.startsWith("/~")){
+			if (findResponseRight.startsWith("/~")){
+				do{
 				findResponseRight = scenarioFileScanner.next();
+				}
+				while (!findResponseRight.startsWith("/~"));
 			}
 			responseRight=findResponseRight;
+System.out.println("RESPONSE RIGHT: " +responseRight);
+
 			String findResponseWrong =scenarioFileScanner.next();
 			String responseWrong;
-			while (findResponseWrong.startsWith("/~")) {
+			
+			if (findResponseWrong.startsWith("/~")) {
+				do{
 				findResponseWrong = scenarioFileScanner.next();
+				}
+				while (!findResponseWrong.startsWith("/~"));
+		
 			}
 			responseWrong = findResponseWrong;
 
-							
+	System.out.println("Response Wrong: " + responseWrong);
+
 				index +=1;
-				System.out.println("CORRECT ANS" + correctAnswerString);
-				System.out.println("RESPONSE RIGHT" +responseRight);
-				System.out.println("Response Wrong" + responseWrong);
 				System.out.println("index" + index);
-				System.out.println(pinNumber + cellArray[i]); //test
+				//System.out.println(cellNumber + cellArray[i]); //test
 
 				 ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
 					eventList.add(index, readEvent);
@@ -104,7 +125,7 @@ System.out.println("QUESTION" + Question); //test
 
 				
 				
-			}		
+				
 			 
 			
 			}
@@ -119,7 +140,7 @@ System.out.println("QUESTION" + Question); //test
 		Scenario edit = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
 		String[] args = {"0"};
 		ScenarioEditor.main(args, edit);
-		return edit;
+		//return edit;
 		}
 		
 		catch (FileNotFoundException e) {
@@ -127,7 +148,7 @@ System.out.println("QUESTION" + Question); //test
 			ErrorWindow errorWindow = new ErrorWindow("Error: File Not Found");
 			errorWindow.initialize("Error"); 
 		}
-		return null;
+		//return null;
 		}
 	
 	
