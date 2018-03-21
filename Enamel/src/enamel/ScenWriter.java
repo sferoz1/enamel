@@ -56,7 +56,7 @@ public class ScenWriter {
 		  		
 		  		writer.write(myEvent.getQuestion());
 		  		writer.newLine(); 
-		  		//writer.write("/~pause:3");
+		  		writer.write("/~pause:1");
 		  		writer.newLine();
 		  		writer.write("/~skip-button:" + myEvent.getCorrectAns() + " CORRECT");
 		  		writer.newLine();
@@ -66,13 +66,12 @@ public class ScenWriter {
 			  				writer.write("/~skip-button:"+Integer.toString(j) + " INCORRECT");
 			  				writer.newLine();
 			  			  }
-			  			writer.newLine();
 			  	}
 		  		writer.write("/~user-input");
 		  		writer.newLine();
 		  		writer.write("/~CORRECT"); 
 			  	writer.newLine();
-			  	//writer.write("/~sound:correct.wav");
+			  	writer.write("/~sound:correct.wav");
 			  	writer.newLine();
 			  	writer.write(myEvent.getResponseRight()); 
 			  	writer.newLine();
@@ -80,7 +79,7 @@ public class ScenWriter {
 			  	writer.newLine();
 		  		writer.write( "/~INCORRECT");
 		  		writer.newLine(); 
-		  		//writer.write("/~sound:wrong.wav");
+		  		writer.write("/~sound:wrong.wav");
 		  		writer.newLine(); 
 		  		writer.write(myEvent.getResponseWrong()); 
 		  		writer.newLine();

@@ -6,8 +6,14 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class ScenarioFileReader {
+	static EventList eventList = new EventList();
 	
+
+	
+	//index, title, Question, responseRight,responseWrong, cellArray, correctAns
+	//cell, button, title, eventList
 	public static void readScenarioFile(String fileName){
+	
 		//String scenarioFileString = null;
 		
 		int index = -1;
@@ -29,7 +35,6 @@ System.out.println("button: " + button);
 		
 		String title = scenarioFileScanner.next();
 System.out.println("title " + title);
-		EventList eventList = new EventList();
 		scenarioFileScanner.useDelimiter(" |\\n");
 		while (scenarioFileScanner.hasNext()) {
 			
@@ -85,11 +90,12 @@ System.out.println("QUESTION: " + Question); //test
 				correctAnswerString = findCorrAns.substring(14,15);
 				correctAnswerInteger = Integer.parseInt(correctAnswerString);
 				correctAns = (int) correctAnswerInteger;
+
 System.out.println("Correct Button: " + correctAnswerString);
 
 			
 			//find responseRight and responseWrong
-			String findResponseRight= scenarioFileScanner.next();
+			/*String findResponseRight= scenarioFileScanner.next();
 			String responseRight;
 			if (findResponseRight.startsWith("/~")){
 				do{
@@ -97,7 +103,8 @@ System.out.println("Correct Button: " + correctAnswerString);
 				}
 				while (!findResponseRight.startsWith("/~"));
 			}
-			responseRight=findResponseRight;
+			responseRight=findResponseRight;*/
+String responseRight = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 System.out.println("RESPONSE RIGHT: " +responseRight);
 
 			String findResponseWrong =scenarioFileScanner.next();
@@ -118,13 +125,28 @@ System.out.println("RESPONSE RIGHT: " +responseRight);
 				System.out.println("index" + index);
 				//System.out.println(cellNumber + cellArray[i]); //test
 
-				 ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
-					eventList.add(index, readEvent);
+				ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
+				if (eventList.isEmpty()){
+				eventList.addFirst(readEvent);
+				}
+				else {
+				eventList.add(index, readEvent);
+				}
 					
-					System.out.print(readEvent.getQuestion());
+					
+	//System.out.print(readEvent.getQuestion());
 
-				
-				
+	Scenario scenario = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
+	//test
+	System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + "The eventList arguements are as follows:" );
+	for(ScenarioEvent e: eventList) {
+		System.out.println("Event Index:" + e.index);
+		System.out.println("Question: " + e.getQuestion());
+		System.out.println("Correct Button: " + e.getCorrectAns()); 
+		System.out.println("Response if Answer Correct: " + e.getCorrectAns());
+		System.out.println("Response if Answer Incorrect: " + e.getResponseWrong());
+	}
+	
 				
 			 
 			
@@ -134,10 +156,21 @@ System.out.println("RESPONSE RIGHT: " +responseRight);
 		scenarioFileScanner.close();
 
 		
-		Scenario scenario = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
 		
-		// Build the Scenario object and pass it into ScenarioEditor as an existng scenario
-		Scenario edit = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
+	
+			// Build the Scenario object and pass it into ScenarioEditor as an existng scenario
+			Scenario edit = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
+		
+			//test
+			System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + "The eventList arguements are as follows:" );
+			for(ScenarioEvent e: eventList) {
+				System.out.println("Event Index:" + e.index);
+				System.out.println("Question" + e.getQuestion());
+				System.out.println("Correct Button" + e.getCorrectAns());
+				System.out.println("Response if Answer Correct" + e.getCorrectAns());
+				System.out.println("Response if Answer Incorrect" + e.getResponseWrong());
+			}
+	
 		String[] args = {"0"};
 		ScenarioEditor.main(args, edit);
 		//return edit;
