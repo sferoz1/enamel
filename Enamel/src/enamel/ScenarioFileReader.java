@@ -21,7 +21,6 @@ public class ScenarioFileReader {
 		try{
 	//only once per scenario
 		int index = 0;
-
 		File scenarioFile = new File(fileName);
 		Scanner scenarioFileScanner = new Scanner(scenarioFile);
 		scenarioFileScanner.useDelimiter(" |\\n");
@@ -40,7 +39,7 @@ public class ScenarioFileReader {
 		/*scenarioFileScanner.useDelimiter(" |\\n");*/
 		while (scenarioFileScanner.hasNext()) {
 			
-			
+			//pins
 			String dispLine = null;
 			String cellPinString = null;
 			char[] cellsPinCharArray = null;
@@ -49,7 +48,7 @@ public class ScenarioFileReader {
 			scenarioFileScanner.useDelimiter("\\n|:");
 			int cellMax = Integer.parseInt(cell);
 			//"/~disp-cell-pins:x where x is 0 to max cell pins ADD MAX HERE
-			 while (scenarioFileScanner.hasNext("/~disp-cell-pins:0") || scenarioFileScanner.hasNext("/~disp-cell-pins:1") || scenarioFileScanner.hasNext("/~disp-cell-pins:2") || scenarioFileScanner.hasNext("/~disp-cell-pins:3") || scenarioFileScanner.hasNext("/~disp-cell-pins:4") || scenarioFileScanner.hasNext("/~disp-cell-pins:5") || scenarioFileScanner.hasNext("/~disp-cell-pins:6") || scenarioFileScanner.hasNext("/~disp-cell-pins:7") || scenarioFileScanner.hasNext("/~disp-cell-pins:8")){
+			 if (scenarioFileScanner.hasNext("/~disp-cell-pins:0") || scenarioFileScanner.hasNext("/~disp-cell-pins:1") || scenarioFileScanner.hasNext("/~disp-cell-pins:2") || scenarioFileScanner.hasNext("/~disp-cell-pins:3") || scenarioFileScanner.hasNext("/~disp-cell-pins:4") || scenarioFileScanner.hasNext("/~disp-cell-pins:5") || scenarioFileScanner.hasNext("/~disp-cell-pins:6") || scenarioFileScanner.hasNext("/~disp-cell-pins:7") || scenarioFileScanner.hasNext("/~disp-cell-pins:8")){
 				 dispLine= scenarioFileScanner.next();
 				 System.out.println("dispLine: " + dispLine);
 				 String cellNumberString =dispLine.substring(17);
@@ -80,7 +79,17 @@ public class ScenarioFileReader {
 			while (findQuestion.startsWith("/~")) {
 				findQuestion = scenarioFileScanner.next();
 			}
-				Question = findQuestion;*/
+				
+			Question = findQuestion;*/
+				int eventListSize =0;
+				while (scenarioFileScanner.hasNext("/~reset-buttons")) {
+					scenarioFileScanner.next();
+					eventListSize++;
+					scenarioFileScanner.next();
+					
+				}
+				
+			do {
 			 String Question = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 //System.out.println("QUESTION: " + Question); //test
 
@@ -131,15 +140,19 @@ String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 				//System.out.println("index" + index);
 				//System.out.println(cellNumber + cellArray[i]); //test
 
-				ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
 				if (eventList.isEmpty()){
+					ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
+
 				eventList.addFirst(readEvent);
 				}
 				else {
-				eventList.add(index, readEvent);
+					eventList.timeline.add(new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns));
 				}
-					
-					
+			}	
+			while (index == eventListSize);
+		
+			scenarioFileScanner.close();
+	
 	//System.out.print(readEvent.getQuestion());
 
 	Scenario scenario = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
@@ -160,7 +173,6 @@ String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 			}
 			//scenarioFileString += scenarioFileScanner.next();
 		
-		scenarioFileScanner.close();
 
 		
 		
