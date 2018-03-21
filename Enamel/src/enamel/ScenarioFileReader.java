@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class ScenarioFileReader {
 	static EventList eventList = new EventList();
 	
+	
 
 	
 	//index, title, Question, responseRight,responseWrong, cellArray, correctAns
@@ -22,6 +23,23 @@ public class ScenarioFileReader {
 	//only once per scenario
 		int index = 0;
 		File scenarioFile = new File(fileName);
+		
+		
+		Scanner numQScanner = new Scanner(scenarioFile);
+		numQScanner.useDelimiter("\n");
+		int eventListSize =0;
+		while (numQScanner.hasNext()) {
+		if (numQScanner.hasNext("/~reset-buttons")) {
+			numQScanner.next();
+			eventListSize++;
+			numQScanner.next();
+			
+		}
+		numQScanner.next();
+		}
+		numQScanner.close();
+		
+		
 		Scanner scenarioFileScanner = new Scanner(scenarioFile);
 		scenarioFileScanner.useDelimiter(" |\\n");
 		scenarioFileScanner.next();
@@ -81,13 +99,7 @@ public class ScenarioFileReader {
 			}
 				
 			Question = findQuestion;*/
-				int eventListSize =0;
-				while (scenarioFileScanner.hasNext("/~reset-buttons")) {
-					scenarioFileScanner.next();
-					eventListSize++;
-					scenarioFileScanner.next();
-					
-				}
+			
 				
 			do {
 			 String Question = FactoryMethods.findNextSpokenString(scenarioFileScanner);
@@ -136,7 +148,6 @@ String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 
 	//System.out.println("Response Wrong: " + responseWrong);
 
-				index +=1;
 				//System.out.println("index" + index);
 				//System.out.println(cellNumber + cellArray[i]); //test
 
@@ -146,10 +157,15 @@ String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 				eventList.addFirst(readEvent);
 				}
 				else {
-					eventList.timeline.add(new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns));
+					index +=1;
+
+					eventList.add(new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns));
+
 				}
+				
+				eventListSize--;
 			}	
-			while (index == eventListSize);
+			while (index == 0);
 		
 			scenarioFileScanner.close();
 	
