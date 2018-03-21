@@ -16,26 +16,28 @@ public class ScenarioFileReader {
 	
 		//String scenarioFileString = null;
 		
-		int index = -1;
 		//ArrayList<ScenarioEvent> eventList = new ArrayList<ScenarioEvent>();
 		
 		try{
+	//only once per scenario
+		int index = 0;
+
 		File scenarioFile = new File(fileName);
 		Scanner scenarioFileScanner = new Scanner(scenarioFile);
 		scenarioFileScanner.useDelimiter(" |\\n");
 		scenarioFileScanner.next();
 		String cell = scenarioFileScanner.next();
-System.out.println("cell:" + cell); //test
+//System.out.println("cell:" + cell); //test
 
 		scenarioFileScanner.next();
 		String button = scenarioFileScanner.next();
-System.out.println("button: " + button);
+//System.out.println("button: " + button);
 
-		scenarioFileScanner.useDelimiter("\\n");
+		//scenarioFileScanner.useDelimiter("\\n");
 		
-		String title = scenarioFileScanner.next();
-System.out.println("title " + title);
-		scenarioFileScanner.useDelimiter(" |\\n");
+		String title = FactoryMethods.findNextSpokenString(scenarioFileScanner);
+		
+		/*scenarioFileScanner.useDelimiter(" |\\n");*/
 		while (scenarioFileScanner.hasNext()) {
 			
 			
@@ -43,8 +45,8 @@ System.out.println("title " + title);
 			String cellPinString = null;
 			char[] cellsPinCharArray = null;
 			String [] cellArray = new String [8];
-			
-			//scenarioFileScanner.useDelimiter("\\n|:");
+			scenarioFileScanner.reset();
+			scenarioFileScanner.useDelimiter("\\n|:");
 			int cellMax = Integer.parseInt(cell);
 			//"/~disp-cell-pins:x where x is 0 to max cell pins ADD MAX HERE
 			 while (scenarioFileScanner.hasNext("/~disp-cell-pins:0") || scenarioFileScanner.hasNext("/~disp-cell-pins:1") || scenarioFileScanner.hasNext("/~disp-cell-pins:2") || scenarioFileScanner.hasNext("/~disp-cell-pins:3") || scenarioFileScanner.hasNext("/~disp-cell-pins:4") || scenarioFileScanner.hasNext("/~disp-cell-pins:5") || scenarioFileScanner.hasNext("/~disp-cell-pins:6") || scenarioFileScanner.hasNext("/~disp-cell-pins:7") || scenarioFileScanner.hasNext("/~disp-cell-pins:8")){
@@ -65,10 +67,12 @@ System.out.println("title " + title);
 					 }
 					System.out.println();*/
 			 }
-			
+				scenarioFileScanner.reset();
+				scenarioFileScanner.useDelimiter("\\n");
+
 				
 			 
-				 scenarioFileScanner.useDelimiter("\\n");
+				/* scenarioFileScanner.useDelimiter("\\n");
 
 		
 				String findQuestion = scenarioFileScanner.next();
@@ -76,22 +80,24 @@ System.out.println("title " + title);
 			while (findQuestion.startsWith("/~")) {
 				findQuestion = scenarioFileScanner.next();
 			}
-				 Question = findQuestion;
-System.out.println("QUESTION: " + Question); //test
+				Question = findQuestion;*/
+			 String Question = FactoryMethods.findNextSpokenString(scenarioFileScanner);
+//System.out.println("QUESTION: " + Question); //test
 
 			// find correct answer
 			String findCorrAns = scenarioFileScanner.next();
 			String correctAnswerString;
 			Integer correctAnswerInteger;
+			
 			int correctAns;
-			while (!findCorrAns.startsWith("/~skip-button")){
+			while (!findCorrAns.startsWith("/~skip-button:")){
 				findCorrAns = scenarioFileScanner.next();
 			}
 				correctAnswerString = findCorrAns.substring(14,15);
 				correctAnswerInteger = Integer.parseInt(correctAnswerString);
 				correctAns = (int) correctAnswerInteger;
 
-System.out.println("Correct Button: " + correctAnswerString);
+//System.out.println("Correct Button: " + correctAnswerString);
 
 			
 			//find responseRight and responseWrong
@@ -105,9 +111,9 @@ System.out.println("Correct Button: " + correctAnswerString);
 			}
 			responseRight=findResponseRight;*/
 String responseRight = FactoryMethods.findNextSpokenString(scenarioFileScanner);
-System.out.println("RESPONSE RIGHT: " +responseRight);
-
-			String findResponseWrong =scenarioFileScanner.next();
+//System.out.println("RESPONSE RIGHT: " +responseRight);
+String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
+			/*String findResponseWrong =scenarioFileScanner.next();
 			String responseWrong;
 			
 			if (findResponseWrong.startsWith("/~")) {
@@ -117,12 +123,12 @@ System.out.println("RESPONSE RIGHT: " +responseRight);
 				while (!findResponseWrong.startsWith("/~"));
 		
 			}
-			responseWrong = findResponseWrong;
+			responseWrong = findResponseWrong;*/
 
-	System.out.println("Response Wrong: " + responseWrong);
+	//System.out.println("Response Wrong: " + responseWrong);
 
 				index +=1;
-				System.out.println("index" + index);
+				//System.out.println("index" + index);
 				//System.out.println(cellNumber + cellArray[i]); //test
 
 				ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
@@ -138,12 +144,13 @@ System.out.println("RESPONSE RIGHT: " +responseRight);
 
 	Scenario scenario = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
 	//test
-	System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + "The eventList arguements are as follows:" );
+	System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + eventList.timeline.size()+ "The eventList arguements are as follows:" );
+	
 	for(ScenarioEvent e: eventList) {
 		System.out.println("Event Index:" + e.index);
 		System.out.println("Question: " + e.getQuestion());
 		System.out.println("Correct Button: " + e.getCorrectAns()); 
-		System.out.println("Response if Answer Correct: " + e.getCorrectAns());
+		System.out.println("Response if Answer Correct: " + e.getResponseRight());
 		System.out.println("Response if Answer Incorrect: " + e.getResponseWrong());
 	}
 	
@@ -161,15 +168,7 @@ System.out.println("RESPONSE RIGHT: " +responseRight);
 			// Build the Scenario object and pass it into ScenarioEditor as an existng scenario
 			Scenario edit = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
 		
-			//test
-			System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + "The eventList arguements are as follows:" );
-			for(ScenarioEvent e: eventList) {
-				System.out.println("Event Index:" + e.index);
-				System.out.println("Question" + e.getQuestion());
-				System.out.println("Correct Button" + e.getCorrectAns());
-				System.out.println("Response if Answer Correct" + e.getCorrectAns());
-				System.out.println("Response if Answer Incorrect" + e.getResponseWrong());
-			}
+		
 	
 		String[] args = {"0"};
 		ScenarioEditor.main(args, edit);
