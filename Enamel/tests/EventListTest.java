@@ -52,8 +52,8 @@ public class EventListTest {
 	@Test
 	public void testAdd() {
 		tester.add(0, eventToAdd);
-		assertEquals(6, tester.getSize());
-		assertEquals(eventToAdd, tester.getTimeline().get(0)); // tester.get(0) doesnt compile 
+		assertEquals(6, tester.getSize()); // passes
+		assertEquals(eventToAdd, tester.getTimeline().get(0)); //  fails note: tester().get(0) gives an IOB, size of tester.get() is zero
 		
 	}
 	
@@ -62,7 +62,8 @@ public class EventListTest {
 	@Test
 	public void testRemove() {
 	tester.remove(2, event2);
-	assertEquals(4, tester.getSize());
+	assertEquals(4, tester.getSize()); //passes
+	assertEquals(tester.getTimeline().get(2), event2); //fails - is still event2
 		
 	}
 	@Test

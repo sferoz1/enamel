@@ -41,6 +41,7 @@ public class ScenarioFileReaderTest {
 	        // boolean fvar = file.exists();
 		     //if (fvar){
 		       //   System.out.println("File has been created successfully");
+		 
 		 // ScenWriter.write(scenTest, file);
 		ScenarioFileReader.readScenarioFile(file.getName());
 		//int cell = toRead.getCellNumber();
