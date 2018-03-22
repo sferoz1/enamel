@@ -44,6 +44,7 @@ public class ScenWriter {
 		  		  //get pins
 		  		 int k = 0;
 		  		  for (String pins: myEvent.getCellArray()){
+		  			pins = FactoryMethods.rearrangePinString(pins);
 		  			if (!pins.equals(null) && k< scenarioToFile.cellNumber){
 		  			writer.write( "/~disp-cell-pins:" +k+ " " + pins);
 		  			k++;
