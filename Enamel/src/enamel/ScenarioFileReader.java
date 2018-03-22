@@ -40,38 +40,53 @@ public class ScenarioFileReader {
 		String button = scenarioFileScanner.next();
 		String title = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 		
+		Scanner pinScanner = new Scanner(scenarioFile);
+		
 		/*scenarioFileScanner.useDelimiter(" |\\n");*/
 		while (scenarioFileScanner.hasNext()) {
 			
-			//pins
-			String dispLine = null;
-			String cellPinString = null;
-			char[] cellsPinCharArray = null;
-			String [] cellArray = new String [8];
-			scenarioFileScanner.reset();
-			scenarioFileScanner.useDelimiter("\\n|:");
-			int cellMax = Integer.parseInt(cell);
-			 if (scenarioFileScanner.hasNext("/~disp-cell-pins:0") || scenarioFileScanner.hasNext("/~disp-cell-pins:1") || scenarioFileScanner.hasNext("/~disp-cell-pins:2") || scenarioFileScanner.hasNext("/~disp-cell-pins:3") || scenarioFileScanner.hasNext("/~disp-cell-pins:4") || scenarioFileScanner.hasNext("/~disp-cell-pins:5") || scenarioFileScanner.hasNext("/~disp-cell-pins:6") || scenarioFileScanner.hasNext("/~disp-cell-pins:7") || scenarioFileScanner.hasNext("/~disp-cell-pins:8")){
-				 dispLine= scenarioFileScanner.next();
-				 System.out.println("dispLine: " + dispLine);
-				 String cellNumberString =dispLine.substring(17);
-				 int CellNumber = Integer.parseInt(cellNumberString);
-				 System.out.println("cellNumber: " + cellNumberString);
-				 cellPinString= scenarioFileScanner.next();
-				 cellArray[CellNumber] = cellPinString;
-				int i =0;
-				System.out.print("cellPinsStringArray: ");
-			
-			 }
-				scenarioFileScanner.reset();
-				scenarioFileScanner.useDelimiter("\\n");
+		
+				//scenarioFileScanner.reset();
+				//scenarioFileScanner.useDelimiter("\\n");
 
 				
 			
 			
 				
 			do {
-			 String Question = FactoryMethods.findNextSpokenString(scenarioFileScanner);
+				
+				//pins
+				String dispLine;
+				String cellPinString;
+				char[] cellsPinCharArray;
+				String[] cellArray = new String[8];
+				
+				String nextNonSpokenString;
+				
+				nextNonSpokenString = FactoryMethods.findNextNonSpokenString(pinScanner);
+				while (!nextNonSpokenString.startsWith("/~disp-cell-pins:")) {
+					nextNonSpokenString = FactoryMethods.findNextNonSpokenString(pinScanner);
+				}
+				
+				if (nextNonSpokenString.startsWith("/~disp-cell-pins:")){
+				//scenarioFileScanner.reset();
+				//pinScanner.useDelimiter("\\n| ");
+				//int cellMax = Integer.parseInt(cell);
+				//while (scenarioFileScanner.hasNext("/~disp-cell-pins:0") || scenarioFileScanner.hasNext("/~disp-cell-pins:1") || scenarioFileScanner.hasNext("/~disp-cell-pins:2") || scenarioFileScanner.hasNext("/~disp-cell-pins:3") || scenarioFileScanner.hasNext("/~disp-cell-pins:4") || scenarioFileScanner.hasNext("/~disp-cell-pins:5") || scenarioFileScanner.hasNext("/~disp-cell-pins:6") || scenarioFileScanner.hasNext("/~disp-cell-pins:7") || scenarioFileScanner.hasNext("/~disp-cell-pins:8")){
+					 dispLine= nextNonSpokenString;
+					 System.out.println("dispLine: " + dispLine);
+					 String cellNumberString =dispLine.substring(17,18);
+					 int CellNumber = Integer.parseInt(cellNumberString);
+					 System.out.println("cellNumber: " + cellNumberString);
+					 cellPinString= dispLine.substring(19,27);
+					cellArray[CellNumber] = cellPinString;
+					int i =0;
+					System.out.println("cellPinsStringArray: " + cellPinString);
+					
+				 }	
+				scenarioFileScanner.useDelimiter("\\n"); 
+
+				String Question = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 
 			String findCorrAns = scenarioFileScanner.next();
 			String correctAnswerString;
@@ -127,6 +142,10 @@ ScenarioEditor.main(args, edit);
 	
 	for(ScenarioEvent e: eventList) {
 		System.out.println("Event Index:" + e.index);
+		for (String s : e.getCellArray()) {
+		System.out.println(s);
+		}
+		System.out.println();
 		System.out.println("Question: " + e.getQuestion());
 		System.out.println("Correct Button: " + e.getCorrectAns()); 
 		System.out.println("Response if Answer Correct: " + e.getResponseRight());
