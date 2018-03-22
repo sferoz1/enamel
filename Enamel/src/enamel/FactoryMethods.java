@@ -15,6 +15,20 @@ public class FactoryMethods {
 		 return nextSpokenLine;
 		
 	}
+	
+	
+	public static String findNextNonSpokenString(Scanner scenarioFileScanner) {
+		scenarioFileScanner.useDelimiter("\\n");
+		 
+		String nextLine = scenarioFileScanner.next();
+		String nextNonSpokenLine;
+	while (!nextLine.startsWith("/~")) {
+		nextLine = scenarioFileScanner.next();
+	}
+		 nextNonSpokenLine = nextLine;
+		 return nextNonSpokenLine;
+		
+	}
 
 	
 }
