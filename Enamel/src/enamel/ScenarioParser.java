@@ -1,6 +1,8 @@
 package enamel;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -461,9 +463,19 @@ public class ScenarioParser {
 	private void playSound(String sound) {
 		try {
 			Clip clip = AudioSystem.getClip();
-			clip.open(AudioSystem.getAudioInputStream(
+			if (sound.equals("correct.wav") || sound.equals("wrong.wav")) {
+			
+				clip.open(AudioSystem.getAudioInputStream(new File ("." + File.separator + "AudioFiles" + File.separator + sound)));
+				clip.start();
+			}
+			else {
+			clip.open(AudioSystem.getAudioInputStream(					
 					new File(scenarioFilePath + File.separator + "AudioFiles" + File.separator + sound)));
 			clip.start();
+			}
+			
+	
+			
 			// This while loop is to check if the audio file has played or not,
 			// and if it has not then it will
 			// continue to wait until it does.
