@@ -21,8 +21,6 @@ public class ScenarioParser {
 	public boolean userInput;
 	private String scenarioFilePath;
 	private boolean isVisual;
-	
-	
 
 	public ScenarioParser(boolean isVisual) {
 
@@ -224,7 +222,6 @@ public class ScenarioParser {
 				errorLog("Exception error: IllegalArgumentException",
 						"Expected button number to be the range of 0 .. " + (player.buttonNumber - 1)
 								+ "\n Or the parameters to have two values. " + "\n Received input: " + paramArgs);
-				//errorMessage errorLabel = new errorMessage();
 			}
 
 			player.addSkipButtonListener(paramIndex, param[1], this);
@@ -234,7 +231,6 @@ public class ScenarioParser {
 					"Expected format: \n num1 string1 \n where num1 is"
 							+ " the button number to receive the action listener and str1 is the identifier for"
 							+ " where to skip to in the scenario file. \n Received input: " + paramArgs);
-			
 		}
 	}
 
@@ -528,18 +524,9 @@ public class ScenarioParser {
 		try {
 
 			File f = new File(scenarioFile);
-		
-			
 			fileScanner = new Scanner(f);
 			String absolutePath = f.getAbsolutePath();
 			scenarioFilePath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-			
-			//////////
-			Scenario read = ScenarioFileReader.readScenarioFile(scenarioFile);
-			String[] args = {"0"};
-			ScenarioEditor.main(args, read);
-			//////
-			
 			setCellAndButton();
 			play();
 		} catch (Exception e) {
@@ -548,7 +535,6 @@ public class ScenarioParser {
 							+ " a file exists in the project folder. \n Could not find directory to path: "
 							+ scenarioFile + " \n Perhaps" + " you forgot to add the file to the directory or "
 							+ " you are looking for a different directory?");
-			
 		}
 	}
 
