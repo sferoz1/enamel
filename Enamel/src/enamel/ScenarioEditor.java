@@ -54,6 +54,7 @@ public class ScenarioEditor {
 						window.frmScenarioEditor.setVisible(true);
 						isEdit = true;
 						editing = editMe;
+						
 						populate();
 					} else {
 						ScenarioEditor window = new ScenarioEditor();
@@ -79,6 +80,7 @@ public class ScenarioEditor {
 		int cells = editing.getCellNumber();
 		int buttons = editing.getButtonNumber();
 		EventList events = editing.getScenarioEventList();
+		//EventList events = editing.getScenarioEventList();
 		titleField.setText(title);
 		cellBox.setSelectedIndex(cells-1);
 		buttonBox.setSelectedIndex(buttons-1);
