@@ -1,12 +1,15 @@
 package enamel;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.logging.Level;
+import java.util.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -50,6 +53,9 @@ public class VisualPlayer extends Player {
 	private JFrame frame;
 	private GridLayout cellGrid = new GridLayout(4, 2);
 	LinkedList<JPanel> panelList = new LinkedList<JPanel>();
+	/////
+	//List<BrailleCellList> bcl = new LinkedList<BrailleCellList>();
+	///////
 	LinkedList<JButton> buttonList = new LinkedList<JButton>();
 	JPanel southPanel = new JPanel();
 	JPanel centerPanel = new JPanel();
@@ -208,6 +214,18 @@ public class VisualPlayer extends Player {
 				pins[pinIndex[i]].setSelected(s.getPinState(i));
 			}
 		}
+		//////////
+		 for (int j = 0; j < brailleList.size(); j++) 
+			 	    { 
+			 	        BrailleCell cell = this.brailleList.get(j);
+			 	        for (int i = 0; i < 8 ; i++) {
+			 	          //  brailleCellPanelList.get(j).setRadioButtons(cell.listOfPins);
+			 	        }
+			 	        this.centerPanel.repaint();
+			 	        frame.revalidate();
+			 	        frame.repaint();
+			    }
+		 /////////////
 	}
 	
 	/**

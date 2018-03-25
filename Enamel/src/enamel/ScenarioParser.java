@@ -21,6 +21,8 @@ public class ScenarioParser {
 	public boolean userInput;
 	private String scenarioFilePath;
 	private boolean isVisual;
+	
+	
 
 	public ScenarioParser(boolean isVisual) {
 
@@ -526,9 +528,18 @@ public class ScenarioParser {
 		try {
 
 			File f = new File(scenarioFile);
+		
+			
 			fileScanner = new Scanner(f);
 			String absolutePath = f.getAbsolutePath();
 			scenarioFilePath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
+			
+			//////////
+			Scenario read = ScenarioFileReader.readScenarioFile(scenarioFile);
+			String[] args = {"0"};
+			ScenarioEditor.main(args, read);
+			//////
+			
 			setCellAndButton();
 			play();
 		} catch (Exception e) {
