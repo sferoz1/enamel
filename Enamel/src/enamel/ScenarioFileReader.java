@@ -11,13 +11,11 @@ public class ScenarioFileReader {
 	
 	
 	public static Scenario readScenarioFile(String fileName){
-	
 		
 		try{
 	//only once per scenario
 		int index = 0;
 		File scenarioFile = new File(fileName);
-		
 		
 		Scanner numQScanner = new Scanner(scenarioFile);
 		numQScanner.useDelimiter("\n");
@@ -47,15 +45,10 @@ public class ScenarioFileReader {
 		/*scenarioFileScanner.useDelimiter(" |\\n");*/
 		while (scenarioFileScanner.hasNext()) {
 			
-		
-				//scenarioFileScanner.reset();
-				//scenarioFileScanner.useDelimiter("\\n");
-
-				
-			
+			//scenarioFileScanner.reset();
+			//scenarioFileScanner.useDelimiter("\\n");
 			String[] cellArray = new String[8];
 
-				
 			do {
 				
 				//pins
@@ -112,31 +105,28 @@ public class ScenarioFileReader {
 				correctAnswerInteger = Integer.parseInt(correctAnswerString);
 				correctAns = (int) correctAnswerInteger;
 
-
-String responseRight = FactoryMethods.findNextSpokenString(scenarioFileScanner);
-String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
+				String responseRight = FactoryMethods.findNextSpokenString(scenarioFileScanner);
+				String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 		
-
 				if (eventList.isEmpty()){
 					ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
 
-				eventList.addFirst(readEvent);
-				}
-				else {
+					eventList.addFirst(readEvent);
+				
+				} else {
+					
 					index +=1;
-
 					eventList.add(new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns));
-
+					
 				}
 				
-			
 				eventListSize--;
 			}	
 			while (index == 0);
 		
 			scenarioFileScanner.close();
 	
-	//System.out.print(readEvent.getQuestion());
+			//System.out.print(readEvent.getQuestion());
 
 	Scenario scenario = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
 	
