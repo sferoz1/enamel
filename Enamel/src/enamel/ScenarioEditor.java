@@ -15,6 +15,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Collections;
 import java.util.Comparator;
 import java.awt.event.ActionEvent;
@@ -238,6 +239,21 @@ public class ScenarioEditor {
 		btnEditEvent.getAccessibleContext().setAccessibleName("Edit Event");
 		btnAddEvent.getAccessibleContext().setAccessibleName("Add Event");
 		btnExit.getAccessibleContext().setAccessibleName("Exit");
+		
+		
+		//Button Tooltips
+		btnSave.setToolTipText("Save - Alt- S");
+		btnDeleteScenario.setToolTipText("Delete - Alt-D");
+		btnEditEvent.setToolTipText("Edit - Alt-E");
+		btnAddEvent.setToolTipText("Add Event - Alt-A");	
+		btnExit.setToolTipText("Exit - Alt-X");
+		
+		//Keyboard shortcut
+		btnSave.setMnemonic(KeyEvent.VK_S);
+		btnDeleteScenario.setMnemonic(KeyEvent.VK_D);
+		btnEditEvent.setMnemonic(KeyEvent.VK_E);
+		btnAddEvent.setMnemonic(KeyEvent.VK_A);
+		btnExit.setMnemonic(KeyEvent.VK_X);
 		
 	}
 

@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
@@ -664,15 +665,24 @@ public class EventEditor extends JFrame{
 		lblSeeTheUser.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblSeeTheUser.setBounds(337, 397, 289, 16);
 		contentPane.add(lblSeeTheUser);
+		
+		
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
 		lblQuestion.getAccessibleContext().setAccessibleName("Question");
 		btnSave.getAccessibleContext().setAccessibleName("Save");
 		lblWhichButtonIs.getAccessibleContext().setAccessibleName("Which Button is the Correct Answer");
 		lblCorrectAnswer.getAccessibleContext().setAccessibleName("If Answer is Correct");
-		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");		
+		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");	
+		
+		//Button tooltips 
+		btnSave.setToolTipText("Save - Alt-S");
+		
+		//Keyboard Shortcut
+		btnSave.setMnemonic(KeyEvent.VK_S);
 			
 		}
+
 	
 	public static void populate(ScenarioEvent e) {
 		

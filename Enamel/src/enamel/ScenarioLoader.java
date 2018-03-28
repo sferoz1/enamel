@@ -13,6 +13,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Panel;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.Window.Type;
@@ -86,6 +87,16 @@ public class ScenarioLoader extends JDialog {
 			//Accessibility features
 			btnNewButton.getAccessibleContext().setAccessibleName("New Scenario");
 			btnEditExistingScenario.getAccessibleContext().setAccessibleName("Edit Existing Scenario");
+			
+			//Button tooltips
+			btnNewButton.setToolTipText("New Scenario (Alt-N)");
+			btnEditExistingScenario.setToolTipText("Edit Existing Scenario (Alt- E)");
+			
+			//keyboard shortcut
+			btnNewButton.setMnemonic(KeyEvent.VK_N);
+			btnEditExistingScenario.setMnemonic(KeyEvent.VK_E);
+			
+			
 		}
 	}
 }
