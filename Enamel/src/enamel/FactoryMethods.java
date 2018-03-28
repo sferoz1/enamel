@@ -16,6 +16,22 @@ public class FactoryMethods {
 		
 	}
 	
+	public static String findNextSoundFile(Scanner scenarioFileScanner) {
+		scenarioFileScanner.useDelimiter("\\n");
+		 
+		String nextLine = scenarioFileScanner.next();
+		String nextSoundFile;
+	while (nextLine.startsWith("/~sound:") && !nextLine.startsWith("/~sound:correct.wav") && !nextLine.startsWith("/~sound:wrong.wav")) {
+		
+		nextLine = scenarioFileScanner.next();
+	
+	}
+		 nextSoundFile = nextLine;
+		 return nextSoundFile;
+		
+	}
+	
+	
 	
 	public static String findNextNonSpokenString(Scanner scenarioFileScanner) {
 		scenarioFileScanner.useDelimiter("\\n");

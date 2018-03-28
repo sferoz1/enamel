@@ -41,6 +41,7 @@ public class ScenarioFileReader {
 		String title = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 		
 		Scanner pinScanner = new Scanner(scenarioFile);
+		Scanner audioScanner = new Scanner(scenarioFile);
 		
 		/*scenarioFileScanner.useDelimiter(" |\\n");*/
 		while (scenarioFileScanner.hasNext()) {
@@ -79,19 +80,20 @@ public class ScenarioFileReader {
 					 
 					cellArray[CellNumber] = cellPinString;
 					int i =0;
-					//System.out.println("cellPinsStringArray: " + cellPinString);
-					//for (String s :cellArray) {
-						//System.out.println(s);
-					//}
+				
 				 }	
-				//System.out.println();
-				//for (String s :cellArray) {
-					//System.out.println(s);
-				//}
+			
 				scenarioFileScanner.useDelimiter("\\n"); 
 
 				String Question = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 
+				////Audio Files
+				audioScanner.useDelimiter("\\n");
+				String questionAudio = FactoryMethods.findNextSoundFile(audioScanner);
+				String rightAnswerAudio = FactoryMethods.findNextSoundFile(audioScanner);
+				String wrongAnswerAudio = FactoryMethods.findNextSoundFile(audioScanner);
+				
+				
 			String findCorrAns = scenarioFileScanner.next();
 			String correctAnswerString;
 			
@@ -111,14 +113,14 @@ public class ScenarioFileReader {
 		
 			
 				if (eventList.isEmpty()){
-					ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
+					ScenarioEvent readEvent = new ScenarioEvent(index, title, Question,questionAudio, responseRight, rightAnswerAudio, responseWrong, wrongAnswerAudio, cellArray, correctAns);
 
 					eventList.addFirst(readEvent);
 				
 				} else {
 					
 					index +=1;
-					eventList.add(new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns));
+					eventList.add(new ScenarioEvent(index, title, Question,questionAudio, responseRight, rightAnswerAudio, responseWrong, wrongAnswerAudio, cellArray, correctAns));
 					
 				}
 				
