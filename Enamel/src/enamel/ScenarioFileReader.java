@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class ScenarioFileReader {
 	static EventList eventList = new EventList();
+	static List<BrailleCell> brailleCelllList = new LinkedList<BrailleCell>();
+	
 	
 	public static Scenario readScenarioFile(String fileName){
 	
@@ -77,8 +79,11 @@ public class ScenarioFileReader {
 					 //System.out.println("dispLine: " + dispLine);
 					 String cellNumberString =dispLine.substring(17,18);
 					 int CellNumber = Integer.parseInt(cellNumberString);
+			
 					// System.out.println("cellNumber: " + cellNumberString);
 					 cellPinString= dispLine.substring(19,27);
+					 //brailleCelllList.add(new BrailleCell())
+					 
 					cellArray[CellNumber] = cellPinString;
 					int i =0;
 					//System.out.println("cellPinsStringArray: " + cellPinString);
@@ -124,6 +129,7 @@ String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 
 				}
 				
+			
 				eventListSize--;
 			}	
 			while (index == 0);
@@ -136,6 +142,12 @@ String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 	
 	// Build the Scenario object and pass it into ScenarioEditor as an existng scenario
 	Scenario edit = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
+	
+	//editing 
+	for (ScenarioEvent e : edit.scenarioEventList) {
+		edit.getScenarioEventList().timeline.add(e);
+	}
+	///////////
 
 
 

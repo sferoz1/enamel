@@ -1,6 +1,8 @@
 package enamel;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -95,7 +97,7 @@ public class ScenarioParser {
 		} else {
 			// The key phrase to indicate to play a sound file.
 			if (fileLine.length() >= 8 && fileLine.substring(0, 8).equals("/~sound:")) {
-				playSound(fileLine.substring(8));
+				playSound(fileLine.substring(8).trim());
 			}
 			// The key phrase to indicate to skip to another part of the
 			// scenario.
@@ -222,7 +224,6 @@ public class ScenarioParser {
 				errorLog("Exception error: IllegalArgumentException",
 						"Expected button number to be the range of 0 .. " + (player.buttonNumber - 1)
 								+ "\n Or the parameters to have two values. " + "\n Received input: " + paramArgs);
-				//errorMessage errorLabel = new errorMessage();
 			}
 
 			player.addSkipButtonListener(paramIndex, param[1], this);
@@ -232,7 +233,6 @@ public class ScenarioParser {
 					"Expected format: \n num1 string1 \n where num1 is"
 							+ " the button number to receive the action listener and str1 is the identifier for"
 							+ " where to skip to in the scenario file. \n Received input: " + paramArgs);
-			
 		}
 	}
 
@@ -463,9 +463,19 @@ public class ScenarioParser {
 	private void playSound(String sound) {
 		try {
 			Clip clip = AudioSystem.getClip();
-			clip.open(AudioSystem.getAudioInputStream(
+			if (sound.equals("correct.wav") || sound.equals("wrong.wav")) {
+			
+				clip.open(AudioSystem.getAudioInputStream(new File ("." + File.separator + "AudioFiles" + File.separator + sound)));
+				clip.start();
+			}
+			else {
+			clip.open(AudioSystem.getAudioInputStream(					
 					new File(scenarioFilePath + File.separator + "AudioFiles" + File.separator + sound)));
 			clip.start();
+			}
+			
+	
+			
 			// This while loop is to check if the audio file has played or not,
 			// and if it has not then it will
 			// continue to wait until it does.
@@ -537,7 +547,6 @@ public class ScenarioParser {
 							+ " a file exists in the project folder. \n Could not find directory to path: "
 							+ scenarioFile + " \n Perhaps" + " you forgot to add the file to the directory or "
 							+ " you are looking for a different directory?");
-			
 		}
 	}
 

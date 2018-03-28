@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -113,7 +115,7 @@ public class ScenarioFileReaderTest {
 
 		  File file = new File("testFile.txt");
 			Scenario Read = ScenarioFileReader.readScenarioFile(file.getName());
-			EventList ReadEvents = Read.scenarioEventList;
+			EventList ReadEvents = Read.getScenarioEventList();
 			
 			int cell = Read.getCellNumber();
 			int button = Read.getButtonNumber();
@@ -150,21 +152,22 @@ public class ScenarioFileReaderTest {
 			assertEquals(ReadEvents.get(1).getResponseRight(),"Right1");
 			assertEquals(ReadEvents.get(1).getResponseWrong(), "Wrong1");
 			
-			/*System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + ReadEvents.size() + "The eventList arguements are as follows:" );
+			Logger.getGlobal().setLevel(Level.OFF);
+			
+			Logger.getGlobal().info("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + ReadEvents.size() + "The eventList arguements are as follows:" );
 
 			for(ScenarioEvent e: ReadEvents) {
 				
-				System.out.println("Question: " + e.getQuestion());
-				System.out.println("Event Index:" + e.index);
+				Logger.getGlobal().info("Question: " + e.getQuestion());
+				Logger.getGlobal().info("Event Index:" + e.index);
 				for (String s : e.getCellArray()) {
-				System.out.println(s);
+				Logger.getGlobal().info(s);
 				}
 			
-				System.out.println("Correct Button: " + e.getCorrectAns()); 
-				System.out.println("Response if Answer Correct: " + e.getResponseRight());
-				System.out.println("Response if Answer Incorrect: " + e.getResponseWrong());
-				System.out.println();
-			}*/
+				Logger.getGlobal().info("Correct Button: " + e.getCorrectAns()); 
+				Logger.getGlobal().info("Response if Answer Correct: " + e.getResponseRight());
+				Logger.getGlobal().info("Response if Answer Incorrect: " + e.getResponseWrong());
+			}
 			}
 
 	
