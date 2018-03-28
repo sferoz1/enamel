@@ -241,8 +241,8 @@ public class ScenarioEditor {
 		
 	}
 
-	public static void addEvent(int index, String title, String question, String responseRight, String responseWrong, String[] cellArray, int correctAns){
-		ScenarioEvent addMe = new ScenarioEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns);
+	public static void addEvent(int index, String title, String question, String QFilePath, String responseRight, String RRFilePath,  String responseWrong, String RWFilePath, String[] cellArray, int correctAns){
+		ScenarioEvent addMe = new ScenarioEvent(index, title, question,QFilePath, responseRight,RRFilePath, responseWrong, RWFilePath , cellArray, correctAns);
 		timeline.add(addMe);
 		Collections.sort(timeline);
 		DLM.removeAllElements();

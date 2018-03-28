@@ -45,9 +45,16 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 		return this.question;
 		
 	}
+	public void setQuestionAudio(String s) {
+		this.questionAudio = s;
+	}
 	
 	public String getQuestionAudio(){
 		return this.questionAudio;
+	}
+	
+	public void setResponseRight(String s) {
+		this.responseRight = s;
 	}
 	
 	public String getResponseRight(){
@@ -55,9 +62,19 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 		
 	}
 	
+	public void setResponseRightAudio(String s) {
+		this.responseRightAudio = s;
+	}
+	
 	public String getResponseRightAudio(){
 		return this.responseRightAudio;
 	}
+	
+	
+	
+	
+	
+	
 	
 	public String getResponseWrong(){
 		return this.responseWrong;
@@ -65,6 +82,10 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 	
 	public String getResponseWrongAudio(){
 		return this.responseWrongAudio;
+	}
+	
+	public void setResponseWrongAudio(String s) {
+		this.responseWrongAudio = s;
 	}
 	
 	public int getCorrectAns(){

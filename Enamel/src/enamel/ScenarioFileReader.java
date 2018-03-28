@@ -97,6 +97,7 @@ public class ScenarioFileReader {
 			
 			Integer correctAnswerInteger;
 			
+			
 			int correctAns;
 			while (!findCorrAns.startsWith("/~skip-button:")){
 				findCorrAns = scenarioFileScanner.next();
@@ -108,6 +109,7 @@ public class ScenarioFileReader {
 				String responseRight = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 				String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 		
+			
 				if (eventList.isEmpty()){
 					ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, responseRight,responseWrong, cellArray, correctAns);
 

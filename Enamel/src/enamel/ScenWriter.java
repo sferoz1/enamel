@@ -2,9 +2,9 @@ package enamel;
 import java.io.*;
 public class ScenWriter {
 	
-	public static Scenario scenarioToFile;
+	public  Scenario scenarioToFile;
 	public String fileContent = "content";
-	public static File pathName;
+	public  File pathName;
 	
 	public ScenWriter(Scenario scenario, File p){ 
 		scenarioToFile = scenario;
@@ -54,9 +54,14 @@ public class ScenWriter {
 		  			//k++;
 		  			//}
 		  		  }
-		  		
+		  	
 		  		writer.write(myEvent.getQuestion());
+		  		//writer.write(myEvent.);
 		  		writer.newLine(); 
+		  		if (myEvent.getQuestionAudio() !=null) {
+		  		writer.write("/~sound:" + myEvent.getQuestionAudio());
+		  		}
+		  		writer.newLine();
 		  		writer.write("/~pause:1");
 		  		writer.newLine();
 		  		writer.write("/~skip-button:" + myEvent.getCorrectAns() + " CORRECT");
@@ -76,6 +81,10 @@ public class ScenWriter {
 			  	writer.newLine();
 			  	writer.write(myEvent.getResponseRight()); 
 			  	writer.newLine();
+			  	if (myEvent.getResponseRight() !="") {
+			  	writer.write("/~sound:" + myEvent.getResponseRightAudio());
+			  	}
+			  	writer.newLine();
 			  	writer.write("/~skip:NEXTT"); 
 			  	writer.newLine();
 		  		writer.write( "/~INCORRECT");
@@ -83,6 +92,10 @@ public class ScenWriter {
 		  		writer.write("/~sound:wrong.wav");
 		  		writer.newLine(); 
 		  		writer.write(myEvent.getResponseWrong()); 
+		  		writer.newLine();
+		  		if (myEvent.getResponseWrongAudio() !=null) {
+		  		writer.write("/~sound:" + myEvent.getResponseWrongAudio());
+		  		}
 		  		writer.newLine();
 		  		writer.write("/~skip:NEXTT"); 
 		  		writer.newLine();

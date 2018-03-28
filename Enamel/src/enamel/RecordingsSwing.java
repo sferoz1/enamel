@@ -46,7 +46,7 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 	private boolean isRecording = false;
 	private boolean isPlaying = false;
 
-	protected String saveFilePath = null;
+	public static String saveFilePath;
 	protected static EventEditor currentEvent;
 
 	// Icons used for buttons
@@ -271,6 +271,7 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 
 				JOptionPane.showMessageDialog(RecordingsSwing.this,
 						"Saved recorded sound to:\n" + saveFilePath);
+				this.saveFilePath = saveFilePath;
 				
 				
 

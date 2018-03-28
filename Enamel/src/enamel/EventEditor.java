@@ -20,6 +20,8 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Scanner;
+
 import javax.swing.JMenuItem;
 import java.awt.List;
 import javax.swing.JTextArea;
@@ -138,7 +140,7 @@ public class EventEditor extends JFrame{
 		frmEventEditor.setAlwaysOnTop(true);
 		frmEventEditor.setTitle("Event Editor");
 		frmEventEditor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frmEventEditor.setBounds(100, 100, 644, 538);
+		frmEventEditor.setBounds(100, 100, 644, 578);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frmEventEditor.setContentPane(contentPane);
@@ -165,7 +167,7 @@ public class EventEditor extends JFrame{
 		contentPane.add(lblCorrectAnswer);
 		
 		JLabel lblIfAnswerIs = new JLabel("If Answer is Incorrect");
-		lblIfAnswerIs.setBounds(11, 339, 164, 16);
+		lblIfAnswerIs.setBounds(12, 370, 164, 16);
 		lblIfAnswerIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPane.add(lblIfAnswerIs);
 		
@@ -188,12 +190,12 @@ public class EventEditor extends JFrame{
 		textQuestion.setLineWrap(true);
 		
 		textAnsRight = new JTextArea();
-		textAnsRight.setBounds(11, 266, 309, 68);
+		textAnsRight.setBounds(12, 263, 309, 68);
 		contentPane.add(textAnsRight);
 		textAnsRight.setLineWrap(true);
 		
 		textAnsWrong = new JTextArea();
-		textAnsWrong.setBounds(11, 368, 309, 68);
+		textAnsWrong.setBounds(12, 398, 309, 68);
 		contentPane.add(textAnsWrong);
 		textAnsWrong.setLineWrap(true);
 		
@@ -213,38 +215,56 @@ public class EventEditor extends JFrame{
 		QRecording.setSize(new Dimension(312, 33));
 		contentPane.add(QRecording);
 		
-		QRecording.buttonRecord.getAccessibleContext().setAccessibleName("Record a Question");
-		QRecording.buttonPlay.getAccessibleContext().setAccessibleName("Play Recording");
-	///accesbility for stop recording? 
+		RecordingsSwing CRrecordingsSwing = new RecordingsSwing();
+		CRrecordingsSwing.setSize(new Dimension(312, 33));
+		CRrecordingsSwing.setBounds(0, 333, 312, 33);
+		contentPane.add(CRrecordingsSwing);
+		
+		RecordingsSwing WRrecording = new RecordingsSwing();
+		WRrecording.setSize(new Dimension(312, 33));
+		WRrecording.setBounds(0, 473, 312, 33);
+		contentPane.add(WRrecording);
+		
+		
+		RecordingsSwing CRRecording = new RecordingsSwing();
+		CRRecording.setLocation(200, 200);
+		CRRecording.setSize(new Dimension(312, 33));
+		contentPane.add(QRecording);
+		
+
 		
 		/////		
 		JButton btnSave = new JButton("Save & Exit");
 		btnSave.setEnabled(false);
-		btnSave.setBounds(240, 465, 189, 25);
+		btnSave.setBounds(240, 508, 189, 25);
 		btnSave.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			int index = Integer.parseInt(textIndex.getText());
 			String title = textTitle.getText();
 			////if there is no recording for QRecording ???
-		//	if (QRecording.saveFilePath != null) {
-			//	String QuestionFile = QRecording.saveFilePath;
-				//String question = 
-						
-			//}
-				//else {
+			//String question = "";
+			//String QuestionFilePath = "";
 			 String question = textQuestion.getText();
-				//}
+			 String questionAudio = QRecording.saveFilePath;
+			 
+		//	if (QRecording.saveFilePath != null) {
+			//	 QuestionFilePath = "/~sound:" + QRecording.saveFilePath;
+			//}
+			
+			
 			//}
 			String responseRight = textAnsRight.getText();
+			String responseRightAudio = CRRecording.saveFilePath;
 			String responseWrong = textAnsWrong.getText();
 			String[] cellArray = parseCells();
 			int correctAns = list.getSelectedIndex();
 			if (isEdit) {
-				toEdit.overwrite(index, title, question, responseRight, responseWrong, cellArray, correctAns);
+				toEdit.overwrite(index, title, question,QRecording.saveFilePath, responseRight,responseRightAudio, responseWrong, WRrecording.saveFilePath , cellArray, correctAns);
+				
 				ScenarioEditor.editEvent(toEdit);
 				frmEventEditor.dispose();
 			} else {
-			ScenarioEditor.addEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns); 
+			ScenarioEditor.addEvent(index, title, question,QRecording.saveFilePath, responseRight,CRRecording.saveFilePath, responseWrong, WRrecording.saveFilePath, cellArray, correctAns); 
 			frmEventEditor.dispose();
 			
 			}
@@ -690,6 +710,7 @@ public class EventEditor extends JFrame{
 		contentPane.add(lblSeeTheUser);
 		
 	
+	
 	//JPanel recordingQuestionPanel = new JPanel(new BorderLayout());
 	//QRecording.add(recordingQuestionPanel);
 	//QRecording.setBorder(recordingQuestionPanel.getBorder());
@@ -702,7 +723,15 @@ public class EventEditor extends JFrame{
 		btnSave.getAccessibleContext().setAccessibleName("Save");
 		lblWhichButtonIs.getAccessibleContext().setAccessibleName("Which Button is the Correct Answer");
 		lblCorrectAnswer.getAccessibleContext().setAccessibleName("If Answer is Correct");
-		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");		
+		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");	
+		QRecording.buttonRecord.getAccessibleContext().setAccessibleName("Record a Question");
+		QRecording.buttonPlay.getAccessibleContext().setAccessibleName("Play Recording");
+		CRRecording.buttonRecord.getAccessibleContext().setAccessibleName("Record a Response if the Answer is Correct");
+		CRRecording.buttonPlay.getAccessibleContext().setAccessibleName("Play Recording");
+		WRrecording.buttonRecord.getAccessibleContext().setAccessibleName("Record a Response if the Answer is Incorrect");
+		WRrecording.buttonPlay.getAccessibleContext().setAccessibleName("Play Recording");
+	///accesbility for stop recording? 
+		
 			
 		}
 	
