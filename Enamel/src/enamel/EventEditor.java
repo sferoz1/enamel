@@ -1,6 +1,10 @@
 package enamel;
 
 import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -151,7 +155,7 @@ public class EventEditor extends JFrame{
 		contentPane.add(lblQuestion);
 		
 		JLabel lblWhichButtonIs = new JLabel("Which Button is the Correct Answer?");
-		lblWhichButtonIs.setBounds(11, 194, 249, 16);
+		lblWhichButtonIs.setBounds(12, 194, 249, 16);
 		lblWhichButtonIs.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(lblWhichButtonIs);
 		
@@ -166,7 +170,7 @@ public class EventEditor extends JFrame{
 		contentPane.add(lblIfAnswerIs);
 		
 		List list = new List();
-		list.setBounds(270, 182, 54, 68);
+		list.setBounds(267, 194, 54, 68);
 		contentPane.add(list);
 		list.add("1");
 		list.add("2");
@@ -179,7 +183,7 @@ public class EventEditor extends JFrame{
 		textTitle.setLineWrap(true);
 		
 		textQuestion = new JTextArea();
-		textQuestion.setBounds(11, 102, 313, 74);
+		textQuestion.setBounds(11, 102, 313, 57);
 		contentPane.add(textQuestion);
 		textQuestion.setLineWrap(true);
 		
@@ -202,7 +206,18 @@ public class EventEditor extends JFrame{
 		textIndex.setBounds(80, 47, 241, 22);
 		textIndex.setLineWrap(true);
 		contentPane.add(textIndex);
-				
+		
+		////////
+		RecordingsSwing QRecording = new RecordingsSwing();
+		QRecording.setLocation(0, 161);
+		QRecording.setSize(new Dimension(312, 33));
+		contentPane.add(QRecording);
+		
+		QRecording.buttonRecord.getAccessibleContext().setAccessibleName("Record a Question");
+		QRecording.buttonPlay.getAccessibleContext().setAccessibleName("Play Recording");
+	///accesbility for stop recording? 
+		
+		/////		
 		JButton btnSave = new JButton("Save & Exit");
 		btnSave.setEnabled(false);
 		btnSave.setBounds(240, 465, 189, 25);
@@ -210,7 +225,16 @@ public class EventEditor extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			int index = Integer.parseInt(textIndex.getText());
 			String title = textTitle.getText();
-			String question = textQuestion.getText();
+			////if there is no recording for QRecording ???
+		//	if (QRecording.saveFilePath != null) {
+			//	String QuestionFile = QRecording.saveFilePath;
+				//String question = 
+						
+			//}
+				//else {
+			 String question = textQuestion.getText();
+				//}
+			//}
 			String responseRight = textAnsRight.getText();
 			String responseWrong = textAnsWrong.getText();
 			String[] cellArray = parseCells();
@@ -664,6 +688,14 @@ public class EventEditor extends JFrame{
 		lblSeeTheUser.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblSeeTheUser.setBounds(337, 397, 289, 16);
 		contentPane.add(lblSeeTheUser);
+		
+	
+	//JPanel recordingQuestionPanel = new JPanel(new BorderLayout());
+	//QRecording.add(recordingQuestionPanel);
+	//QRecording.setBorder(recordingQuestionPanel.getBorder());
+		
+		///////
+		
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
 		lblQuestion.getAccessibleContext().setAccessibleName("Question");
