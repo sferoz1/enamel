@@ -254,17 +254,17 @@ public class EventEditor extends JFrame{
 			
 			//}
 			String responseRight = textAnsRight.getText();
-			String responseRightAudio = CRRecording.saveFilePath;
+			//String responseRightAudio = CRRecording.saveFilePath;
 			String responseWrong = textAnsWrong.getText();
 			String[] cellArray = parseCells();
 			int correctAns = list.getSelectedIndex();
 			if (isEdit) {
-				toEdit.overwrite(index, title, question,QRecording.saveFilePath, responseRight,responseRightAudio, responseWrong, WRrecording.saveFilePath , cellArray, correctAns);
+				toEdit.overwrite(index, title, question,QRecording.saveFilePath, responseRight,CRrecordingsSwing.saveFilePath, responseWrong, WRrecording.saveFilePath , cellArray, correctAns);
 				
 				ScenarioEditor.editEvent(toEdit);
 				frmEventEditor.dispose();
 			} else {
-			ScenarioEditor.addEvent(index, title, question,QRecording.saveFilePath, responseRight,CRRecording.saveFilePath, responseWrong, WRrecording.saveFilePath, cellArray, correctAns); 
+			ScenarioEditor.addEvent(index, title, question,QRecording.saveFilePath, responseRight,CRrecordingsSwing.saveFilePath, responseWrong, WRrecording.saveFilePath, cellArray, correctAns); 
 			frmEventEditor.dispose();
 			
 			}

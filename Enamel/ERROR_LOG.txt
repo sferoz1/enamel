@@ -1,4 +1,6 @@
-Mar 28, 2018 6:21:37 PM enamel.ScenarioParser errorLog
-WARNING: Exception error : java.lang.InterruptedException: sleep interrupted
-Mar 28, 2018 6:21:37 PM enamel.ScenarioParser errorLog
-INFO: Strange error occurred if you are able to read this message. Possibilities could include possible file corruption, or that you have enter characters that could not be read/interpreted.
+Mar 28, 2018 6:39:15 PM enamel.ScenarioParser errorLog
+WARNING: Exception error: java.io.FileNotFoundException: null (No such file or directory)
+Mar 28, 2018 6:39:15 PM enamel.ScenarioParser errorLog
+INFO: Expected the name of the file (including extension) but instead got: null
+ Perhaps you forgot to include the extension of the sound file with the name? Other possibilities include: 
+ Incorrect name of the file, the file not being in the same location as the project folder, or an attempt to play an unsupported sound file. (only .wav filesare supported at this time)
