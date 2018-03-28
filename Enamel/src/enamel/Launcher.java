@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class Launcher {
@@ -107,5 +108,18 @@ public class Launcher {
 		btnAuthorAStory.getAccessibleContext().setAccessibleName("Author A Story");
 		btnAboutTheApp.getAccessibleContext().setAccessibleName("About The App");
 		btnExit.getAccessibleContext().setAccessibleName("Exit");
+		
+		//Button tooltips
+		btnPlayAStory.setToolTipText("Play A Story (shortcut: Alt-T)");
+		btnAuthorAStory.setToolTipText("Author a Story (shortcut: Alt-C)");
+		btnAboutTheApp.setToolTipText("About The App (shortcut: Alt-E)");
+		btnExit.setToolTipText("Exit (shortcut: Alt-O)");
+		
+		//Keyboard Shortcuts 
+		btnPlayAStory.setMnemonic(KeyEvent.VK_T);
+		btnAuthorAStory.setMnemonic(KeyEvent.VK_C);
+		btnAboutTheApp.setMnemonic(KeyEvent.VK_E);
+		btnExit.setMnemonic(KeyEvent.VK_O);
+		
 	}
 }
