@@ -19,11 +19,11 @@ public class ScenWriterTest {
 		 String[] cellarray = new String[2];
 		 
 		 
-		ScenarioEvent event= new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong",cellarray, 0);
-		ScenarioEvent event1= new ScenarioEvent(1, "MyTitle", "MyQuestion", "Right", "Wrong",cellarray, 0);
-		ScenarioEvent event2= new ScenarioEvent(2, "MyTitle", "MyQuestion", "Right", "Wrong",cellarray, 0);
-		ScenarioEvent event3= new ScenarioEvent(3, "MyTitle", "MyQuestion", "Right", "Wrong",cellarray, 0);
-		ScenarioEvent event4= new  ScenarioEvent(4, "MyTitle", "MyQuestion", "Right", "Wrong",cellarray, 0);
+		ScenarioEvent event= new ScenarioEvent(0, "MyTitle", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+		ScenarioEvent event1= new ScenarioEvent(1, "MyTitle", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+		ScenarioEvent event2= new ScenarioEvent(2, "MyTitle", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+		ScenarioEvent event3= new ScenarioEvent(3, "MyTitle", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+		ScenarioEvent event4= new  ScenarioEvent(4, "MyTitle", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
 		
 		
 		

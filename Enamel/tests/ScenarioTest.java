@@ -8,8 +8,8 @@ import org.junit.Test;
 public class ScenarioTest {
 String[] cellarray = new String[2];
 	
-	ScenarioEvent event= new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong", cellarray, 0);
-	ScenarioEvent event1 = new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong", cellarray, 0);
+	ScenarioEvent event= new ScenarioEvent(0, "MyTitle", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+	ScenarioEvent event1 = new ScenarioEvent(0, "MyTitle", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
 
 	 EventList tester = new EventList();
 	 
