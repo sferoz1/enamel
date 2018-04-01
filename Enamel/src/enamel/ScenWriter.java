@@ -106,8 +106,8 @@ public class ScenWriter {
 		  		writer.write("/~skip:NEXTT"); 
 		  		writer.newLine();
 		  		writer.write( "/~NEXTT");
-		  		writer.newLine();
-		  		writer.write("/~reset-buttons "); 
+		  		//writer.newLine();
+		  		//writer.write("/~reset-buttons "); 
 		  		writer.newLine();
 		  		writer.write("/~disp-clearAll");
 		  		writer.newLine();

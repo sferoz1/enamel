@@ -22,9 +22,8 @@ WR0
 /~sound:/Users/saraattalla/aud3.wav
 /~skip:NEXTT
 /~NEXTT
-/~reset-buttons 
-/~disp-clearAll **
 /~reset-buttons
+/~disp-clearAll**
 /~disp-clearAll
 /~disp-cell-pins:0 10000000
 /~disp-cell-pins:1 00000000
@@ -46,4 +45,3 @@ WR1
 /~skip:NEXTT
 /~NEXTT
 /~reset-buttons 
-/~disp-clearAll

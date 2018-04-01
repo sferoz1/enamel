@@ -57,14 +57,7 @@ public class ScenarioFileReader {
 		
 		Scanner pinScanner = new Scanner(scenarioFile);
 		
-		/*scenarioFileScanner.useDelimiter(" |\\n");*/
 		while (scenarioFileScanner.hasNext()) {
-			
-		
-				//scenarioFileScanner.reset();
-				//scenarioFileScanner.useDelimiter("\\n");
-
-				
 			
 			String[] cellArray = new String[8];
 
