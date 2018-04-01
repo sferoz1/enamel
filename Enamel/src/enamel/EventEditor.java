@@ -122,7 +122,7 @@ public class EventEditor extends JFrame{
 					} else {
 						isEdit = false;
 						EventEditor window = new EventEditor();
-						window.frmEventEditor.setVisible(true);
+					window.frmEventEditor.setVisible(true);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -58,7 +58,7 @@ public class ScenWriter {
 		  		writer.write(myEvent.getQuestion());
 		  		//writer.write(myEvent.);
 		  		writer.newLine(); 
-		  		if (myEvent.getQuestionAudio() !=null) {
+		  		if (myEvent.getQuestionAudio() !="") {
 		  		writer.write("/~sound:" + myEvent.getQuestionAudio());
 		  		}
 		  		writer.newLine();
@@ -78,11 +78,14 @@ public class ScenWriter {
 		  		writer.write("/~CORRECT"); 
 			  	writer.newLine();
 			  	writer.write("/~sound:correct.wav");
-			  	writer.newLine();
+				writer.newLine();
+		  		writer.write("/~pause:1");
 			  	writer.write(myEvent.getResponseRight()); 
 			  	writer.newLine();
 			  	if (myEvent.getResponseRight() !="") {
 			  	writer.write("/~sound:" + myEvent.getResponseRightAudio());
+				writer.newLine();
+		  		writer.write("/~pause:1");
 			  	}
 			  	writer.newLine();
 			  	writer.write("/~skip:NEXTT"); 
@@ -90,11 +93,14 @@ public class ScenWriter {
 		  		writer.write( "/~INCORRECT");
 		  		writer.newLine(); 
 		  		writer.write("/~sound:wrong.wav");
-		  		writer.newLine(); 
+		  		writer.newLine();
+		  		writer.write("/~pause:1"); 
 		  		writer.write(myEvent.getResponseWrong()); 
 		  		writer.newLine();
-		  		if (myEvent.getResponseWrongAudio() !=null) {
+		  		if (myEvent.getResponseWrongAudio() !="") {
 		  		writer.write("/~sound:" + myEvent.getResponseWrongAudio());
+		  		writer.newLine();
+		  		writer.write("/~pause:1");
 		  		}
 		  		writer.newLine();
 		  		writer.write("/~skip:NEXTT"); 

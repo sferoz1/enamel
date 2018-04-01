@@ -49,18 +49,18 @@ public class ScenarioEditor {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					if(args[0] == "0") {
+					//if(args[0] == "0") {
 						ScenarioEditor window = new ScenarioEditor();
 						window.frmScenarioEditor.setVisible(true);
 						isEdit = true;
 						editing = editMe;
 						
 						populate();
-					} else {
-						ScenarioEditor window = new ScenarioEditor();
-						window.frmScenarioEditor.setVisible(true);
-						isEdit = false;
-					}
+					//} else {
+					//	ScenarioEditor window = new ScenarioEditor();
+						//window.frmScenarioEditor.setVisible(true);
+						//isEdit = false;
+					//}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

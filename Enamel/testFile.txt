@@ -1,42 +1,48 @@
 Cell 2
 Button 2
-title
+Title
 /~reset-buttons
 /~disp-clearAll
-/~disp-cell-pins:0 01111111
-/~disp-cell-pins:1 11101111
-MyQuestion0
+/~disp-cell-pins:0 10000000
+/~disp-cell-pins:1 00000000
+Q0
+/~sound:/Users/saraattalla/aud1.wav
 /~pause:1
 /~skip-button:0 CORRECT
 /~skip-button:1 INCORRECT
 /~user-input
 /~CORRECT
 /~sound:correct.wav
-Right0
+CR0
+/~sound:/Users/saraattalla/aud2.wav
 /~skip:NEXTT
 /~INCORRECT
 /~sound:wrong.wav
-Wrong0
+WR0
+/~sound:/Users/saraattalla/aud3.wav
 /~skip:NEXTT
 /~NEXTT
 /~reset-buttons 
-/~disp-clearAll
+/~disp-clearAll **
 /~reset-buttons
 /~disp-clearAll
-/~disp-cell-pins:0 01111111
-/~disp-cell-pins:1 11101111
-MyQuestion1
+/~disp-cell-pins:0 10000000
+/~disp-cell-pins:1 00000000
+Q1
+/~sound:/Users/saraattalla/as.wav
 /~pause:1
-/~skip-button:0 CORRECT
-/~skip-button:1 INCORRECT
+/~skip-button:1 CORRECT
+/~skip-button:0 INCORRECT
 /~user-input
 /~CORRECT
 /~sound:correct.wav
-Right1
+CR1
+/~sound:/Users/saraattalla/FSDAF.wav
 /~skip:NEXTT
 /~INCORRECT
 /~sound:wrong.wav
-Wrong1
+WR1
+/~sound:/Users/saraattalla/xzcv.wav
 /~skip:NEXTT
 /~NEXTT
 /~reset-buttons 
