@@ -229,6 +229,7 @@ public class EventEditor extends JFrame{
 			 //writer.write(scenarioWithEventsToFile, file);
 			}
 		});
+	
 		
 		contentPane.add(btnSave);
 		
