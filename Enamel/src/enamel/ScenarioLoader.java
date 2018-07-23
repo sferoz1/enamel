@@ -73,14 +73,21 @@ public class ScenarioLoader extends JDialog {
 		    	    
 		    		if (returnValue == JFileChooser.APPROVE_OPTION) {
 		    			File selectedFile = jf.getSelectedFile();
-		    			
+						//////
+		    				
+
 		    			ScenarioFileReader reader = new ScenarioFileReader();
-		    			reader.readScenarioFile(selectedFile.getAbsolutePath());
+		    			reader.readScenarioFile(selectedFile);
+		    			
+		    			
+		    			dialog.setVisible(false);
+
+		    			//reader.readScenarioFile(selectedFile.getAbsolutePath());
 		    			
 		    			//ScenarioFileReader.readScenarioFile(selectedFile.getAbsolutePath());
 		    		}
-					EventEditor.main(null, null); //load Event editor
-					ScenarioEditor.main(null, null); //Load Scenario Editor
+					//EventEditor.main(null, null); //load Event editor
+					//ScenarioEditor.main(null, null); //Load Scenario Editor
 				}
 			});
 			btnEditExistingScenario.setFont(new Font("Tahoma", Font.PLAIN, 15));

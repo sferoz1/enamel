@@ -6,10 +6,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class ScenarioFileReader {
-	static EventList eventList = new EventList();
-	static List<BrailleCell> brailleCelllList = new LinkedList<BrailleCell>();
+	public EventList eventList = new EventList();
+	public List<BrailleCell> brailleCelllList = new LinkedList<BrailleCell>();
 	
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		try {
 			String scenarioFile = "testFile.txt";
 			File f = new File(scenarioFile);
@@ -20,31 +20,27 @@ public class ScenarioFileReader {
 		} catch (Exception e) {
 		
 		}
-	}
+	}*/
 	
+	public  Scenario readScenarioFile(File fileName){
 	
-	public static Scenario readScenarioFile(String fileName){
-	
-		
 		try{
 	//only once per scenario
 		int index = 0;
-		File scenarioFile = new File(fileName);
-		
+		File scenarioFile = fileName;
+
 		
 		Scanner numQScanner = new Scanner(scenarioFile);
 		numQScanner.useDelimiter("\n");
 		int eventListSize =0;
 		while (numQScanner.hasNext()) {
 		if (numQScanner.hasNext("/~reset-buttons")) {
-			numQScanner.next();
 			eventListSize++;
-			numQScanner.next();
 		}
 		numQScanner.next();
 		}
 		numQScanner.close();
-		
+
 		
 		Scanner scenarioFileScanner = new Scanner(scenarioFile);
 		scenarioFileScanner.useDelimiter(" |\\n");
@@ -55,16 +51,26 @@ public class ScenarioFileReader {
 		String button = scenarioFileScanner.next();
 		String title = FactoryMethods.findNextSpokenString(scenarioFileScanner);
 		
-		Scanner pinScanner = new Scanner(scenarioFile);
+		System.out.println("cell: " + cell);
+		System.out.println("button: " + button);
+		System.out.println("title: " + title);
+		System.out.println("numQuestions: " + eventListSize);
 		
-		while (scenarioFileScanner.hasNext()) {
+
+		
+		Scanner pinScanner = new Scanner(scenarioFile);
+		pinScanner.useDelimiter("\\n");
+	//while (scenarioFileScanner.hasNext()) {
+		//for (int i = 0; i< Integer.parseInt(cell); i++){
+		do{
 			
+			
+			//////PINSSSSSSSSSSSSS
 			String[] cellArray = new String[8];
+			int j = Integer.parseInt(cell);
 
 				
 			do {
-				
-				//pins
 				String dispLine;
 				String cellPinString;
 				char[] cellsPinCharArray;
@@ -72,30 +78,39 @@ public class ScenarioFileReader {
 				String nextNonSpokenString;
 				
 				nextNonSpokenString = FactoryMethods.findNextNonSpokenString(pinScanner);
-				while (!nextNonSpokenString.startsWith("/~disp-cell-pins:")) {
+				System.out.print("LINE 89" + nextNonSpokenString);
+
+				while (!nextNonSpokenString.startsWith("/~disp-cell-pins")) {
 					nextNonSpokenString = FactoryMethods.findNextNonSpokenString(pinScanner);
 				}
 				
-				if (nextNonSpokenString.startsWith("/~disp-cell-pins:")){
+				if (nextNonSpokenString.startsWith("/~disp-cell-pins")){
 					 dispLine= nextNonSpokenString;
+						System.out.print("LINE 86" + dispLine);
+
 					 String cellNumberString =dispLine.substring(17,18);
 					 int CellNumber = Integer.parseInt(cellNumberString);
 			
 					 cellPinString= dispLine.substring(19,27);
 					 
-					cellArray[CellNumber] = cellPinString;
-					int i =0;
+					 cellArray[CellNumber] = cellPinString;
+					
 					
 				 }	
-				//System.out.println();
-				//for (String s :cellArray) {
-					//System.out.println(s);
-				//}
+				System.out.print("LINE 89");
+				for (String s :cellArray) {
+					System.out.println(s);
+				}
+				j--;
+		}while (j!=0);
+				/////////////////
+			
+			
 				scenarioFileScanner.useDelimiter("\\n"); 
-
 				String Question = FactoryMethods.findNextSpokenString(scenarioFileScanner);
+				System.out.println("Question: " + Question);
 				String nextLine = scenarioFileScanner.next();
-				String questionAudio = "";
+				String questionAudio = null;
 				if (nextLine.startsWith("/~sound:")) {
 					 questionAudio = nextLine;
 					System.out.println("Question Audio: " + questionAudio);
@@ -114,18 +129,23 @@ public class ScenarioFileReader {
 				correctAnswerString = findCorrAns.substring(14,15);
 				correctAnswerInteger = Integer.parseInt(correctAnswerString);
 				correctAns = (int) correctAnswerInteger;
+				System.out.println(" correct Ans: " + correctAnswerInteger);
 
 
 String responseRight = FactoryMethods.findNextSpokenString(scenarioFileScanner);
+System.out.println(" response Right: " + responseRight);
+
  nextLine = scenarioFileScanner.next();
- String responseRightAudio = "";
+ String responseRightAudio = null;
 if (nextLine.startsWith("/~sound:")) {
 	 responseRightAudio = nextLine;
 	System.out.println("Response Right: " + responseRightAudio);
 
 }
-String responseWrongAudio = "";
+String responseWrongAudio = null;
 String responseWrong = FactoryMethods.findNextSpokenString(scenarioFileScanner);
+System.out.println(" response Wrong: " + responseWrong);
+
  nextLine = scenarioFileScanner.next();
 if (nextLine.startsWith("/~sound:")) {
 	 responseWrongAudio = nextLine;
@@ -146,16 +166,19 @@ if (nextLine.startsWith("/~sound:")) {
 
 				}
 				
-			
-				eventListSize--;
-			}	
-			while (index == 0);
+			eventListSize--;
+		}
+			while (eventListSize!=0);
+
+			//while (eventListSize != 0);
+			//while (index ==0)
 		
 			scenarioFileScanner.close();
-	
+			pinScanner.close();
+	//}
 	//System.out.print(readEvent.getQuestion());
 
-	Scenario scenario = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
+	//Scenario scenario = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
 	
 	// Build the Scenario object and pass it into ScenarioEditor as an existng scenario
 	Scenario edit = new Scenario(Integer.parseInt(cell), Integer.parseInt(button), title, eventList);
@@ -165,18 +188,14 @@ if (nextLine.startsWith("/~sound:")) {
 		edit.getScenarioEventList().timeline.add(e);
 	}
 	///////////
-
-
-
-String[] args = {"0"};
-ScenarioEditor.main(args, edit);
-	
 	//test
 	
 	System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + eventList.size()+ "The eventList arguements are as follows:" );
-	
+	String[] args = {"0"};
+
 	for(ScenarioEvent e: eventList) {
-		
+
+		//EventEditor.main(args, e);
 		System.out.println("Question: " + e.getQuestion());
 		System.out.println("Event Index:" + e.index);
 		for (String s : e.getCellArray()) {
@@ -188,12 +207,18 @@ ScenarioEditor.main(args, edit);
 		System.out.println();
 
 	}
-	
+	//end test
+
+//String[] args = {"0"};
+ScenarioEditor.main(args, edit);
+
+//EventEditor.main(args, e);
+
 				
 			 
 	return edit;
 
-			}
+			
 			//scenarioFileString += scenarioFileScanner.next();
 		
 

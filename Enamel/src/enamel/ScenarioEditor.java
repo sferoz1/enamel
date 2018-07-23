@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
@@ -86,7 +87,27 @@ public class ScenarioEditor {
 		cellBox.setSelectedIndex(cells-1);
 		buttonBox.setSelectedIndex(buttons-1);
 		timeline = events;
+		SwingUtilities.invokeLater(doLoadEvents);
+		/*for(ScenarioEvent e: timeline) {
+			
+			ScenarioEditor.addEvent(e.getIndex(), e.getTitle(), e.getQuestion(),e.getQuestionAudio() , e.getResponseRight(), e.getResponseRightAudio(), e.getResponseWrong(), e.getResponseWrongAudio(), e.getCellArray(), e.getCorrectAns());
+
+		}*/
+	
+		
 	}
+	
+	public static Runnable doLoadEvents = new Runnable() {
+		public void run () {
+			for(ScenarioEvent e: timeline) {
+				
+				ScenarioEditor.addEvent(e.getIndex(), e.getTitle(), e.getQuestion(),e.getQuestionAudio() , e.getResponseRight(), e.getResponseRightAudio(), e.getResponseWrong(), e.getResponseWrongAudio(), e.getCellArray(), e.getCorrectAns());
+
+			}
+			
+		}
+	};
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -255,6 +276,7 @@ public class ScenarioEditor {
 	}
 	
 	public static void editEvent(ScenarioEvent e) {
+		
 		timeline.remove(e);
 		timeline.add(e);
 		Collections.sort(timeline);

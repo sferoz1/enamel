@@ -261,6 +261,7 @@ public class EventEditor extends JFrame{
 			if (isEdit) {
 				toEdit.overwrite(index, title, question,QRecording.saveFilePath, responseRight,CRrecordingsSwing.saveFilePath, responseWrong, WRrecording.saveFilePath , cellArray, correctAns);
 				
+				
 				ScenarioEditor.editEvent(toEdit);
 				frmEventEditor.dispose();
 			} else {

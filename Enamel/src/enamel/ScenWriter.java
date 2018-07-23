@@ -58,7 +58,7 @@ public class ScenWriter {
 		  		writer.write(myEvent.getQuestion());
 		  		//writer.write(myEvent.);
 		  		writer.newLine(); 
-		  		if (myEvent.getQuestionAudio() !="") {
+		  		if (myEvent.getQuestionAudio() !=null) {
 		  		writer.write("/~sound:" + myEvent.getQuestionAudio());
 		  		}
 		  		writer.newLine();
@@ -80,9 +80,10 @@ public class ScenWriter {
 			  	writer.write("/~sound:correct.wav");
 				writer.newLine();
 		  		writer.write("/~pause:1");
+		  		writer.newLine();
 			  	writer.write(myEvent.getResponseRight()); 
 			  	writer.newLine();
-			  	if (myEvent.getResponseRight() !="") {
+			  	if (myEvent.getResponseRightAudio() !=null) {
 			  	writer.write("/~sound:" + myEvent.getResponseRightAudio());
 				writer.newLine();
 		  		writer.write("/~pause:1");
@@ -95,9 +96,10 @@ public class ScenWriter {
 		  		writer.write("/~sound:wrong.wav");
 		  		writer.newLine();
 		  		writer.write("/~pause:1"); 
+		  		writer.newLine();
 		  		writer.write(myEvent.getResponseWrong()); 
 		  		writer.newLine();
-		  		if (myEvent.getResponseWrongAudio() !="") {
+		  		if (myEvent.getResponseWrongAudio() !=null) {
 		  		writer.write("/~sound:" + myEvent.getResponseWrongAudio());
 		  		writer.newLine();
 		  		writer.write("/~pause:1");

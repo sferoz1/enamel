@@ -52,7 +52,7 @@ public class FactoryMethods {
 	public static String findNextNonSpokenString(Scanner scenarioFileScanner) {
 		scenarioFileScanner.useDelimiter("\\n");
 		String nextNonSpokenString= "";
-		String nextLine = "/~";
+		String nextLine = "";
 		 while (scenarioFileScanner.hasNext() && (!nextLine.startsWith("/~")|| nextLine.startsWith("/~sound:"))   ){
 		 nextLine = scenarioFileScanner.next();
 		}
