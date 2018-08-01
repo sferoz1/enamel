@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Panel;
+import java.awt.Window;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,7 @@ import java.awt.Window.Type;
 
 public class ScenarioLoader extends JDialog {
 	private static ScenarioLoader dialog;
+	private static String lastEditDir;
 	/**
 	 * Launch the application.
 	 */
@@ -36,8 +38,8 @@ public class ScenarioLoader extends JDialog {
 	 * Create the dialog.
 	 */
 	public ScenarioLoader() {
-		setAlwaysOnTop(true);
-		setType(Type.POPUP);
+		//setAlwaysOnTop(true);
+		//setType(Type.POPUP);
 		setResizable(false);
 		setBounds(100, 100, 435, 151);
 		getContentPane().setLayout(new BorderLayout());
@@ -68,26 +70,29 @@ public class ScenarioLoader extends JDialog {
 			JButton btnEditExistingScenario = new JButton("Edit Existing Scenario");
 			btnEditExistingScenario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JFileChooser jf = new JFileChooser();
-		    	    int returnValue = jf.showOpenDialog(null);
-		    	    
-		    		if (returnValue == JFileChooser.APPROVE_OPTION) {
-		    			File selectedFile = jf.getSelectedFile();
-						//////
-		    				
-
-		    			ScenarioFileReader reader = new ScenarioFileReader();
-		    			reader.readScenarioFile(selectedFile);
-		    			
-		    			
-		    			dialog.setVisible(false);
-
-		    			//reader.readScenarioFile(selectedFile.getAbsolutePath());
-		    			
-		    			//ScenarioFileReader.readScenarioFile(selectedFile.getAbsolutePath());
-		    		}
-					//EventEditor.main(null, null); //load Event editor
-					//ScenarioEditor.main(null, null); //Load Scenario Editor
+					
+					if (lastEditDir==null){
+						JFileChooser jf = new JFileChooser();
+						int returnValue = jf.showOpenDialog(null);
+						if (returnValue == JFileChooser.APPROVE_OPTION) {
+							File selectedFile = jf.getSelectedFile();
+							lastEditDir = selectedFile.getParent();
+							ScenarioFileReader reader = new ScenarioFileReader();
+							reader.readScenarioFile(selectedFile);
+							dialog.setVisible(false);}
+					}
+					else if (lastEditDir !=null){
+						JFileChooser jf = new JFileChooser(lastEditDir);
+						int returnValue = jf.showOpenDialog(null);
+						if (returnValue == JFileChooser.APPROVE_OPTION) {
+							File selectedFile = jf.getSelectedFile();
+							lastEditDir = selectedFile.getParent();
+							ScenarioFileReader reader = new ScenarioFileReader();
+							reader.readScenarioFile(selectedFile);
+							dialog.setVisible(false);}
+						
+					}
+					
 				}
 			});
 			btnEditExistingScenario.setFont(new Font("Tahoma", Font.PLAIN, 15));

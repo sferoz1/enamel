@@ -9,6 +9,8 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 	public String[] cellArray;
 	private int correctAns;
 	public int index;
+	protected static int buttons;
+	protected static int cells;
 	
 	public ScenarioEvent(int index, String title, String question, String questionAudio, String responseRight, String responseRightAudio, String responseWrong, String responseWrongAudio, String[] cellArray, int correctAns) {
 		this.cellArray = cellArray;
@@ -22,7 +24,23 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 		this.responseWrongAudio = responseWrongAudio;
 		this.correctAns = correctAns;
 		
+		
 	}
+	/*public ScenarioEvent(int cells, int buttons, int index, String title, String question, String questionAudio, String responseRight, String responseRightAudio, String responseWrong, String responseWrongAudio, String[] cellArray, int correctAns) {
+		this.cellArray = cellArray;
+		this.index = index;
+		this.title = title;
+		this.question = question;
+		this.questionAudio = questionAudio;
+		this.responseRight = responseRight;
+		this.responseRightAudio = responseRightAudio;
+		this.responseWrong = responseWrong;
+		this.responseWrongAudio = responseWrongAudio;
+		this.correctAns = correctAns;
+		this.buttons = buttons;
+		this.cells = cells;
+		
+	}*/
 
 	public void overwrite(int index, String title, String question, String questionAudio, String responseRight, String responseRightAudio, String responseWrong, String responseWrongAudio, String[] cellArray, int correctAns) {
 		this.index = index;
@@ -37,6 +55,14 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 		this.correctAns = correctAns;
 		
 	}
+	
+	/*public int getCells(){
+		return this.cells;
+	}
+	
+	public int getButtons(){
+		return this.buttons;
+	}*/
 	public String getTitle(){
 		return this.title;
 	}

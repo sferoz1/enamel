@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class EventList extends LinkedList<ScenarioEvent>{
 	private int size;
-
+	public static int buttons;
 	protected LinkedList<ScenarioEvent> timeline;	
 	
 	public EventList(){

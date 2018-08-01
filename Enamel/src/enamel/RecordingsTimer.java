@@ -62,7 +62,7 @@ public class RecordingsTimer extends Thread {
 	 * Generate a String for time counter in the format of "HH:mm:ss"
 	 * @return the time counter
 	 */
-	private String toTimeString() {
+	protected String toTimeString() {
 		long now = System.currentTimeMillis();
 		Date current = new Date(now - startTime);
 		dateFormater.setTimeZone(TimeZone.getTimeZone("GMT"));

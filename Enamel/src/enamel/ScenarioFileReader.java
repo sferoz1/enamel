@@ -26,7 +26,7 @@ public class ScenarioFileReader {
 	
 		try{
 	//only once per scenario
-		int index = 0;
+		int index = -1;
 		File scenarioFile = fileName;
 
 		
@@ -112,7 +112,7 @@ public class ScenarioFileReader {
 				String nextLine = scenarioFileScanner.next();
 				String questionAudio = null;
 				if (nextLine.startsWith("/~sound:")) {
-					 questionAudio = nextLine;
+					 questionAudio = nextLine.substring(8);
 					System.out.println("Question Audio: " + questionAudio);
 
 				}
@@ -138,7 +138,7 @@ System.out.println(" response Right: " + responseRight);
  nextLine = scenarioFileScanner.next();
  String responseRightAudio = null;
 if (nextLine.startsWith("/~sound:")) {
-	 responseRightAudio = nextLine;
+	 responseRightAudio = nextLine.substring(8);;
 	System.out.println("Response Right: " + responseRightAudio);
 
 }
@@ -148,24 +148,24 @@ System.out.println(" response Wrong: " + responseWrong);
 
  nextLine = scenarioFileScanner.next();
 if (nextLine.startsWith("/~sound:")) {
-	 responseWrongAudio = nextLine;
+	 responseWrongAudio = nextLine.substring(8);;
 	System.out.println("Response Wrong" + responseWrongAudio);
 
 }
 		
+				index +=1;
 
-				if (eventList.isEmpty()){
-					ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, questionAudio, responseRight,responseRightAudio, responseWrong,responseWrongAudio, cellArray, correctAns);
+				//if (eventList.isEmpty()){
+					//ScenarioEvent readEvent = new ScenarioEvent(index, title, Question, questionAudio, responseRight,responseRightAudio, responseWrong,responseWrongAudio, cellArray, correctAns);
 
-				eventList.addFirst(readEvent);
-				}
-				else {
-					index +=1;
+				//eventList.addFirst(readEvent);
+				//}
+				//else {
 
 					eventList.add(new ScenarioEvent(index, title, Question, questionAudio, responseRight,responseRightAudio, responseWrong,responseWrongAudio, cellArray, correctAns));
+					
+				//}
 
-				}
-				
 			eventListSize--;
 		}
 			while (eventListSize!=0);
@@ -193,7 +193,7 @@ if (nextLine.startsWith("/~sound:")) {
 	System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + eventList.size()+ "The eventList arguements are as follows:" );
 	String[] args = {"0"};
 
-	for(ScenarioEvent e: eventList) {
+	for(ScenarioEvent e: edit.getScenarioEventList()) {
 
 		//EventEditor.main(args, e);
 		System.out.println("Question: " + e.getQuestion());
@@ -203,6 +203,7 @@ if (nextLine.startsWith("/~sound:")) {
 		}
 		System.out.println("Correct Button: " + e.getCorrectAns()); 
 		System.out.println("Response if Answer Correct: " + e.getResponseRight());
+		
 		System.out.println("Response if Answer Incorrect: " + e.getResponseWrong());
 		System.out.println();
 

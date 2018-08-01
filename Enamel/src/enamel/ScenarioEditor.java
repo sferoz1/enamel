@@ -15,6 +15,8 @@ import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Collections;
 import java.util.Comparator;
 import java.awt.event.ActionEvent;
@@ -38,9 +40,14 @@ public class ScenarioEditor {
 	private static JList list;
 	private static DefaultListModel DLM;
 	private static JComboBox cellBox, buttonBox;
-	public static EventList timeline;
+	protected static int cellSelection, buttonSelection=0;
+	public static  EventList timeline;
 	private static Scenario editing;
 	private static boolean isEdit;
+	
+	private static String lastDirSave=null;
+
+	
 	/**
 	 * Launch the application.
 	 */
@@ -70,43 +77,44 @@ public class ScenarioEditor {
 		});
 	}
 
+	
 	/**
 	 * Create the application.
 	 */
 	public ScenarioEditor() {
 		initialize();
 	}
+	/*public static int getCellNum(){
+		return Integer.parseInt(cellBox.getSelectedItem().toString());	}
 
+	public static int getButtonNum(){
+		return Integer.parseInt(buttonBox.getSelectedItem().toString());
+	}*/
 	private static void populate() {
 		String title = editing.getTitle();
 		int cells = editing.getCellNumber();
 		int buttons = editing.getButtonNumber();
-		EventList events = editing.getScenarioEventList();
+		
+		
+		
 		//EventList events = editing.getScenarioEventList();
-		titleField.setText(title);
+		timeline.buttons = buttons;
+		timeline = editing.getScenarioEventList();
+		 titleField.setText(title);
 		cellBox.setSelectedIndex(cells-1);
+		
+		
 		buttonBox.setSelectedIndex(buttons-1);
-		timeline = events;
-		SwingUtilities.invokeLater(doLoadEvents);
-		/*for(ScenarioEvent e: timeline) {
-			
-			ScenarioEditor.addEvent(e.getIndex(), e.getTitle(), e.getQuestion(),e.getQuestionAudio() , e.getResponseRight(), e.getResponseRightAudio(), e.getResponseWrong(), e.getResponseWrongAudio(), e.getCellArray(), e.getCorrectAns());
-
-		}*/
+		cellSelection = cells;
+		buttonSelection = buttons;
+		
+		for(ScenarioEvent e: timeline) {
+				ScenarioEditor.editEvent(e);
+		}
 	
 		
 	}
 	
-	public static Runnable doLoadEvents = new Runnable() {
-		public void run () {
-			for(ScenarioEvent e: timeline) {
-				
-				ScenarioEditor.addEvent(e.getIndex(), e.getTitle(), e.getQuestion(),e.getQuestionAudio() , e.getResponseRight(), e.getResponseRightAudio(), e.getResponseWrong(), e.getResponseWrongAudio(), e.getCellArray(), e.getCorrectAns());
-
-			}
-			
-		}
-	};
 	
 	/**
 	 * Initialize the contents of the frame.
@@ -159,6 +167,10 @@ public class ScenarioEditor {
 				File file = saveScenarioWindow();
 				int cells = Integer.parseInt(cellBox.getSelectedItem().toString());
 				int buttons = Integer.parseInt(buttonBox.getSelectedItem().toString());
+				
+				cellSelection = cells;
+				buttonSelection = buttons;
+				
 				Scenario createNewScenario = new Scenario(cells, buttons, titleField.getText(), timeline);
 				ScenWriter scenarioToFile = new ScenWriter(createNewScenario, file);
 				scenarioToFile.write(createNewScenario, file);
@@ -210,10 +222,33 @@ public class ScenarioEditor {
 				deleteEvent(delete);		
 			}
 		});
+		buttonBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() != ItemEvent.SELECTED){
+					buttonSelection =  Integer.parseInt(buttonBox.getSelectedItem().toString());
+					System.out.println("button listner");
+
+				}
+			}
+		});
+		
+		cellBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() != ItemEvent.SELECTED){
+					cellSelection =  Integer.parseInt(cellBox.getSelectedItem().toString());
+					System.out.println("cell listner");
+
+				}
+			}
+		});
+				
+	
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (list.isSelectionEmpty() == false) {
+				if (list.isSelectionEmpty() == false) {					
 					btnEditEvent.setEnabled(true);
 					btnDeleteEvent.setEnabled(true);
 				}
@@ -309,17 +344,34 @@ public class ScenarioEditor {
 	public File saveScenarioWindow(){
 		JFrame saveWindow = new JFrame();
 		 
+		if (lastDirSave!=null) {
+			JFileChooser saveFile = new JFileChooser(lastDirSave);
+			saveFile.setDialogTitle("Specify a file to save");   
+			int userSelection = saveFile.showSaveDialog(saveWindow);
+			 
+			if (userSelection == JFileChooser.APPROVE_OPTION) {
+			    File fileToSave = saveFile.getSelectedFile();
+			    lastDirSave = fileToSave.getParent();
+			    return fileToSave;
+			    //return fileToSave.getAbsolutePath();
+			} else {
+				return null;
+			}
+		}
+		else{
 		JFileChooser saveFile = new JFileChooser();
 		saveFile.setDialogTitle("Specify a file to save");   
-		 
 		int userSelection = saveFile.showSaveDialog(saveWindow);
 		 
 		if (userSelection == JFileChooser.APPROVE_OPTION) {
 		    File fileToSave = saveFile.getSelectedFile();
+		    lastDirSave = fileToSave.getParent();
 		    return fileToSave;
 		    //return fileToSave.getAbsolutePath();
 		} else {
 			return null;
 		}
+		}
+		
 	}
 }

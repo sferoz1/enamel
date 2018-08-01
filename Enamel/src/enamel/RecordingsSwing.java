@@ -34,28 +34,30 @@ import javax.swing.filechooser.FileFilter;
  */
 public class RecordingsSwing extends JPanel implements ActionListener {
 
-	protected JButton buttonRecord = new JButton("Record");
-	protected JButton buttonPlay = new JButton("Play");
-	private JLabel labelRecordTime = new JLabel("Record Time: 00:00:00");
 
-	private RecordingsUtil recorder = new RecordingsUtil();
-	private RecordingsAudioPlayer player = new RecordingsAudioPlayer();
-	private Thread playbackThread;
-	private RecordingsTimer timer;
-
-	private boolean isRecording = false;
-	private boolean isPlaying = false;
-
-	public String saveFilePath;
-	protected static EventEditor currentEvent;
-
+	JButton buttonRecord = new JButton("Record");
+	JButton buttonPlay = new JButton("Play");
+	JLabel labelRecordTime = new JLabel("Record Time: 00:00:00");
+	RecordingsAudioPlayer qplayer = new RecordingsAudioPlayer();
 	// Icons used for buttons
 	private ImageIcon iconRecord = new ImageIcon(getClass().getResource(
 			"Record.gif"));
 	private ImageIcon iconStop = new ImageIcon(getClass().getResource(
 			"Stop.gif"));
-	private ImageIcon iconPlay = new ImageIcon(getClass().getResource(
+	protected ImageIcon iconPlay = new ImageIcon(getClass().getResource(
 			"Play.gif"));
+	private RecordingsUtil recorder = new RecordingsUtil();
+	private Thread playbackThread;
+	private RecordingsTimer timer;
+	
+public static String Time;
+	protected String saveFilePath;
+	RecordingsAudioPlayer player = new RecordingsAudioPlayer();
+
+	private boolean isRecording = false;
+	public boolean isPlaying = false;
+
+	protected static EventEditor currentEvent;
 
 	public RecordingsSwing() {
 		//super("Swing Sound Recorder");
@@ -68,9 +70,40 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 		buttonRecord.setIcon(iconRecord);
 		buttonPlay.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		buttonPlay.setIcon(iconPlay);
+		
+		
 		buttonPlay.setEnabled(false);
 		labelRecordTime.setFont(new Font("Tahoma", Font.PLAIN, 12));
 
+		add(buttonRecord, BorderLayout.WEST);
+		add(labelRecordTime, BorderLayout.CENTER);
+		add(buttonPlay, BorderLayout.EAST);
+		
+		buttonRecord.addActionListener(this);
+		buttonPlay.addActionListener(this);
+		
+		
+	
+	}
+
+	public RecordingsSwing(String audioPath) {
+		super();
+	
+		setLayout(new FlowLayout());
+
+		buttonRecord.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonRecord.setIcon(iconRecord);
+		buttonPlay.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		buttonPlay.setIcon(iconPlay);
+
+		if (audioPath!=null){
+			buttonPlay.setEnabled(true);
+			saveFilePath= audioPath;
+		}
+		else {buttonPlay.setEnabled(false);}
+		labelRecordTime.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		
 		add(buttonRecord, BorderLayout.WEST);
 		add(labelRecordTime, BorderLayout.CENTER);
 		add(buttonPlay, BorderLayout.EAST);
@@ -84,6 +117,11 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setLocationRelativeTo(null);
 	
+	}
+
+	
+	public void setRecordingFilePath(String audioPath){
+		this.saveFilePath= audioPath;
 	}
 	String getRecordingFilePath() {
 		return this.saveFilePath;
@@ -152,7 +190,7 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
 			recorder.stop();
-
+			//labelRecordTime.getText();
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
 			saveFile();
@@ -168,7 +206,7 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 	/**
 	 * Start playing back the sound.
 	 */
-	private void playBack() {
+	public void playBack() {
 		timer = new RecordingsTimer(labelRecordTime);
 		timer.start();
 		isPlaying = true;
@@ -183,6 +221,7 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 					buttonRecord.setEnabled(false);
 
 					player.play(saveFilePath);
+					
 					timer.reset();
 
 					buttonPlay.setText("Play");
@@ -206,8 +245,15 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 
 	/**
 	 * Stop playing back.
+	 * 
+	 *
 	 */
-	private void stopPlaying() {
+	public void loadFile(String file){
+		
+	}
+	
+
+	public void stopPlaying() {
 		timer.reset();
 		timer.interrupt();
 		player.stop();
