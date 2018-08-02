@@ -162,7 +162,7 @@ if (nextLine.startsWith("/~sound:")) {
 				//}
 				//else {
 
-					eventList.add(new ScenarioEvent(index, title, Question, questionAudio, responseRight,responseRightAudio, responseWrong,responseWrongAudio, cellArray, correctAns));
+					eventList.add(new ScenarioEvent(null, null, null, index, title, Question, questionAudio, responseRight,responseRightAudio, responseWrong,responseWrongAudio, cellArray, correctAns));
 					
 				//}
 

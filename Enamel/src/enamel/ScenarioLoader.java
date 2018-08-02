@@ -42,6 +42,7 @@ public class ScenarioLoader extends JDialog {
 		//setType(Type.POPUP);
 		setResizable(false);
 		setBounds(100, 100, 435, 151);
+		setLocation(455, 200);
 		getContentPane().setLayout(new BorderLayout());
 		{
 			Panel panel = new Panel();

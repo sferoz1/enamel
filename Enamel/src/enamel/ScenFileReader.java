@@ -106,7 +106,7 @@ public class ScenFileReader {
 
 			}
 			 index++;
-			ScenarioEvent addThis = new ScenarioEvent(index, title, question, questionAudio, correctResponse,correctResponseAudio, wrongResponse,wrongResponseAudio, cellArray, correctAnswer);
+			ScenarioEvent addThis = new ScenarioEvent(null, null, null, index, title, question, questionAudio, correctResponse,correctResponseAudio, wrongResponse,wrongResponseAudio, cellArray, correctAnswer);
 			eScanner.close();
 			eventList.add(addThis);
 		}  while (eventsRemaining ==0);

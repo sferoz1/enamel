@@ -11,8 +11,9 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 	public int index;
 	protected static int buttons;
 	protected static int cells;
+	protected  String qAudioLabel, rAudioLabel, wAudioLabel;
 	
-	public ScenarioEvent(int index, String title, String question, String questionAudio, String responseRight, String responseRightAudio, String responseWrong, String responseWrongAudio, String[] cellArray, int correctAns) {
+	public ScenarioEvent(String QA, String RA, String WA, int index, String title, String question, String questionAudio, String responseRight, String responseRightAudio, String responseWrong, String responseWrongAudio, String[] cellArray, int correctAns) {
 		this.cellArray = cellArray;
 		this.index = index;
 		this.title = title;
@@ -23,6 +24,10 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 		this.responseWrong = responseWrong;
 		this.responseWrongAudio = responseWrongAudio;
 		this.correctAns = correctAns;
+		this.qAudioLabel = QA;
+		this.rAudioLabel = RA;
+		this.wAudioLabel = WA;
+		
 		
 		
 	}
@@ -42,7 +47,7 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 		
 	}*/
 
-	public void overwrite(int index, String title, String question, String questionAudio, String responseRight, String responseRightAudio, String responseWrong, String responseWrongAudio, String[] cellArray, int correctAns) {
+	public void overwrite(String q, String r, String w, int index, String title, String question, String questionAudio, String responseRight, String responseRightAudio, String responseWrong, String responseWrongAudio, String[] cellArray, int correctAns) {
 		this.index = index;
 		this.cellArray = cellArray.clone();
 		this.title = title;
@@ -53,6 +58,10 @@ public class ScenarioEvent implements Comparable<ScenarioEvent>{
 		this.responseWrong = responseWrong;
 		this.responseWrongAudio = responseWrongAudio;
 		this.correctAns = correctAns;
+		this.qAudioLabel = q;
+		this.rAudioLabel = r;
+		this.wAudioLabel = w;
+		
 		
 	}
 	

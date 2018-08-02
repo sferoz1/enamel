@@ -16,12 +16,12 @@ import enamel.*;
 public class EventListTest {
 	 EventList tester = new EventList();
 	 String[] cellarray = new String[2];
-	ScenarioEvent event= new ScenarioEvent(0, "MyTitle0", "MyQuestion", "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
-	ScenarioEvent event1= new ScenarioEvent(1, "MyTitle1", "MyQuestion", "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
-	ScenarioEvent event2= new ScenarioEvent(2, "MyTitle2", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
-	ScenarioEvent event3= new ScenarioEvent(3, "MyTitle3", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
-	ScenarioEvent event4= new  ScenarioEvent(4, "MyTitle4", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
-	ScenarioEvent eventToAdd= new  ScenarioEvent(5, "MyTitle6", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+	ScenarioEvent event= new ScenarioEvent("Q", "r", "W", 0, "MyTitle0", "MyQuestion", "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+	ScenarioEvent event1= new ScenarioEvent("Q", "r", "W", 1, "MyTitle1", "MyQuestion", "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+	ScenarioEvent event2= new ScenarioEvent("Q", "r", "W", 2, "MyTitle2", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+	ScenarioEvent event3= new ScenarioEvent("Q", "r", "W", 3, "MyTitle3", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+	ScenarioEvent event4= new  ScenarioEvent("Q", "r", "W", 4, "MyTitle4", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+	ScenarioEvent eventToAdd= new  ScenarioEvent("Q", "r", "W", 5, "MyTitle6", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
 	
 
 

@@ -39,6 +39,7 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 	JButton buttonPlay = new JButton("Play");
 	JLabel labelRecordTime = new JLabel("Record Time: 00:00:00");
 	RecordingsAudioPlayer qplayer = new RecordingsAudioPlayer();
+	//JLabel labelRecordTime = new JLabel();
 	// Icons used for buttons
 	private ImageIcon iconRecord = new ImageIcon(getClass().getResource(
 			"Record.gif"));
@@ -50,7 +51,14 @@ public class RecordingsSwing extends JPanel implements ActionListener {
 	private Thread playbackThread;
 	private RecordingsTimer timer;
 	
-public static String Time;
+	
+protected String Time = "sRecord Time: 00:00:00";
+
+//JLabel labelRecordTime = new JLabel(Time);
+
+protected  int marker;
+
+protected ScenarioEvent event1;
 	protected String saveFilePath;
 	RecordingsAudioPlayer player = new RecordingsAudioPlayer();
 
@@ -65,7 +73,7 @@ public static String Time;
 		// currentEvent = e;
 		//
 		setLayout(new FlowLayout());
-
+		marker = -1;
 		buttonRecord.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		buttonRecord.setIcon(iconRecord);
 		buttonPlay.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -74,7 +82,8 @@ public static String Time;
 		
 		buttonPlay.setEnabled(false);
 		labelRecordTime.setFont(new Font("Tahoma", Font.PLAIN, 12));
-
+		//labelRecordTime.setText("00:00:00");
+		
 		add(buttonRecord, BorderLayout.WEST);
 		add(labelRecordTime, BorderLayout.CENTER);
 		add(buttonPlay, BorderLayout.EAST);
@@ -86,11 +95,10 @@ public static String Time;
 	
 	}
 
-	public RecordingsSwing(String audioPath) {
+	public RecordingsSwing(ScenarioEvent e, String audioPath,String timeLabel,  int qrw) {
 		super();
-	
+		event1 = e;
 		setLayout(new FlowLayout());
-
 		buttonRecord.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		buttonRecord.setIcon(iconRecord);
 		buttonPlay.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -110,9 +118,28 @@ public static String Time;
 		
 		buttonRecord.addActionListener(this);
 		buttonPlay.addActionListener(this);
+		marker = qrw;
+
+		System.out.println(marker);
 		
+		if (this.marker ==0 && audioPath!=null && e.qAudioLabel !=null) {
+			Time = timeLabel;
+			System.out.println("swing constructor Time:" + Time);
+
+		}
+		else if (this.marker ==1 && audioPath!= null && e.rAudioLabel !=null) {
+			Time =  timeLabel;
+		}
+		else if (this.marker ==2 && audioPath!=null && e.wAudioLabel !=null) {
+			Time =  timeLabel;
+			//Time = "Record Time: 00:00:00";
+		}
+		else {
+			Time = "Record Time: 00:00:00";
+		}
+		labelRecordTime.setText(Time);
 		
-		
+		System.out.println("swing constructor Time:" + Time);
 		//pack();
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setLocationRelativeTo(null);
@@ -122,6 +149,8 @@ public static String Time;
 	
 	public void setRecordingFilePath(String audioPath){
 		this.saveFilePath= audioPath;
+		
+		
 	}
 	String getRecordingFilePath() {
 		return this.saveFilePath;
@@ -137,14 +166,14 @@ public static String Time;
 			if (!isRecording) {
 				startRecording();
 			} else {
-				stopRecording();
+				stopRecording(event1);
 			}
 
 		} else if (button == buttonPlay) {
 			if (!isPlaying) {
-				playBack();
+				playBack(event1);
 			} else {
-				stopPlaying();
+				stopPlaying(event1);
 			}
 		}
 	}
@@ -180,7 +209,7 @@ public static String Time;
 	/**
 	 * Stop recording and save the sound into a WAV file
 	 */
-	private void stopRecording() {
+	private void stopRecording(ScenarioEvent e) {
 		isRecording = false;
 		try {
 			timer.cancel();
@@ -190,7 +219,39 @@ public static String Time;
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
 			recorder.stop();
-			//labelRecordTime.getText();
+			
+			Time = labelRecordTime.getText();
+			System.out.println("recordingmrker" + marker);
+			
+				
+				
+			if (marker ==0) {
+					currentEvent.EEqAudLabel = Time;
+					System.out.println("save q to  event editor:" + currentEvent.EEqAudLabel);
+					if (marker ==0 && e!=null) {
+						e.qAudioLabel = Time;
+						System.out.println("save q to  event object:" + e.qAudioLabel);
+
+				}
+				}
+				 if (marker ==1) {
+						currentEvent.EErAudLabel = Time;
+			if (marker == 1 && e!=null) {
+				e.rAudioLabel = Time;
+				
+				}
+			}
+				 if (marker ==2) {
+						currentEvent.EEwAudLabel = Time;
+			if (marker ==2 && e!=null) {
+				e.wAudioLabel = Time;
+				
+
+					
+				}
+				
+			} 
+			System.out.println("*" + labelRecordTime.getText());
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
 			saveFile();
@@ -206,12 +267,13 @@ public static String Time;
 	/**
 	 * Start playing back the sound.
 	 */
-	public void playBack() {
+	public void playBack(ScenarioEvent e) {
+		System.out.println("DOES THIS EVEN RUN??");
 		timer = new RecordingsTimer(labelRecordTime);
 		timer.start();
 		isPlaying = true;
 		playbackThread = new Thread(new Runnable() {
-
+			
 			@Override
 			public void run() {
 				try {
@@ -222,12 +284,46 @@ public static String Time;
 
 					player.play(saveFilePath);
 					
+
+					
+					
 					timer.reset();
 
 					buttonPlay.setText("Play");
 					buttonRecord.setEnabled(true);
 					buttonPlay.setIcon(iconPlay);
 					isPlaying = false;
+					/////
+					Time = labelRecordTime.getText();
+					System.out.println("stopplaying time" + Time);
+					if (marker ==0) {
+						currentEvent.EEqAudLabel = Time;
+						System.out.println("save q to  event editor:" + currentEvent.EEqAudLabel);
+						if (marker ==0 && e!=null) {
+							e.qAudioLabel = Time;
+							System.out.println("save q to  event object:" + e.qAudioLabel);
+
+					}
+					}
+					 if (marker ==1) {
+							currentEvent.EErAudLabel = Time;
+				if (marker == 1 && e!=null) {
+					e.rAudioLabel = Time;
+					
+					}
+				}
+					 if (marker ==2) {
+							currentEvent.EEwAudLabel = Time;
+				if (marker ==2 && e!=null) {
+					e.wAudioLabel = Time;
+					
+
+						
+					}
+					
+				}
+					
+					////
 
 				} catch (UnsupportedAudioFileException ex) {
 					ex.printStackTrace();
@@ -241,6 +337,36 @@ public static String Time;
 		});
 
 		playbackThread.start();
+		
+		
+		/*Time = labelRecordTime.getText();
+		System.out.println("playback time" + Time);
+		if (marker ==0) {
+			currentEvent.EEqAudLabel = Time;
+			System.out.println("save q to  event editor:" + currentEvent.EEqAudLabel);
+			if (marker ==0 && e!=null) {
+				e.qAudioLabel = Time;
+				System.out.println("save q to  event object:" + e.qAudioLabel);
+
+		}
+		}
+		 if (marker ==1) {
+				currentEvent.EErAudLabel = Time;
+	if (marker == 1 && e!=null) {
+		e.rAudioLabel = Time;
+		
+		}
+	}
+		 if (marker ==2) {
+				currentEvent.EEwAudLabel = Time;
+	if (marker ==2 && e!=null) {
+		e.wAudioLabel = Time;
+		
+
+			
+		}
+		
+	}*/
 	}
 
 	/**
@@ -250,14 +376,52 @@ public static String Time;
 	 */
 	public void loadFile(String file){
 		
+		
 	}
 	
 
-	public void stopPlaying() {
+	public void stopPlaying(ScenarioEvent e) {
 		timer.reset();
 		timer.interrupt();
+		
+	
+		
 		player.stop();
-		playbackThread.interrupt();
+		
+		///////////////////////////////////
+	
+		 ////
+			playbackThread.interrupt();
+			
+			Time = labelRecordTime.getText();
+			System.out.println("stopplaying time" + Time);
+			if (marker ==0) {
+				currentEvent.EEqAudLabel = Time;
+				System.out.println("save q to  event editor:" + currentEvent.EEqAudLabel);
+				if (marker ==0 && e!=null) {
+					e.qAudioLabel = Time;
+					System.out.println("save q to  event object:" + e.qAudioLabel);
+
+			}
+			}
+			 if (marker ==1) {
+					currentEvent.EErAudLabel = Time;
+		if (marker == 1 && e!=null) {
+			e.rAudioLabel = Time;
+			
+			}
+		}
+			 if (marker ==2) {
+					currentEvent.EEwAudLabel = Time;
+		if (marker ==2 && e!=null) {
+			e.wAudioLabel = Time;
+			
+
+				
+			}
+			
+		}
+
 	}
 
 	/**

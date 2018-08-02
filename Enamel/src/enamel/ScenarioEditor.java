@@ -40,7 +40,7 @@ public class ScenarioEditor {
 	private static JList list;
 	private static DefaultListModel DLM;
 	private static JComboBox cellBox, buttonBox;
-	protected static int cellSelection, buttonSelection=0;
+	protected static int cellSelection=1, buttonSelection=1;
 	public static  EventList timeline;
 	private static Scenario editing;
 	private static boolean isEdit;
@@ -126,6 +126,8 @@ public class ScenarioEditor {
 		frmScenarioEditor.setBounds(100, 100, 579, 401);
 		frmScenarioEditor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmScenarioEditor.getContentPane().setLayout(null);
+		frmScenarioEditor.setLocation(500, 200);
+
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(15, 118, 542, 179);
@@ -298,9 +300,11 @@ public class ScenarioEditor {
 		
 	}
 
-	public static void addEvent(int index, String title, String question, String QFilePath, String responseRight, String RRFilePath,  String responseWrong, String RWFilePath, String[] cellArray, int correctAns){
-		ScenarioEvent addMe = new ScenarioEvent(index, title, question,QFilePath, responseRight,RRFilePath, responseWrong, RWFilePath , cellArray, correctAns);
+	public static void addEvent(String q, String r, String w, int index, String title, String question, String QFilePath, String responseRight, String RRFilePath,  String responseWrong, String RWFilePath, String[] cellArray, int correctAns){
+		ScenarioEvent addMe = new ScenarioEvent(q, r, w, index, title, question,QFilePath, responseRight,RRFilePath, responseWrong, RWFilePath , cellArray, correctAns);
 		timeline.add(addMe);
+		
+		//addMe.qAudioLabel = EEqAudio
 		Collections.sort(timeline);
 		DLM.removeAllElements();
 		for(int i = 0; i < timeline.size(); i++) {
@@ -308,6 +312,7 @@ public class ScenarioEditor {
 			DLM.addElement(a);
 			a.setIndex(i);
 		}
+	
 	}
 	
 	public static void editEvent(ScenarioEvent e) {

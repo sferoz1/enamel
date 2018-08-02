@@ -35,7 +35,7 @@ public class EventEditor extends JFrame{
 	private static JFrame frmEventEditor;
 	private static JTextArea textTitle, textAnsRight, textAnsWrong, textIndex, textQuestion;
 	private static List correctAnsList = new List();
-	private static int correctAnswer;
+	private static int correctAnswer = -1;
 	protected ImageIcon iconPlay = new ImageIcon(getClass().getResource(
 			"Play.gif"));
 	
@@ -115,13 +115,15 @@ public class EventEditor extends JFrame{
 	private JLabel lblCell_8;
 	protected static boolean isEdit;
 	protected static boolean isAudio;
-	protected static String qAudio;
-	protected static String rAudio;
-	protected static String wAudio;
-	protected static int cellDisp;
-	protected static int buttonDisp;
+	protected static String qAudio=null;
+	protected static String rAudio=null;
+	protected static String wAudio=null;
+	protected static int cellDisp=8;
+	protected static int buttonDisp=4;
+	//protected static String qAudLabel = "00.00:00", rAudLabel= "00.00:00", wAudLabel= "00.00:00";
+	protected static String EEqAudLabel, EErAudLabel, EEwAudLabel;
 	
-	
+	private static JButton save;
 	public static ScenarioEvent toEdit;
 	/**
 	 * Launch the application.
@@ -139,19 +141,39 @@ public class EventEditor extends JFrame{
 							cellDisp = ScenarioEditor.cellSelection;
 							
 							buttonDisp = ScenarioEditor.buttonSelection;
-							System.out.println("buttonSelection:" + buttonDisp);
+							System.out.println("buttonSelection: " + buttonDisp);
 							
 							qAudio =e.getQuestionAudio();
-						
+							if (qAudio!=null){
+								EEqAudLabel = toEdit.qAudioLabel;
+								System.out.println("event qaudio label" + toEdit.qAudioLabel);
+							}
+							
 							rAudio = e.getResponseRightAudio();
-					
+							if (rAudio!=null){
+								EErAudLabel = e.rAudioLabel;
+								System.out.println("event raudio label" + EEqAudLabel);
+
+								}
 							wAudio = e.getResponseWrongAudio();
+							if (wAudio!=null){
+								EEwAudLabel = e.wAudioLabel;
+								System.out.println("event waudio label" + EEqAudLabel);
+
+
+								}
 							
 						EventEditor window = new EventEditor();
 						window.frmEventEditor.setVisible(true);
 						populate(e);
 					} else {
 						isEdit = false;
+						cellDisp = ScenarioEditor.cellSelection;
+						buttonDisp = ScenarioEditor.buttonSelection;
+						
+						
+						
+						
 						EventEditor window = new EventEditor();
 					window.frmEventEditor.setVisible(true);
 					}
@@ -172,6 +194,8 @@ public class EventEditor extends JFrame{
 		frmEventEditor.setTitle("Event Editor");
 		frmEventEditor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmEventEditor.setBounds(100, 100, 644, 578);
+		frmEventEditor.setLocation(500, 200);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frmEventEditor.setContentPane(contentPane);
@@ -210,19 +234,15 @@ public class EventEditor extends JFrame{
 		lblIfAnswerIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPane.add(lblIfAnswerIs);
 		
-		correctAnsList.setBounds(267, 194, 54, 68);
-		contentPane.add(correctAnsList);
+	
 		
 		
 		for (int i=1; i<= buttonDisp; i++) {
 		correctAnsList.add(String.valueOf(i));
 		}
-	
-		//correctAnsList.add("1");
-		//correctAnsList.add("2");
-		//correctAnsList.add("3");
-		//correctAnsList.add("4");
 		
+		correctAnsList.setBounds(267, 194, 54, 68);
+		contentPane.add(correctAnsList);
 		
 		textTitle = new JTextArea();
 		textTitle.setBounds(54, 12, 271, 22);
@@ -257,20 +277,23 @@ public class EventEditor extends JFrame{
 		
 		
 		////////
-		
-		RecordingsSwing QRecording = new RecordingsSwing(qAudio);
+		//System.out.println(EEqAudLabel);
+		RecordingsSwing QRecording = new RecordingsSwing(toEdit, qAudio,EEqAudLabel, 0);
 		QRecording.setLocation(0, 161);
 		QRecording.setSize(new Dimension(312, 33));
+		//QRecording.Time = qAudLabel;
 		contentPane.add(QRecording);
+		
 	
 
 		
-		RecordingsSwing CRecordingSwing = new RecordingsSwing(rAudio);
+		RecordingsSwing CRecordingSwing = new RecordingsSwing(toEdit, rAudio,EErAudLabel, 1);
 		CRecordingSwing.setSize(new Dimension(312, 33));
 		CRecordingSwing.setBounds(0, 333, 312, 33);
 		contentPane.add(CRecordingSwing);
 		
-		RecordingsSwing WRrecording = new RecordingsSwing(wAudio);
+		
+		RecordingsSwing WRrecording = new RecordingsSwing(toEdit, wAudio, EEwAudLabel, 2);
 		WRrecording.setSize(new Dimension(312, 33));
 		WRrecording.setBounds(0, 473, 312, 33);
 		contentPane.add(WRrecording);
@@ -284,9 +307,14 @@ public class EventEditor extends JFrame{
 
 		
 		/////		
-		JButton btnSave = new JButton("Save & Exit");
+		
+		
+		JButton btnSave = new JButton("Save & Exit");		
 		btnSave.setEnabled(false);
 		btnSave.setBounds(240, 508, 189, 25);
+
+		save = btnSave;
+
 		btnSave.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			
@@ -298,7 +326,7 @@ public class EventEditor extends JFrame{
 			//String QuestionFilePath = "";
 			 String question = textQuestion.getText();
 			 String questionAudio = QRecording.saveFilePath;
-			 System.out.print("LINE 254 SAVE**************"+questionAudio);
+			// String qLabel = QRecording.Time;
 			 
 			 //RecordingsAudioPlayer.saveFilePath= questionAudio;
 			 
@@ -314,17 +342,36 @@ public class EventEditor extends JFrame{
 			String[] cellArray = parseCells();
 			int correctAns = correctAnsList.getSelectedIndex();
 			correctAnsList.removeAll();
+			
+			String QA = EEqAudLabel;
+			String RA = EErAudLabel;
+			String WA = EEwAudLabel;
+			 System.out.print("LINE 254 SAVETIMELABEL**************"+EEqAudLabel);
+
+			
 
 			
 			if (isEdit) {
-				toEdit.overwrite(index, title, question,QRecording.saveFilePath, responseRight,CRecordingSwing.saveFilePath, responseWrong, WRrecording.saveFilePath , cellArray, correctAns);
 				
+				toEdit.overwrite(QA, RA, WA, index, title, question,QRecording.saveFilePath, responseRight,CRecordingSwing.saveFilePath, responseWrong, WRrecording.saveFilePath , cellArray, correctAns);
+				
+				
+				/*toEdit.qAudioLabel = QRecording.Time;
+				toEdit.rAudioLabel = CRecordingSwing.Time;
+				toEdit.qAudioLabel = WRrecording.Time;*/
 				
 				ScenarioEditor.editEvent(toEdit);
 				frmEventEditor.dispose();
 			} else {
-			ScenarioEditor.addEvent(index, title, question,QRecording.saveFilePath, responseRight,CRecordingSwing.saveFilePath, responseWrong, WRrecording.saveFilePath, cellArray, correctAns); 
+			
+			ScenarioEditor.addEvent(QA, RA, WA, index, title, question,QRecording.saveFilePath, responseRight,CRecordingSwing.saveFilePath, responseWrong, WRrecording.saveFilePath, cellArray, correctAns); 
+			
+			/*toEdit.qAudioLabel = QRecording.Time;
+			toEdit.rAudioLabel = CRecordingSwing.Time;
+			toEdit.qAudioLabel = WRrecording.Time;*/
+			
 			frmEventEditor.dispose();
+			
 			
 			}
 			//ScenWriter writer = new ScenWriter(scenarioWithEventsToFile, file);
@@ -370,12 +417,17 @@ public class EventEditor extends JFrame{
 			}
 		});*/
 	
+	
+		
 		correctAnsList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				btnSave.setEnabled(true);
 			}
 		});
+		
+		
+		
 		
 		JLabel lblCell_1 = new JLabel("Cell 1");
 		lblCell_1.setBounds(337, 15, 56, 16);
@@ -387,17 +439,21 @@ public class EventEditor extends JFrame{
 		contentPane.add(C1P1);
 		C1P1.setColumns(10);
 		
+		
+		
 		C1P2 = new JTextField();
 		C1P2.setText("0");
 		C1P2.setColumns(10);
 		C1P2.setBounds(364, 47, 17, 22);
 		contentPane.add(C1P2);
 		
+	
 		C1P3 = new JTextField();
 		C1P3.setText("0");
 		C1P3.setColumns(10);
 		C1P3.setBounds(333, 80, 17, 22);
 		contentPane.add(C1P3);
+		
 		
 		C1P4 = new JTextField();
 		C1P4.setText("0");
@@ -405,11 +461,14 @@ public class EventEditor extends JFrame{
 		C1P4.setBounds(364, 80, 17, 22);
 		contentPane.add(C1P4);
 		
+		
+		
 		C1P5 = new JTextField();
 		C1P5.setText("0");
 		C1P5.setColumns(10);
 		C1P5.setBounds(333, 115, 17, 22);
 		contentPane.add(C1P5);
+		
 		
 		C1P6 = new JTextField();
 		C1P6.setText("0");
@@ -417,17 +476,29 @@ public class EventEditor extends JFrame{
 		C1P6.setBounds(364, 115, 17, 22);
 		contentPane.add(C1P6);
 		
+		
+		
 		C1P7 = new JTextField();
 		C1P7.setText("0");
 		C1P7.setColumns(10);
 		C1P7.setBounds(333, 150, 17, 22);
 		contentPane.add(C1P7);
 		
+		
+		
+		
 		C1P8 = new JTextField();
 		C1P8.setText("0");
 		C1P8.setColumns(10);
 		C1P8.setBounds(364, 150, 17, 22);
 		contentPane.add(C1P8);
+		
+		
+		
+			
+		lblCell_2 = new JLabel("Cell 2");
+		lblCell_2.setBounds(414, 15, 56, 16);
+		contentPane.add(lblCell_2);
 		
 		C2P1 = new JTextField();
 		C2P1.setText("0");
@@ -477,6 +548,13 @@ public class EventEditor extends JFrame{
 		C2P8.setBounds(443, 150, 17, 22);
 		contentPane.add(C2P8);
 		
+	
+		
+			
+		lblCell_3 = new JLabel("Cell 3");
+		lblCell_3.setBounds(490, 15, 56, 16);
+		contentPane.add(lblCell_3);
+			
 		C3P1 = new JTextField();
 		C3P1.setText("0");
 		C3P1.setColumns(10);
@@ -524,6 +602,8 @@ public class EventEditor extends JFrame{
 		C3P8.setColumns(10);
 		C3P8.setBounds(521, 150, 17, 22);
 		contentPane.add(C3P8);
+	
+			
 		
 		C4P1 = new JTextField();
 		C4P1.setText("0");
@@ -572,6 +652,7 @@ public class EventEditor extends JFrame{
 		C4P8.setColumns(10);
 		C4P8.setBounds(604, 150, 17, 22);
 		contentPane.add(C4P8);
+	
 		
 		C5P1 = new JTextField();
 		C5P1.setText("0");
@@ -621,6 +702,9 @@ public class EventEditor extends JFrame{
 		C5P8.setBounds(364, 333, 17, 22);
 		contentPane.add(C5P8);
 		
+			
+		
+		
 		C6P1 = new JTextField();
 		C6P1.setText("0");
 		C6P1.setColumns(10);
@@ -669,6 +753,9 @@ public class EventEditor extends JFrame{
 		C6P8.setBounds(443, 333, 17, 22);
 		contentPane.add(C6P8);
 		
+		
+		
+		
 		C7P1 = new JTextField();
 		C7P1.setText("0");
 		C7P1.setColumns(10);
@@ -716,6 +803,8 @@ public class EventEditor extends JFrame{
 		C7P8.setColumns(10);
 		C7P8.setBounds(521, 333, 17, 22);
 		contentPane.add(C7P8);
+	
+			
 		
 		C8P1 = new JTextField();
 		C8P1.setText("0");
@@ -765,13 +854,8 @@ public class EventEditor extends JFrame{
 		C8P8.setBounds(604, 333, 17, 22);
 		contentPane.add(C8P8);
 		
-		lblCell_2 = new JLabel("Cell 2");
-		lblCell_2.setBounds(414, 15, 56, 16);
-		contentPane.add(lblCell_2);
-		
-		lblCell_3 = new JLabel("Cell 3");
-		lblCell_3.setBounds(490, 15, 56, 16);
-		contentPane.add(lblCell_3);
+
+	
 		
 		lblCell_4 = new JLabel("Cell 4");
 		lblCell_4.setBounds(573, 15, 56, 16);
@@ -792,6 +876,88 @@ public class EventEditor extends JFrame{
 		lblCell_8 = new JLabel("Cell 8");
 		lblCell_8.setBounds(565, 195, 56, 16);
 		contentPane.add(lblCell_8);
+		
+	if (cellDisp <2){
+			C2P1.setEnabled(false);
+			C2P2.setEnabled(false);
+			C2P3.setEnabled(false);
+			C2P4.setEnabled(false);
+			C2P5.setEnabled(false);
+			C2P6.setEnabled(false);
+			C2P7.setEnabled(false);
+			C2P8.setEnabled(false);
+			
+		}
+	
+	if (cellDisp<3) {
+		C3P1.setEnabled(false);
+		C3P2.setEnabled(false);
+		C3P3.setEnabled(false);
+		C3P4.setEnabled(false);
+		C3P5.setEnabled(false);
+		C3P6.setEnabled(false);
+		C3P7.setEnabled(false);
+		C3P8.setEnabled(false);
+	}
+	
+	if (cellDisp<4) {
+	C4P1.setEnabled(false);
+	C4P2.setEnabled(false);
+	C4P3.setEnabled(false);
+	C4P4.setEnabled(false);
+	C4P5.setEnabled(false);
+	C4P6.setEnabled(false);
+	C4P7.setEnabled(false);
+	C4P8.setEnabled(false);
+	}
+	
+	if (cellDisp<5) {
+		C5P1.setEnabled(false);
+		C5P2.setEnabled(false);
+		C5P3.setEnabled(false);
+		C5P4.setEnabled(false);
+		C5P5.setEnabled(false);
+		C5P6.setEnabled(false);
+		C5P7.setEnabled(false);
+		C5P8.setEnabled(false);
+	}
+	
+	if (cellDisp<6) {
+		C6P1.setEnabled(false);
+		C6P2.setEnabled(false);
+		C6P3.setEnabled(false);
+		C6P4.setEnabled(false);
+		C6P5.setEnabled(false);
+		C6P6.setEnabled(false);
+		C6P7.setEnabled(false);
+		C6P8.setEnabled(false);
+	}
+	
+	if (cellDisp<7) {
+	C7P1.setEnabled(false);
+	C7P2.setEnabled(false);
+	C7P3.setEnabled(false);
+	C7P4.setEnabled(false);
+	C7P5.setEnabled(false);
+	C7P6.setEnabled(false);
+	C7P7.setEnabled(false);
+	C7P8.setEnabled(false);
+	}
+	
+	if (cellDisp<8) {
+		C8P1.setEnabled(false);
+		C8P2.setEnabled(false);
+		C8P3.setEnabled(false);
+		C8P4.setEnabled(false);
+		C8P5.setEnabled(false);
+		C8P6.setEnabled(false);
+		C8P7.setEnabled(false);
+		C8P8.setEnabled(false);
+	}
+	
+	
+		
+		
 		
 		JLabel lblChangesTo = new JLabel("Change 0's to 1's in order to raise the pins");
 		lblChangesTo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -838,6 +1004,10 @@ public class EventEditor extends JFrame{
 		String responseRight = e.getResponseRight();
 		String responseWrong = e.getResponseWrong();
 		int correctAns = e.getCorrectAns();
+	
+		if (correctAns!= -1) {
+			save.setEnabled(true);
+		}
 		
 		textIndex.setText(Integer.toString(index));
 		textTitle.setText(title);
@@ -846,7 +1016,10 @@ public class EventEditor extends JFrame{
 		textAnsWrong.setText(responseWrong);
 		correctAnsList.select(correctAns);
 		correctAnswer = correctAns;
-	
+
+		EEqAudLabel = e.qAudioLabel;
+		EErAudLabel = e.rAudioLabel;
+		EEwAudLabel = e.wAudioLabel;
 	
 		System.out.println("****POPPULATE**********"+e.getQuestionAudio()+"**************");
 		
@@ -867,7 +1040,8 @@ public class EventEditor extends JFrame{
 		C1P6.setText(Character.toString(cells[0].charAt(5)));
 		C1P7.setText(Character.toString(cells[0].charAt(6)));
 		C1P8.setText(Character.toString(cells[0].charAt(7)));
-
+		
+		if (cellDisp >= 2) {
 		C2P1.setText(Character.toString(cells[1].charAt(0)));
 		C2P2.setText(Character.toString(cells[1].charAt(1)));
 		C2P3.setText(Character.toString(cells[1].charAt(2)));
@@ -876,7 +1050,9 @@ public class EventEditor extends JFrame{
 		C2P6.setText(Character.toString(cells[1].charAt(5)));
 		C2P7.setText(Character.toString(cells[1].charAt(6)));
 		C2P8.setText(Character.toString(cells[1].charAt(7)));
+		}
 		
+		if (cellDisp >= 3) {
 		C3P1.setText(Character.toString(cells[2].charAt(0)));
 		C3P2.setText(Character.toString(cells[2].charAt(1)));
 		C3P3.setText(Character.toString(cells[2].charAt(2)));
@@ -885,7 +1061,10 @@ public class EventEditor extends JFrame{
 		C3P6.setText(Character.toString(cells[2].charAt(5)));
 		C3P7.setText(Character.toString(cells[2].charAt(6)));
 		C3P8.setText(Character.toString(cells[2].charAt(7)));
-
+		}
+		
+		
+		if (cellDisp >=4) {
 		C4P1.setText(Character.toString(cells[3].charAt(0)));
 		C4P2.setText(Character.toString(cells[3].charAt(1)));
 		C4P3.setText(Character.toString(cells[3].charAt(2)));
@@ -894,6 +1073,9 @@ public class EventEditor extends JFrame{
 		C4P6.setText(Character.toString(cells[3].charAt(5)));
 		C4P7.setText(Character.toString(cells[3].charAt(6)));
 		C4P8.setText(Character.toString(cells[3].charAt(7)));
+		}
+		
+		if (cellDisp >= 5) {
 		C5P1.setText(Character.toString(cells[4].charAt(0)));
 		C5P2.setText(Character.toString(cells[4].charAt(1)));
 		C5P3.setText(Character.toString(cells[4].charAt(2)));
@@ -902,6 +1084,9 @@ public class EventEditor extends JFrame{
 		C5P6.setText(Character.toString(cells[4].charAt(5)));
 		C5P7.setText(Character.toString(cells[4].charAt(6)));
 		C5P8.setText(Character.toString(cells[4].charAt(7)));
+		}
+		
+		if (cellDisp >=6) {
 		C6P1.setText(Character.toString(cells[5].charAt(0)));
 		C6P2.setText(Character.toString(cells[5].charAt(1)));
 		C6P3.setText(Character.toString(cells[5].charAt(2)));
@@ -910,6 +1095,9 @@ public class EventEditor extends JFrame{
 		C6P6.setText(Character.toString(cells[5].charAt(5)));
 		C6P7.setText(Character.toString(cells[5].charAt(6)));
 		C6P8.setText(Character.toString(cells[5].charAt(7)));
+		}
+		
+		if (cellDisp >=7) {
 		C7P1.setText(Character.toString(cells[6].charAt(0)));
 		C7P2.setText(Character.toString(cells[6].charAt(1)));
 		C7P3.setText(Character.toString(cells[6].charAt(2)));
@@ -918,6 +1106,9 @@ public class EventEditor extends JFrame{
 		C7P6.setText(Character.toString(cells[6].charAt(5)));
 		C7P7.setText(Character.toString(cells[6].charAt(6)));
 		C7P8.setText(Character.toString(cells[6].charAt(7)));
+		}
+		
+		if (cellDisp>= 8) {
 		C8P1.setText(Character.toString(cells[7].charAt(0)));
 		C8P2.setText(Character.toString(cells[7].charAt(1)));
 		C8P3.setText(Character.toString(cells[7].charAt(2)));
@@ -926,7 +1117,8 @@ public class EventEditor extends JFrame{
 		C8P6.setText(Character.toString(cells[7].charAt(5)));
 		C8P7.setText(Character.toString(cells[7].charAt(6)));
 		C8P8.setText(Character.toString(cells[7].charAt(7)));
-
+		
+		}
 	}
 	
 	public String[] parseCells(){
