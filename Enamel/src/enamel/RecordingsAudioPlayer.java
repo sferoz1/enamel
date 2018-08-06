@@ -41,10 +41,10 @@ public class RecordingsAudioPlayer implements LineListener {
 
 
 	
-	void play(String audioFilePath) throws UnsupportedAudioFileException,
+	public void play(String audioFilePath) throws UnsupportedAudioFileException,
 			IOException, LineUnavailableException {
 		File audioFile = new File(audioFilePath);
-System.out.println(audioFilePath + "FROOM PLAYERRRR");
+//System.out.println(audioFilePath + "FROOM PLAYERRRR");
 		AudioInputStream audioStream = AudioSystem
 				.getAudioInputStream(audioFile);
 
@@ -84,6 +84,10 @@ System.out.println(audioFilePath + "FROOM PLAYERRRR");
 	 */
 	public void stop() {
 		isStopped = true;
+	}
+	
+	public boolean isStopped() {
+		return isStopped;
 	}
 	
 	/**

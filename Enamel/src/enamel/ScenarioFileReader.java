@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class ScenarioFileReader {
-	public EventList eventList = new EventList();
+	public static EventList eventList = new EventList();
 	public List<BrailleCell> brailleCelllList = new LinkedList<BrailleCell>();
 	
 /*	public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class ScenarioFileReader {
 		}
 	}*/
 	
-	public  Scenario readScenarioFile(File fileName){
+	public static  void readScenarioFile(File fileName){
 	
 		try{
 	//only once per scenario
@@ -217,7 +217,7 @@ ScenarioEditor.main(args, edit);
 
 				
 			 
-	return edit;
+	//return edit;
 
 			
 			//scenarioFileString += scenarioFileScanner.next();
@@ -230,10 +230,9 @@ ScenarioEditor.main(args, edit);
 		
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
-			ErrorWindow errorWindow = new ErrorWindow("Error: File Not Found");
-			errorWindow.initialize("Error"); 
+			//ErrorWindow errorWindow = new ErrorWindow("Error: File Not Found");
+			//errorWindow.initialize("Error"); 
 		}
-		return null;
 		}
 	
 	

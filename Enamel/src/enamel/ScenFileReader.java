@@ -126,8 +126,7 @@ public class ScenFileReader {
 		///////////
 
 		
-		
-		System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + edit.getScenarioEventList().getSize() +", " + "The eventList arguements are as follows:" ); 
+		/*System.out.println("DONE, scenario arguements are: " + cell +", " + button +", " + title +", " + edit.getScenarioEventList().getSize() +", " + "The eventList arguements are as follows:" ); 
 		
 		for(ScenarioEvent e: edit.getScenarioEventList()) {
 			
@@ -141,13 +140,15 @@ public class ScenFileReader {
 			System.out.println("Response if Answer Incorrect: " + e.getResponseWrong() +  "," + e.getResponseWrongAudio());
 			System.out.println();
 			/////////////
-		}
+		}*/
 			String[] args = {"0"};
 			ScenarioEditor.main(args, edit);
 		
-		
+			//return edit;
+
 		} }
 		catch(Exception e) {}
+		//return null;
 	}
 	
 	public static int findCorrectAnswer(String event) {

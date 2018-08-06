@@ -16,7 +16,6 @@ public class ScenWriter {
 		try {
 			pathName.getName();
 			BufferedWriter writer = new BufferedWriter(new FileWriter(pathName));
-
 			//WRITING STUFF;
 			writer.write("Cell " + Integer.toString(scenarioToFile.cellNumber));
 			writer.newLine();

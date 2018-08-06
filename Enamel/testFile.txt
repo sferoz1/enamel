@@ -1,47 +1,55 @@
 Cell 2
 Button 2
-Title
+title
 /~reset-buttons
 /~disp-clearAll
-/~disp-cell-pins:0 10000000
-/~disp-cell-pins:1 00000000
-Q0
-/~sound:/Users/saraattalla/aud1.wav
+/~disp-cell-pins:0 01111111
+/~disp-cell-pins:1 11101111
+MyQuestion0
+/~sound:Q0Audio
 /~pause:1
 /~skip-button:0 CORRECT
 /~skip-button:1 INCORRECT
 /~user-input
 /~CORRECT
 /~sound:correct.wav
-CR0
-/~sound:/Users/saraattalla/aud2.wav
+/~pause:1
+Right0
+/~sound:R0Audio
+/~pause:1
 /~skip:NEXTT
 /~INCORRECT
 /~sound:wrong.wav
-WR0
-/~sound:/Users/saraattalla/aud3.wav
+/~pause:1
+Wrong0
+/~sound:W0Audio
+/~pause:1
 /~skip:NEXTT
 /~NEXTT
-/~reset-buttons
-/~disp-clearAll**
 /~disp-clearAll
-/~disp-cell-pins:0 10000000
-/~disp-cell-pins:1 00000000
-Q1
-/~sound:/Users/saraattalla/as.wav
+/~reset-buttons
+/~disp-clearAll
+/~disp-cell-pins:0 01111111
+/~disp-cell-pins:1 11101111
+MyQuestion1
+/~sound:Q1Audio
 /~pause:1
-/~skip-button:1 CORRECT
-/~skip-button:0 INCORRECT
+/~skip-button:0 CORRECT
+/~skip-button:1 INCORRECT
 /~user-input
 /~CORRECT
 /~sound:correct.wav
-CR1
-/~sound:/Users/saraattalla/FSDAF.wav
+/~pause:1
+Right1
+/~sound:R1Audio
+/~pause:1
 /~skip:NEXTT
 /~INCORRECT
 /~sound:wrong.wav
-WR1
-/~sound:/Users/saraattalla/xzcv.wav
+/~pause:1
+Wrong1
+/~sound:W1Audio
+/~pause:1
 /~skip:NEXTT
 /~NEXTT
-/~reset-buttons 
+/~disp-clearAll
