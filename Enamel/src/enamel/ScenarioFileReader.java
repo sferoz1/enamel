@@ -36,10 +36,11 @@ public class ScenarioFileReader {
 		numQScanner.useDelimiter("\n");
 		int eventListSize =0;
 		while (numQScanner.hasNext()) {
-		if (numQScanner.hasNext("/~reset-buttons")) {
+			String resetLine = numQScanner.next();
+		if (resetLine.startsWith("/~reset-buttons")) {
 			eventListSize++;
 		}
-		numQScanner.next();
+		//numQScanner.next();
 		}
 		numQScanner.close();
 
@@ -73,7 +74,7 @@ public class ScenarioFileReader {
 		System.out.println("cell: " + cell);
 		System.out.println("button: " + button);
 		System.out.println("title: " + title);
-		//System.out.println("numQuestions: " + eventListSize);
+		System.out.println("numQuestions: " + eventListSize);
 		
 
 		
