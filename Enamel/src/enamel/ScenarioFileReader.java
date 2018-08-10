@@ -185,7 +185,7 @@ if (nextLine.startsWith("/~sound:")) {
 	
 	//editing 
 	for (ScenarioEvent e : edit.scenarioEventList) {
-		edit.getScenarioEventList().timeline.add(e);
+		edit.getScenarioEventList().getTimeline().add(e);
 	}
 	///////////
 	//test

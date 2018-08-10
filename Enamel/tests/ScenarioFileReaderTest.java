@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import enamel.EventList;
-import enamel.ScenFileReader;
+//import enamel.ScenFileReader;
 import enamel.ScenWriter;
 import enamel.Scenario;
 import enamel.ScenarioEvent;
