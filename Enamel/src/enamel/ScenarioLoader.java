@@ -79,7 +79,7 @@ public class ScenarioLoader extends JDialog {
 							File selectedFile = jf.getSelectedFile();
 							lastEditDir = selectedFile.getParent();
 							ScenarioFileReader reader = new ScenarioFileReader();
-							reader.readScenarioFile(selectedFile);
+							ScenarioFileReader.readScenarioFile(selectedFile);
 							dialog.setVisible(false);}
 					}
 					else if (lastEditDir !=null){
@@ -89,7 +89,7 @@ public class ScenarioLoader extends JDialog {
 							File selectedFile = jf.getSelectedFile();
 							lastEditDir = selectedFile.getParent();
 							ScenarioFileReader reader = new ScenarioFileReader();
-							reader.readScenarioFile(selectedFile);
+							ScenarioFileReader.readScenarioFile(selectedFile);
 							dialog.setVisible(false);}
 						
 					}
