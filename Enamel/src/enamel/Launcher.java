@@ -1,3 +1,6 @@
+
+// Authors: Sara Attalla, Sean Doyle, Sarah Feroz
+
 package enamel;
 
 import java.awt.EventQueue;
