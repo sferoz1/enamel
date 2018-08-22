@@ -1,8 +1,15 @@
-Cell 1
+Cell 2
 Button 4
+
+/~pause:5
+
 Directional orientation
 
-/~disp-cell-pins:0 11100000
+
+/~disp-cell-pins:0 10101010
+/~pause:5
+/~disp-cell-pins:1 10101010
+
 These are pins 1, 2 and 3, the 3 pins on the left side. 
 Press button 1 to continue.
 /~skip-button:0 ONEE

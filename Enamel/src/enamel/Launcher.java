@@ -48,7 +48,8 @@ public class Launcher {
 		frmMainMenu.setBounds(100, 100, 410, 239);
 		frmMainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMainMenu.getContentPane().setLayout(null);
-		frmMainMenu.setLocation(750, 200);
+		frmMainMenu.setLocation(500, 200);
+		
 		
 		JButton btnAuthorAStory = new JButton("Author a Scenario");
 		btnAuthorAStory.addActionListener(new ActionListener() {

@@ -469,10 +469,13 @@ public class ScenarioParser {
 				clip.start();
 			}
 			else {
-			clip.open(AudioSystem.getAudioInputStream(					
-					new File(scenarioFilePath + File.separator + "AudioFiles" + File.separator + sound)));
+				clip.open(AudioSystem.getAudioInputStream(					
+						new File(sound)));
+			/*clip.open(AudioSystem.getAudioInputStream(					
+					new File(scenarioFilePath + File.separator + "AudioFiles" + File.separator + sound)));*/
 			clip.start();
 			}
+			
 			
 	
 			

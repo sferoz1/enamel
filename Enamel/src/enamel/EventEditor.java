@@ -1,33 +1,48 @@
 package enamel;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
+
 import java.awt.Font;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JMenuItem;
+import java.awt.event.WindowAdapter;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 import java.awt.List;
-import javax.swing.JTextArea;
 import java.awt.Window.Type;
-import javax.swing.SwingConstants;
 
 public class EventEditor extends JFrame{
 
 	private JPanel contentPane;
 	private static JFrame frmEventEditor;
 	private static JTextArea textTitle, textAnsRight, textAnsWrong, textIndex, textQuestion;
+	private static List correctAnsList = new List();
+	private static int correctAnswer = -1;
+	protected ImageIcon iconPlay = new ImageIcon(getClass().getResource(
+			"Play.gif"));
+	
+	//add entire swing recordings here, or get TIME RECORDING LABELS AND THE AUDIO PLAYER
+	
+
 	private static JTextField C1P1;
 	private static JTextField C1P2;
 	private static JTextField C1P3;
@@ -99,25 +114,69 @@ public class EventEditor extends JFrame{
 	private JLabel lblCell_6;
 	private JLabel lblCell_7;
 	private JLabel lblCell_8;
-	private static boolean isEdit;
+	protected static boolean isEdit;
+	protected static boolean isAudio;
+	protected static String qAudio=null;
+	protected static String rAudio=null;
+	protected static String wAudio=null;
+	protected static int cellDisp=8;
+	protected static int buttonDisp=4;
+	//protected static String qAudLabel = "00.00:00", rAudLabel= "00.00:00", wAudLabel= "00.00:00";
+	protected static String EEqAudLabel, EErAudLabel, EEwAudLabel;
+	
+	private static JButton save;
 	public static ScenarioEvent toEdit;
 	/**
 	 * Launch the application.
 	 */
+	
+	
 	public static void main(String[] args, ScenarioEvent e) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					if (args[0] == "0"){
 						toEdit = e;
+						isEdit=true;
+						
+							cellDisp = ScenarioEditor.cellSelection;
+							
+							buttonDisp = ScenarioEditor.buttonSelection;
+							System.out.println("buttonSelection: " + buttonDisp);
+							
+							qAudio =e.getQuestionAudio();
+							if (qAudio!=null){
+								EEqAudLabel = toEdit.qAudioLabel;
+								System.out.println("event qaudio label" + toEdit.qAudioLabel);
+							}
+							
+							rAudio = e.getResponseRightAudio();
+							if (rAudio!=null){
+								EErAudLabel = e.rAudioLabel;
+								System.out.println("event raudio label" + EEqAudLabel);
+
+								}
+							wAudio = e.getResponseWrongAudio();
+							if (wAudio!=null){
+								EEwAudLabel = e.wAudioLabel;
+								System.out.println("event waudio label" + EEqAudLabel);
+
+
+								}
+							
 						EventEditor window = new EventEditor();
 						window.frmEventEditor.setVisible(true);
-						isEdit = true;
 						populate(e);
 					} else {
 						isEdit = false;
+						cellDisp = ScenarioEditor.cellSelection;
+						buttonDisp = ScenarioEditor.buttonSelection;
+						
+						
+						
+						
 						EventEditor window = new EventEditor();
-						window.frmEventEditor.setVisible(true);
+					window.frmEventEditor.setVisible(true);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -135,11 +194,21 @@ public class EventEditor extends JFrame{
 		frmEventEditor.setAlwaysOnTop(true);
 		frmEventEditor.setTitle("Event Editor");
 		frmEventEditor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frmEventEditor.setBounds(100, 100, 644, 538);
+		frmEventEditor.setBounds(100, 100, 644, 578);
+		frmEventEditor.setLocation(500, 200);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frmEventEditor.setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		frmEventEditor.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frmEventEditor.addWindowListener(new WindowAdapter() {
+			  @Override
+			    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+			       		correctAnsList.removeAll();
+			            frmEventEditor.dispose();
+			        }});
 		
 		JLabel lblTitle = new JLabel("Title");
 		lblTitle.setBounds(12, 13, 56, 16);
@@ -152,7 +221,7 @@ public class EventEditor extends JFrame{
 		contentPane.add(lblQuestion);
 		
 		JLabel lblWhichButtonIs = new JLabel("Which Button is the Correct Answer?");
-		lblWhichButtonIs.setBounds(11, 194, 249, 16);
+		lblWhichButtonIs.setBounds(12, 194, 249, 16);
 		lblWhichButtonIs.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(lblWhichButtonIs);
 		
@@ -162,17 +231,19 @@ public class EventEditor extends JFrame{
 		contentPane.add(lblCorrectAnswer);
 		
 		JLabel lblIfAnswerIs = new JLabel("If Answer is Incorrect");
-		lblIfAnswerIs.setBounds(11, 339, 164, 16);
+		lblIfAnswerIs.setBounds(12, 370, 164, 16);
 		lblIfAnswerIs.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPane.add(lblIfAnswerIs);
 		
-		List list = new List();
-		list.setBounds(270, 182, 54, 68);
-		contentPane.add(list);
-		list.add("1");
-		list.add("2");
-		list.add("3");
-		list.add("4");
+	
+		
+		
+		for (int i=1; i<= buttonDisp; i++) {
+		correctAnsList.add(String.valueOf(i));
+		}
+		
+		correctAnsList.setBounds(267, 194, 54, 68);
+		contentPane.add(correctAnsList);
 		
 		textTitle = new JTextArea();
 		textTitle.setBounds(54, 12, 271, 22);
@@ -180,17 +251,17 @@ public class EventEditor extends JFrame{
 		textTitle.setLineWrap(true);
 		
 		textQuestion = new JTextArea();
-		textQuestion.setBounds(11, 102, 313, 74);
+		textQuestion.setBounds(11, 102, 313, 57);
 		contentPane.add(textQuestion);
 		textQuestion.setLineWrap(true);
 		
 		textAnsRight = new JTextArea();
-		textAnsRight.setBounds(11, 266, 309, 68);
+		textAnsRight.setBounds(12, 263, 309, 68);
 		contentPane.add(textAnsRight);
 		textAnsRight.setLineWrap(true);
 		
 		textAnsWrong = new JTextArea();
-		textAnsWrong.setBounds(11, 368, 309, 68);
+		textAnsWrong.setBounds(12, 398, 309, 68);
 		contentPane.add(textAnsWrong);
 		textAnsWrong.setLineWrap(true);
 		
@@ -203,26 +274,105 @@ public class EventEditor extends JFrame{
 		textIndex.setBounds(80, 47, 241, 22);
 		textIndex.setLineWrap(true);
 		contentPane.add(textIndex);
-				
-		JButton btnSave = new JButton("Save & Exit");
+		
+		
+		
+		////////
+		//System.out.println(EEqAudLabel);
+		RecordingsSwing QRecording = new RecordingsSwing(toEdit, qAudio,EEqAudLabel, 0);
+		QRecording.setLocation(0, 161);
+		QRecording.setSize(new Dimension(312, 33));
+		//QRecording.Time = qAudLabel;
+		contentPane.add(QRecording);
+		
+	
+
+		
+		RecordingsSwing CRecordingSwing = new RecordingsSwing(toEdit, rAudio,EErAudLabel, 1);
+		CRecordingSwing.setSize(new Dimension(312, 33));
+		CRecordingSwing.setBounds(0, 333, 312, 33);
+		contentPane.add(CRecordingSwing);
+		
+		
+		RecordingsSwing WRrecording = new RecordingsSwing(toEdit, wAudio, EEwAudLabel, 2);
+		WRrecording.setSize(new Dimension(312, 33));
+		WRrecording.setBounds(0, 473, 312, 33);
+		contentPane.add(WRrecording);
+	
+		
+		/*RecordingsSwing CRRecording = new RecordingsSwing();
+		CRRecording.setLocation(200, 200);
+		CRRecording.setSize(new Dimension(312, 33));
+		contentPane.add(CRRecording);*/
+		
+
+		
+		/////		
+		
+		
+		JButton btnSave = new JButton("Save & Exit");		
 		btnSave.setEnabled(false);
-		btnSave.setBounds(240, 465, 189, 25);
+		btnSave.setBounds(240, 508, 189, 25);
+
+		save = btnSave;
+
 		btnSave.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			
+			
 			int index = Integer.parseInt(textIndex.getText());
 			String title = textTitle.getText();
-			String question = textQuestion.getText();
+			////if there is no recording for QRecording ???
+			//String question = "";
+			//String QuestionFilePath = "";
+			 String question = textQuestion.getText();
+			 String questionAudio = QRecording.saveFilePath;
+			// String qLabel = QRecording.Time;
+			 
+			 //RecordingsAudioPlayer.saveFilePath= questionAudio;
+			 
+		//	if (QRecording.saveFilePath != null) {
+			//	 QuestionFilePath = "/~sound:" + QRecording.saveFilePath;
+			//}
+			
+			
+			//}
 			String responseRight = textAnsRight.getText();
+			//String responseRightAudio = CRRecording.saveFilePath;
 			String responseWrong = textAnsWrong.getText();
 			String[] cellArray = parseCells();
-			int correctAns = list.getSelectedIndex();
+			int correctAns = correctAnsList.getSelectedIndex();
+			correctAnsList.removeAll();
+			
+			String QA = EEqAudLabel;
+			String RA = EErAudLabel;
+			String WA = EEwAudLabel;
+			 System.out.print("LINE 254 SAVETIMELABEL**************"+EEqAudLabel);
+
+			
+
+			
 			if (isEdit) {
-				toEdit.overwrite(index, title, question, responseRight, responseWrong, cellArray, correctAns);
+				
+				toEdit.overwrite(QA, RA, WA, index, title, question,QRecording.saveFilePath, responseRight,CRecordingSwing.saveFilePath, responseWrong, WRrecording.saveFilePath , cellArray, correctAns);
+				
+				
+				/*toEdit.qAudioLabel = QRecording.Time;
+				toEdit.rAudioLabel = CRecordingSwing.Time;
+				toEdit.qAudioLabel = WRrecording.Time;*/
+				
 				ScenarioEditor.editEvent(toEdit);
 				frmEventEditor.dispose();
 			} else {
-			ScenarioEditor.addEvent(index, title, question, responseRight, responseWrong, cellArray, correctAns); 
+			
+			ScenarioEditor.addEvent(QA, RA, WA, index, title, question,QRecording.saveFilePath, responseRight,CRecordingSwing.saveFilePath, responseWrong, WRrecording.saveFilePath, cellArray, correctAns); 
+			
+			/*toEdit.qAudioLabel = QRecording.Time;
+			toEdit.rAudioLabel = CRecordingSwing.Time;
+			toEdit.qAudioLabel = WRrecording.Time;*/
+			
 			frmEventEditor.dispose();
+			
 			
 			}
 			//ScenWriter writer = new ScenWriter(scenarioWithEventsToFile, file);
@@ -233,12 +383,53 @@ public class EventEditor extends JFrame{
 		
 		contentPane.add(btnSave);
 		
-		list.addMouseListener(new MouseAdapter() {
+		
+		////add listener for others?
+	
+		/*textTitle.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				btnSave.setEnabled(true);
 			}
 		});
+		
+		textQuestion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnSave.setEnabled(true);
+			}
+		});
+		
+		textIndex.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnSave.setEnabled(true);
+			}
+		});
+		textAnsWrong.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnSave.setEnabled(true);
+			}
+		});
+		textAnsRight.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnSave.setEnabled(true);
+			}
+		});*/
+	
+	
+		
+		correctAnsList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnSave.setEnabled(true);
+			}
+		});
+		
+		
+		
 		
 		JLabel lblCell_1 = new JLabel("Cell 1");
 		lblCell_1.setBounds(337, 15, 56, 16);
@@ -250,17 +441,21 @@ public class EventEditor extends JFrame{
 		contentPane.add(C1P1);
 		C1P1.setColumns(10);
 		
+		
+		
 		C1P2 = new JTextField();
 		C1P2.setText("0");
 		C1P2.setColumns(10);
 		C1P2.setBounds(364, 47, 17, 22);
 		contentPane.add(C1P2);
 		
+	
 		C1P3 = new JTextField();
 		C1P3.setText("0");
 		C1P3.setColumns(10);
 		C1P3.setBounds(333, 80, 17, 22);
 		contentPane.add(C1P3);
+		
 		
 		C1P4 = new JTextField();
 		C1P4.setText("0");
@@ -268,11 +463,14 @@ public class EventEditor extends JFrame{
 		C1P4.setBounds(364, 80, 17, 22);
 		contentPane.add(C1P4);
 		
+		
+		
 		C1P5 = new JTextField();
 		C1P5.setText("0");
 		C1P5.setColumns(10);
 		C1P5.setBounds(333, 115, 17, 22);
 		contentPane.add(C1P5);
+		
 		
 		C1P6 = new JTextField();
 		C1P6.setText("0");
@@ -280,17 +478,29 @@ public class EventEditor extends JFrame{
 		C1P6.setBounds(364, 115, 17, 22);
 		contentPane.add(C1P6);
 		
+		
+		
 		C1P7 = new JTextField();
 		C1P7.setText("0");
 		C1P7.setColumns(10);
 		C1P7.setBounds(333, 150, 17, 22);
 		contentPane.add(C1P7);
 		
+		
+		
+		
 		C1P8 = new JTextField();
 		C1P8.setText("0");
 		C1P8.setColumns(10);
 		C1P8.setBounds(364, 150, 17, 22);
 		contentPane.add(C1P8);
+		
+		
+		
+			
+		lblCell_2 = new JLabel("Cell 2");
+		lblCell_2.setBounds(414, 15, 56, 16);
+		contentPane.add(lblCell_2);
 		
 		C2P1 = new JTextField();
 		C2P1.setText("0");
@@ -340,6 +550,13 @@ public class EventEditor extends JFrame{
 		C2P8.setBounds(443, 150, 17, 22);
 		contentPane.add(C2P8);
 		
+	
+		
+			
+		lblCell_3 = new JLabel("Cell 3");
+		lblCell_3.setBounds(490, 15, 56, 16);
+		contentPane.add(lblCell_3);
+			
 		C3P1 = new JTextField();
 		C3P1.setText("0");
 		C3P1.setColumns(10);
@@ -387,6 +604,8 @@ public class EventEditor extends JFrame{
 		C3P8.setColumns(10);
 		C3P8.setBounds(521, 150, 17, 22);
 		contentPane.add(C3P8);
+	
+			
 		
 		C4P1 = new JTextField();
 		C4P1.setText("0");
@@ -435,6 +654,7 @@ public class EventEditor extends JFrame{
 		C4P8.setColumns(10);
 		C4P8.setBounds(604, 150, 17, 22);
 		contentPane.add(C4P8);
+	
 		
 		C5P1 = new JTextField();
 		C5P1.setText("0");
@@ -484,6 +704,9 @@ public class EventEditor extends JFrame{
 		C5P8.setBounds(364, 333, 17, 22);
 		contentPane.add(C5P8);
 		
+			
+		
+		
 		C6P1 = new JTextField();
 		C6P1.setText("0");
 		C6P1.setColumns(10);
@@ -532,6 +755,9 @@ public class EventEditor extends JFrame{
 		C6P8.setBounds(443, 333, 17, 22);
 		contentPane.add(C6P8);
 		
+		
+		
+		
 		C7P1 = new JTextField();
 		C7P1.setText("0");
 		C7P1.setColumns(10);
@@ -579,6 +805,8 @@ public class EventEditor extends JFrame{
 		C7P8.setColumns(10);
 		C7P8.setBounds(521, 333, 17, 22);
 		contentPane.add(C7P8);
+	
+			
 		
 		C8P1 = new JTextField();
 		C8P1.setText("0");
@@ -628,13 +856,8 @@ public class EventEditor extends JFrame{
 		C8P8.setBounds(604, 333, 17, 22);
 		contentPane.add(C8P8);
 		
-		lblCell_2 = new JLabel("Cell 2");
-		lblCell_2.setBounds(414, 15, 56, 16);
-		contentPane.add(lblCell_2);
-		
-		lblCell_3 = new JLabel("Cell 3");
-		lblCell_3.setBounds(490, 15, 56, 16);
-		contentPane.add(lblCell_3);
+
+	
 		
 		lblCell_4 = new JLabel("Cell 4");
 		lblCell_4.setBounds(573, 15, 56, 16);
@@ -656,6 +879,88 @@ public class EventEditor extends JFrame{
 		lblCell_8.setBounds(565, 195, 56, 16);
 		contentPane.add(lblCell_8);
 		
+	if (cellDisp <2){
+			C2P1.setEnabled(false);
+			C2P2.setEnabled(false);
+			C2P3.setEnabled(false);
+			C2P4.setEnabled(false);
+			C2P5.setEnabled(false);
+			C2P6.setEnabled(false);
+			C2P7.setEnabled(false);
+			C2P8.setEnabled(false);
+			
+		}
+	
+	if (cellDisp<3) {
+		C3P1.setEnabled(false);
+		C3P2.setEnabled(false);
+		C3P3.setEnabled(false);
+		C3P4.setEnabled(false);
+		C3P5.setEnabled(false);
+		C3P6.setEnabled(false);
+		C3P7.setEnabled(false);
+		C3P8.setEnabled(false);
+	}
+	
+	if (cellDisp<4) {
+	C4P1.setEnabled(false);
+	C4P2.setEnabled(false);
+	C4P3.setEnabled(false);
+	C4P4.setEnabled(false);
+	C4P5.setEnabled(false);
+	C4P6.setEnabled(false);
+	C4P7.setEnabled(false);
+	C4P8.setEnabled(false);
+	}
+	
+	if (cellDisp<5) {
+		C5P1.setEnabled(false);
+		C5P2.setEnabled(false);
+		C5P3.setEnabled(false);
+		C5P4.setEnabled(false);
+		C5P5.setEnabled(false);
+		C5P6.setEnabled(false);
+		C5P7.setEnabled(false);
+		C5P8.setEnabled(false);
+	}
+	
+	if (cellDisp<6) {
+		C6P1.setEnabled(false);
+		C6P2.setEnabled(false);
+		C6P3.setEnabled(false);
+		C6P4.setEnabled(false);
+		C6P5.setEnabled(false);
+		C6P6.setEnabled(false);
+		C6P7.setEnabled(false);
+		C6P8.setEnabled(false);
+	}
+	
+	if (cellDisp<7) {
+	C7P1.setEnabled(false);
+	C7P2.setEnabled(false);
+	C7P3.setEnabled(false);
+	C7P4.setEnabled(false);
+	C7P5.setEnabled(false);
+	C7P6.setEnabled(false);
+	C7P7.setEnabled(false);
+	C7P8.setEnabled(false);
+	}
+	
+	if (cellDisp<8) {
+		C8P1.setEnabled(false);
+		C8P2.setEnabled(false);
+		C8P3.setEnabled(false);
+		C8P4.setEnabled(false);
+		C8P5.setEnabled(false);
+		C8P6.setEnabled(false);
+		C8P7.setEnabled(false);
+		C8P8.setEnabled(false);
+	}
+	
+	
+		
+		
+		
 		JLabel lblChangesTo = new JLabel("Change 0's to 1's in order to raise the pins");
 		lblChangesTo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblChangesTo.setBounds(343, 370, 289, 16);
@@ -668,6 +973,13 @@ public class EventEditor extends JFrame{
 		contentPane.add(lblSeeTheUser);
 		
 		
+
+	//JPanel recordingQuestionPanel = new JPanel(new BorderLayout());
+	//QRecording.add(recordingQuestionPanel);
+	//QRecording.setBorder(recordingQuestionPanel.getBorder());
+		
+		///////
+		
 		//Accessibility Features
 		lblTitle.getAccessibleContext().setAccessibleName("Title");
 		lblQuestion.getAccessibleContext().setAccessibleName("Question");
@@ -675,31 +987,59 @@ public class EventEditor extends JFrame{
 		lblWhichButtonIs.getAccessibleContext().setAccessibleName("Which Button is the Correct Answer");
 		lblCorrectAnswer.getAccessibleContext().setAccessibleName("If Answer is Correct");
 		lblIfAnswerIs.getAccessibleContext().setAccessibleName("If Answer is Incorrect");	
-		
+
 		//Button tooltips 
 		btnSave.setToolTipText("Save - Alt-S");
 		
 		//Keyboard Shortcut
 		btnSave.setMnemonic(KeyEvent.VK_S);
+
+		QRecording.buttonRecord.getAccessibleContext().setAccessibleName("Record a Question");
+		QRecording.buttonPlay.getAccessibleContext().setAccessibleName("Play Recording");
+		CRecordingSwing.buttonRecord.getAccessibleContext().setAccessibleName("Record a Response if the Answer is Correct");
+		CRecordingSwing.buttonPlay.getAccessibleContext().setAccessibleName("Play Recording");
+		WRrecording.buttonRecord.getAccessibleContext().setAccessibleName("Record a Response if the Answer is Incorrect");
+		WRrecording.buttonPlay.getAccessibleContext().setAccessibleName("Play Recording");
+	///accesbility for stop recording? 
+		
 			
 		}
 
 	
-	public static void populate(ScenarioEvent e) {
+	public static void populate(ScenarioEvent e) throws UnsupportedAudioFileException, IOException, LineUnavailableException  {
 		
 		int index = e.getIndex();
 		String title = e.getTitle();
 		String question = e.getQuestion();
 		String responseRight = e.getResponseRight();
 		String responseWrong = e.getResponseWrong();
-		int CorrectAns = e.getIndex();
+		int correctAns = e.getCorrectAns();
+	
+		if (correctAns!= -1) {
+			save.setEnabled(true);
+		}
 		
 		textIndex.setText(Integer.toString(index));
 		textTitle.setText(title);
 		textQuestion.setText(question);
 		textAnsRight.setText(responseRight);
 		textAnsWrong.setText(responseWrong);
+		correctAnsList.select(correctAns);
+		correctAnswer = correctAns;
 
+		EEqAudLabel = e.qAudioLabel;
+		EErAudLabel = e.rAudioLabel;
+		EEwAudLabel = e.wAudioLabel;
+	
+		System.out.println("****POPPULATE**********"+e.getQuestionAudio()+"**************");
+		
+	
+		//QRecording.player.stop(e.getQuestionAudio());
+		System.out.println("*********801*****");//QRecording.saveFilePath+"**************");
+		/*for (int i=1;  i<=e.getButtons(); i++){
+		correctAnsList.add("%i", ScenarioEditor.getButtonNum());
+		}*/
+		
 		String[] cells = e.cellArray;
 		
 		C1P1.setText(Character.toString(cells[0].charAt(0)));
@@ -710,7 +1050,8 @@ public class EventEditor extends JFrame{
 		C1P6.setText(Character.toString(cells[0].charAt(5)));
 		C1P7.setText(Character.toString(cells[0].charAt(6)));
 		C1P8.setText(Character.toString(cells[0].charAt(7)));
-
+		
+		if (cellDisp >= 2) {
 		C2P1.setText(Character.toString(cells[1].charAt(0)));
 		C2P2.setText(Character.toString(cells[1].charAt(1)));
 		C2P3.setText(Character.toString(cells[1].charAt(2)));
@@ -719,7 +1060,9 @@ public class EventEditor extends JFrame{
 		C2P6.setText(Character.toString(cells[1].charAt(5)));
 		C2P7.setText(Character.toString(cells[1].charAt(6)));
 		C2P8.setText(Character.toString(cells[1].charAt(7)));
+		}
 		
+		if (cellDisp >= 3) {
 		C3P1.setText(Character.toString(cells[2].charAt(0)));
 		C3P2.setText(Character.toString(cells[2].charAt(1)));
 		C3P3.setText(Character.toString(cells[2].charAt(2)));
@@ -728,7 +1071,10 @@ public class EventEditor extends JFrame{
 		C3P6.setText(Character.toString(cells[2].charAt(5)));
 		C3P7.setText(Character.toString(cells[2].charAt(6)));
 		C3P8.setText(Character.toString(cells[2].charAt(7)));
-
+		}
+		
+		
+		if (cellDisp >=4) {
 		C4P1.setText(Character.toString(cells[3].charAt(0)));
 		C4P2.setText(Character.toString(cells[3].charAt(1)));
 		C4P3.setText(Character.toString(cells[3].charAt(2)));
@@ -737,6 +1083,9 @@ public class EventEditor extends JFrame{
 		C4P6.setText(Character.toString(cells[3].charAt(5)));
 		C4P7.setText(Character.toString(cells[3].charAt(6)));
 		C4P8.setText(Character.toString(cells[3].charAt(7)));
+		}
+		
+		if (cellDisp >= 5) {
 		C5P1.setText(Character.toString(cells[4].charAt(0)));
 		C5P2.setText(Character.toString(cells[4].charAt(1)));
 		C5P3.setText(Character.toString(cells[4].charAt(2)));
@@ -745,6 +1094,9 @@ public class EventEditor extends JFrame{
 		C5P6.setText(Character.toString(cells[4].charAt(5)));
 		C5P7.setText(Character.toString(cells[4].charAt(6)));
 		C5P8.setText(Character.toString(cells[4].charAt(7)));
+		}
+		
+		if (cellDisp >=6) {
 		C6P1.setText(Character.toString(cells[5].charAt(0)));
 		C6P2.setText(Character.toString(cells[5].charAt(1)));
 		C6P3.setText(Character.toString(cells[5].charAt(2)));
@@ -753,6 +1105,9 @@ public class EventEditor extends JFrame{
 		C6P6.setText(Character.toString(cells[5].charAt(5)));
 		C6P7.setText(Character.toString(cells[5].charAt(6)));
 		C6P8.setText(Character.toString(cells[5].charAt(7)));
+		}
+		
+		if (cellDisp >=7) {
 		C7P1.setText(Character.toString(cells[6].charAt(0)));
 		C7P2.setText(Character.toString(cells[6].charAt(1)));
 		C7P3.setText(Character.toString(cells[6].charAt(2)));
@@ -761,6 +1116,9 @@ public class EventEditor extends JFrame{
 		C7P6.setText(Character.toString(cells[6].charAt(5)));
 		C7P7.setText(Character.toString(cells[6].charAt(6)));
 		C7P8.setText(Character.toString(cells[6].charAt(7)));
+		}
+		
+		if (cellDisp>= 8) {
 		C8P1.setText(Character.toString(cells[7].charAt(0)));
 		C8P2.setText(Character.toString(cells[7].charAt(1)));
 		C8P3.setText(Character.toString(cells[7].charAt(2)));
@@ -769,7 +1127,8 @@ public class EventEditor extends JFrame{
 		C8P6.setText(Character.toString(cells[7].charAt(5)));
 		C8P7.setText(Character.toString(cells[7].charAt(6)));
 		C8P8.setText(Character.toString(cells[7].charAt(7)));
-
+		
+		}
 	}
 	
 	public String[] parseCells(){
@@ -784,5 +1143,7 @@ public class EventEditor extends JFrame{
 		cellArray[7] = C8P1.getText() + C8P2.getText() + C8P3.getText() + C8P4.getText() + C8P5.getText() + C8P6.getText() + C8P7.getText() + C8P8.getText();
 		return cellArray;
 	}
+	
+	
 }
 

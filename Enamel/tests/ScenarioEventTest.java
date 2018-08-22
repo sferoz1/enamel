@@ -14,8 +14,8 @@ public class ScenarioEventTest {
 	
 	String[] cellarray = new String[2];
 	
-	ScenarioEvent event= new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong", cellarray, 0);
-	ScenarioEvent event1 = new ScenarioEvent(0, "MyTitle", "MyQuestion", "Right", "Wrong", cellarray, 0);
+	ScenarioEvent event= new ScenarioEvent("Q", "r", "W", 0, "MyTitle", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
+	ScenarioEvent event1 = new ScenarioEvent("Q", "r", "W", 0, "MyTitle", "MyQuestion",  "QuestionPath", "Right", "RPath", "Wrong", "WPath", cellarray, 0);
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -79,7 +79,7 @@ public class ScenarioEventTest {
 	
 	@Test
 	public void testOverwrite() {
-		event.overwrite(0,"OverwriteTitle", "ORQuestion", "ORRight", "ORWrong",cellarray, 2);
+		event.overwrite("Q", "r", "W", 0,"OverwriteTitle", "ORQuestion", "ORQuestionPath", "ORRight", "ORRPath", "ORWrong","ORWPath", cellarray, 2);
 		
 		assertEquals("OverwriteTitle", event.getTitle());
 		

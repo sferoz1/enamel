@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 Mar 21, 2018 12:48:39 PM enamel.ScenarioParser errorLog
 WARNING: Exception error: java.io.FileNotFoundException: C:\Users\sarah\OneDrive\Documents\AudioFiles\wrong.wav (The system cannot find the path specified)
 Mar 21, 2018 12:48:39 PM enamel.ScenarioParser errorLog
 INFO: Expected the name of the file (including extension) but instead got: wrong.wav
  Perhaps you forgot to include the extension of the sound file with the name? Other possibilities include: 
  Incorrect name of the file, the file not being in the same location as the project folder, or an attempt to play an unsupported sound file. (only .wav filesare supported at this time)
+=======
+Jul 31, 2018 6:54:36 PM enamel.ScenarioParser errorLog
+WARNING: Exception error : java.lang.InterruptedException: sleep interrupted
+Jul 31, 2018 6:54:36 PM enamel.ScenarioParser errorLog
+INFO: Strange error occurred if you are able to read this message. Possibilities could include possible file corruption, or that you have enter characters that could not be read/interpreted.
+>>>>>>> refs/remotes/origin/AudioBranch

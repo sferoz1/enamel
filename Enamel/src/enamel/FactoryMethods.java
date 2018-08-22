@@ -5,20 +5,63 @@ import java.util.Scanner;
 public class FactoryMethods {
 	public static String findNextSpokenString(Scanner scenarioFileScanner) {
 		scenarioFileScanner.useDelimiter("\\n");
-		 
-		String nextLine = scenarioFileScanner.next();
-		String nextSpokenLine;
-	while (nextLine.startsWith("/~")) {
-		nextLine = scenarioFileScanner.next();
-	}
+		String nextSpokenLine= "";
+		String nextLine = "/~";
+		 while (scenarioFileScanner.hasNext() && nextLine.startsWith("/~")){
+		 nextLine = scenarioFileScanner.next();
+		
+	
+		}
+	
 		 nextSpokenLine = nextLine;
+		 
 		 return nextSpokenLine;
 		
 	}
 	
+	public static String findNextSoundFile(Scanner scenarioFileScanner) {
+		scenarioFileScanner.useDelimiter("\\n");
+		String nextSoundFile= "";
+		String nextLine = "/~";
+		 while (scenarioFileScanner.hasNext() && !nextLine.startsWith("/~sound:")){
+		 nextLine = scenarioFileScanner.next();
+		}
+	
+		 nextSoundFile = nextLine;
+		 
+		 return nextSoundFile;
+		
+		/*scenarioFileScanner.useDelimiter("\\n");
+		
+		 
+		String nextLine = scenarioFileScanner.next();
+		String nextSoundFile;
+	while (nextLine.startsWith("/~sound:") && !nextLine.startsWith("/~sound:correct.wav") && !nextLine.startsWith("/~sound:wrong.wav")) {
+		
+		nextLine = scenarioFileScanner.next();
+	
+	}
+		 nextSoundFile = nextLine;
+		 return nextSoundFile;*/
+		 
+		
+	}
+	
+	
 	
 	public static String findNextNonSpokenString(Scanner scenarioFileScanner) {
 		scenarioFileScanner.useDelimiter("\\n");
+		String nextNonSpokenString= "";
+		String nextLine = "";
+		 while (scenarioFileScanner.hasNext() && (!nextLine.startsWith("/~")|| nextLine.startsWith("/~sound:"))   ){
+		 nextLine = scenarioFileScanner.next();
+		}
+	
+		 nextNonSpokenString= nextLine;
+		 
+		 return nextNonSpokenString;
+		
+		/*scenarioFileScanner.useDelimiter("\\n");
 		 
 		String nextLine = scenarioFileScanner.next();
 		String nextNonSpokenLine;
@@ -26,7 +69,7 @@ public class FactoryMethods {
 		nextLine = scenarioFileScanner.next();
 	}
 		 nextNonSpokenLine = nextLine;
-		 return nextNonSpokenLine;
+		 return nextNonSpokenLine;*/
 		
 	}
 	
